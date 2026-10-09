@@ -1,0 +1,2132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AMSpec／傑出材料科技 — 公開資料研究簡報（互動版）</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a2332;
+  --bg3: #243044;
+  --card: #1e2a3a;
+  --border: #2d3f56;
+  --text: #e8eef5;
+  --muted: #9aadc2;
+  --accent: #5eb3f6;
+  --accent2: #7dd3a8;
+  --warn: #f0b060;
+  --fact: #5eb3f6;
+  --infer: #c9a0e8;
+  --danger: #f08080;
+  --self: #f0b060;
+  --rec: #7dd3a8;
+  --radius: 10px;
+  --max: 1080px;
+  --toc-w: 240px;
+  --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+  --panel-h: 0px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { border-bottom-color: var(--accent); }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem 4rem; }
+.layout { display: block; }
+
+/* Sticky progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 1000; transition: width 0.1s linear;
+}
+
+/* Sticky filter + mini TOC bar */
+.sticky-bar {
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(15,20,25,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0;
+  margin: 0 0 1.25rem;
+}
+.sticky-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 1.25rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem;
+}
+.sticky-bar .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip {
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.28rem 0.7rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg2);
+  color: var(--muted); cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.chip:hover, .chip:focus-visible { border-color: var(--accent); color: var(--text); outline: none; }
+.chip.active { background: rgba(94,179,246,0.18); color: var(--accent); border-color: var(--accent); }
+.chip[data-filter="fact"].active { background: rgba(94,179,246,0.18); color: var(--fact); border-color: var(--fact); }
+.chip[data-filter="infer"].active { background: rgba(201,160,232,0.18); color: var(--infer); border-color: var(--infer); }
+.chip[data-filter="rec"].active { background: rgba(125,211,168,0.18); color: var(--rec); border-color: var(--rec); }
+.chip[data-filter="self"].active { background: rgba(240,176,96,0.18); color: var(--self); border-color: var(--self); }
+.toc-mini { display: none; flex-wrap: wrap; gap: 0.25rem; margin-left: auto; }
+@media (min-width: 900px) {
+  .toc-mini { display: flex; }
+}
+.toc-mini a {
+  font-size: 0.7rem; color: var(--muted); padding: 0.2rem 0.4rem;
+  border-radius: 4px; border-bottom: none;
+}
+.toc-mini a:hover { color: var(--accent); background: var(--bg3); }
+.toc-mini a.active { color: var(--accent2); background: rgba(125,211,168,0.12); }
+
+/* Hero */
+.hero {
+  background: linear-gradient(165deg, #152238 0%, #0f1419 55%, #1a2a22 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.75rem 0 2.25rem;
+  margin-bottom: 0;
+}
+.hero .eyebrow {
+  display: inline-block; font-size: 0.78rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent2);
+  background: rgba(125,211,168,0.12); padding: 0.25rem 0.65rem;
+  border-radius: 999px; margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-size: clamp(1.55rem, 4vw, 2.15rem); line-height: 1.25;
+  margin: 0 0 0.5rem; font-weight: 700;
+}
+.hero .en { color: var(--muted); font-size: 1.05rem; margin: 0 0 1rem; }
+.hero .lede { color: var(--muted); max-width: 42rem; margin: 0 0 1.1rem; font-size: 0.98rem; }
+.hero .meta {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.85rem; color: var(--muted);
+}
+.hero .meta strong { color: var(--text); font-weight: 600; }
+
+/* KPI */
+.kpi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem; margin: 1.25rem 0 1.5rem;
+}
+.kpi .item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.9rem 1rem;
+}
+.kpi .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 0.35rem; }
+.kpi .value { font-size: 0.95rem; font-weight: 600; line-height: 1.35; }
+.kpi .note { font-size: 0.72rem; color: var(--warn); margin-top: 0.35rem; line-height: 1.4; }
+
+/* TOC card */
+.toc {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.15rem 1.35rem; margin-bottom: 2rem;
+}
+.toc h2 {
+  font-size: 0.9rem; margin: 0 0 0.75rem; color: var(--muted);
+  font-weight: 600; letter-spacing: 0.04em;
+}
+.toc ol { margin: 0; padding-left: 1.25rem; }
+@media (min-width: 640px) { .toc ol { columns: 2; column-gap: 2rem; } }
+.toc li { margin-bottom: 0.4rem; break-inside: avoid; }
+.toc a { color: var(--text); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent); }
+
+/* Sections */
+section { margin-bottom: 2.75rem; scroll-margin-top: 4.5rem; }
+section > h2 {
+  font-size: 1.35rem; margin: 0 0 1rem; padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.6rem;
+}
+section > h2 .num { color: var(--accent); font-weight: 700; font-size: 1rem; }
+h3 { font-size: 1.08rem; margin: 1.6rem 0 0.7rem; color: var(--text); }
+h4 { font-size: 0.98rem; margin: 1.2rem 0 0.5rem; color: var(--accent2); }
+p { margin: 0 0 0.9rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+li { margin-bottom: 0.4rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+
+/* Tags */
+.tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.04em; padding: 0.12rem 0.45rem; border-radius: 4px;
+  vertical-align: middle; margin-right: 0.35rem;
+}
+.tag-fact { background: rgba(94,179,246,0.18); color: var(--fact); }
+.tag-infer { background: rgba(201,160,232,0.18); color: var(--infer); }
+.tag-self { background: rgba(240,176,96,0.18); color: var(--warn); }
+.tag-conflict { background: rgba(240,128,128,0.18); color: var(--danger); }
+.tag-avoid { background: rgba(240,128,128,0.22); color: var(--danger); }
+.tag-rec { background: rgba(125,211,168,0.18); color: var(--accent2); }
+
+/* Filter dimming */
+body.filter-fact [data-kind]:not([data-kind~="fact"]):not([data-kind~="conflict"]) { opacity: 0.28; }
+body.filter-infer [data-kind]:not([data-kind~="infer"]) { opacity: 0.28; }
+body.filter-rec [data-kind]:not([data-kind~="rec"]) { opacity: 0.28; }
+body.filter-self [data-kind]:not([data-kind~="self"]) { opacity: 0.28; }
+body.filter-fact .viz-node:not(.kind-fact):not(.kind-conflict),
+body.filter-infer .viz-node:not(.kind-infer),
+body.filter-rec .viz-node:not(.kind-rec),
+body.filter-self .viz-node:not(.kind-self) { opacity: 0.22; }
+
+/* Cards / callouts */
+.callout {
+  background: var(--bg2); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.93rem;
+}
+.callout.warn { border-left-color: var(--warn); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.infer { border-left-color: var(--infer); }
+.callout strong { color: var(--text); }
+
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 0.85rem; margin: 1rem 0; }
+@media (min-width: 700px) {
+  .card-grid.two { grid-template-columns: 1fr 1fr; }
+  .card-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+}
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem;
+}
+.card h4 { margin-top: 0; }
+.card .why { font-size: 0.9rem; color: var(--muted); margin: 0.4rem 0; }
+.card .diff { font-size: 0.88rem; margin: 0.5rem 0 0; }
+
+/* Expandable */
+.expand {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); margin: 0.6rem 0; overflow: hidden;
+}
+.expand > summary {
+  list-style: none; cursor: pointer; padding: 0.85rem 1.1rem;
+  font-weight: 600; display: flex; align-items: center; gap: 0.6rem;
+  user-select: none;
+}
+.expand > summary::-webkit-details-marker { display: none; }
+.expand > summary::before {
+  content: "▸"; color: var(--accent); font-size: 0.85rem;
+  transition: transform .15s;
+}
+.expand[open] > summary::before { transform: rotate(90deg); }
+.expand > summary:hover { background: var(--bg3); }
+.expand .expand-body { padding: 0 1.1rem 1rem; font-size: 0.93rem; border-top: 1px solid var(--border); }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1rem 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 520px; }
+th, td {
+  border: 1px solid var(--border); padding: 0.55rem 0.7rem;
+  text-align: left; vertical-align: top;
+}
+th {
+  background: var(--bg3); color: var(--muted); font-weight: 600;
+  font-size: 0.78rem; letter-spacing: 0.03em;
+}
+td { background: var(--card); }
+tr:nth-child(even) td { background: #1a2636; }
+
+/* Viz shells */
+.viz-shell {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem; margin: 1.2rem 0 1.5rem;
+  position: relative;
+}
+.viz-shell .viz-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.04em; margin: 0 0 0.75rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
+}
+.viz-hint { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+.viz-canvas { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.viz-canvas svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.viz-node { cursor: pointer; transition: opacity .15s, filter .15s; }
+.viz-node:hover, .viz-node:focus { filter: brightness(1.15); outline: none; }
+.viz-node.selected { filter: brightness(1.25) drop-shadow(0 0 6px rgba(94,179,246,0.55)); }
+.viz-node text { pointer-events: none; font-family: var(--font); }
+.edge { stroke: #3d5570; stroke-width: 1.5; fill: none; opacity: 0.7; }
+.edge.dashed { stroke-dasharray: 5 4; }
+
+/* Detail panel under viz */
+.detail-panel {
+  margin-top: 0.85rem; padding: 0.9rem 1.05rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; min-height: 3.2rem; font-size: 0.9rem;
+}
+.detail-panel .dp-empty { color: var(--muted); font-size: 0.85rem; }
+.detail-panel .dp-title { font-weight: 700; margin: 0 0 0.35rem; color: var(--text); }
+.detail-panel .dp-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.45rem; }
+.detail-panel .dp-body { margin: 0; color: var(--text); }
+.detail-panel .dp-fact { border-left: 3px solid var(--fact); padding-left: 0.65rem; margin: 0.4rem 0; }
+.detail-panel .dp-infer { border-left: 3px solid var(--infer); padding-left: 0.65rem; margin: 0.4rem 0; }
+.detail-panel .dp-rec { border-left: 3px solid var(--rec); padding-left: 0.65rem; margin: 0.4rem 0; }
+
+/* Process stepper */
+.process-steps {
+  display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: stretch;
+  margin: 0.5rem 0;
+}
+.process-step {
+  flex: 1 1 110px; min-width: 100px; max-width: 160px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.65rem; cursor: pointer;
+  text-align: center; transition: border-color .15s, background .15s;
+  position: relative;
+}
+.process-step:hover, .process-step:focus-visible {
+  border-color: var(--accent); outline: none;
+}
+.process-step.active {
+  border-color: var(--accent); background: rgba(94,179,246,0.12);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.process-step.out { border-style: dashed; }
+.process-step .ps-num {
+  display: block; font-size: 0.68rem; color: var(--accent);
+  font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.25rem;
+}
+.process-step .ps-label { font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
+.process-step .ps-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.25rem; }
+.process-arrow {
+  display: none; align-self: center; color: var(--accent); opacity: 0.7; font-size: 1.1rem;
+}
+@media (min-width: 800px) {
+  .process-arrow { display: block; }
+  .process-step { max-width: none; }
+}
+
+/* Strategy matrix */
+.matrix {
+  display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 1rem 0;
+}
+@media (min-width: 700px) {
+  .matrix { grid-template-columns: 1fr 1fr; }
+}
+.matrix .m-card {
+  border-radius: var(--radius); padding: 1rem 1.1rem;
+  border: 1px solid var(--border); background: var(--card);
+}
+.matrix .m-card.do { border-top: 3px solid var(--accent2); }
+.matrix .m-card.dont { border-top: 3px solid var(--danger); }
+.matrix .m-card.mid { border-top: 3px solid var(--warn); }
+.matrix .m-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.matrix .do .m-label { color: var(--accent2); }
+.matrix .dont .m-label { color: var(--danger); }
+.matrix .mid .m-label { color: var(--warn); }
+.matrix ul { margin: 0.4rem 0 0; padding-left: 1.15rem; font-size: 0.9rem; }
+
+/* Priority bars */
+.prio-list { display: flex; flex-direction: column; gap: 0.55rem; margin: 1rem 0; }
+.prio-item {
+  display: grid; grid-template-columns: 72px 1fr; gap: 0.75rem;
+  align-items: start; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.9rem; cursor: pointer;
+}
+.prio-item:hover, .prio-item:focus-visible { border-color: var(--accent); outline: none; }
+.prio-item.active { border-color: var(--accent); background: rgba(94,179,246,0.08); }
+.prio-badge {
+  font-size: 0.72rem; font-weight: 700; text-align: center;
+  padding: 0.35rem 0.3rem; border-radius: 6px; line-height: 1.3;
+}
+.prio-badge.hi { background: rgba(125,211,168,0.18); color: var(--accent2); }
+.prio-badge.mid { background: rgba(240,176,96,0.18); color: var(--warn); }
+.prio-badge.lo { background: rgba(154,173,194,0.18); color: var(--muted); }
+.prio-badge.no { background: rgba(240,128,128,0.18); color: var(--danger); }
+.prio-title { font-weight: 600; font-size: 0.92rem; margin: 0 0 0.25rem; }
+.prio-desc { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+/* Competitor comparison */
+.comp-table td.bar-cell { min-width: 120px; }
+.bar-row {
+  display: flex; align-items: center; gap: 0.35rem; height: 1.4rem;
+}
+.bar {
+  height: 8px; border-radius: 4px; background: var(--bg3);
+  flex: 1; overflow: hidden; position: relative;
+}
+.bar > i {
+  display: block; height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.bar.muted > i { background: var(--muted); opacity: 0.5; }
+.bar.warn > i { background: var(--warn); }
+.bar.none { background: repeating-linear-gradient(90deg, var(--bg3), var(--bg3) 4px, transparent 4px, transparent 8px); }
+.bar.none > i { width: 0 !important; }
+.bar-note { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+.comp-legend {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.78rem; color: var(--muted); margin: 0.5rem 0 1rem;
+}
+.comp-legend span::before {
+  content: ""; display: inline-block; width: 10px; height: 10px;
+  border-radius: 2px; margin-right: 0.35rem; vertical-align: -1px;
+}
+.comp-legend .l-yes::before { background: var(--accent2); }
+.comp-legend .l-partial::before { background: var(--warn); }
+.comp-legend .l-no::before { background: var(--border); }
+.comp-legend .l-na::before {
+  background: repeating-linear-gradient(90deg, var(--muted), var(--muted) 2px, transparent 2px, transparent 4px);
+}
+
+/* Radar-style qualitative */
+.radar-grid {
+  display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 1rem 0;
+}
+@media (min-width: 720px) {
+  .radar-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .radar-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.radar-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.9rem 1rem;
+}
+.radar-card h4 { margin: 0 0 0.65rem; font-size: 0.95rem; }
+.radar-dim {
+  display: grid; grid-template-columns: 7.5rem 1fr auto;
+  gap: 0.4rem; align-items: center; margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+}
+.radar-dim .d-name { color: var(--muted); }
+.radar-dim .d-val { color: var(--text); font-weight: 600; min-width: 3.5rem; text-align: right; }
+
+/* Legend */
+.legend {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.82rem; color: var(--muted); margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem; background: var(--bg2);
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+
+.sources { font-size: 0.88rem; }
+.sources li { margin-bottom: 0.35rem; word-break: break-all; }
+
+footer {
+  margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--muted);
+}
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 1rem; }
+.pill {
+  font-size: 0.78rem; padding: 0.25rem 0.6rem; border-radius: 999px;
+  background: rgba(240,128,128,0.12); color: var(--danger);
+  border: 1px solid rgba(240,128,128,0.3);
+}
+
+/* Ecosystem CSS map (mobile-friendly alternative layout) */
+.eco-map {
+  display: grid; gap: 0.75rem;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 800px) {
+  .eco-map {
+    grid-template-columns: 1fr 1.15fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .eco-col-sup { grid-column: 1; grid-row: 1 / span 2; }
+  .eco-col-core { grid-column: 2; grid-row: 1; }
+  .eco-col-comp { grid-column: 3; grid-row: 1 / span 2; }
+  .eco-col-cust { grid-column: 2; grid-row: 2; }
+}
+.eco-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.85rem;
+}
+.eco-col h4 {
+  margin: 0 0 0.65rem; font-size: 0.82rem; letter-spacing: 0.04em;
+  color: var(--muted); text-transform: uppercase;
+}
+.eco-node {
+  display: block; width: 100%; text-align: left;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.5rem 0.65rem; margin-bottom: 0.4rem;
+  color: var(--text); font-size: 0.82rem; cursor: pointer;
+  font-family: inherit; line-height: 1.35;
+  transition: border-color .15s, background .15s;
+}
+.eco-node:hover, .eco-node:focus-visible { border-color: var(--accent); outline: none; }
+.eco-node.selected { border-color: var(--accent); background: rgba(94,179,246,0.12); }
+.eco-node.kind-fact { border-left: 3px solid var(--fact); }
+.eco-node.kind-infer { border-left: 3px solid var(--infer); }
+.eco-node.kind-self { border-left: 3px solid var(--self); }
+.eco-node.kind-mixed { border-left: 3px solid var(--warn); }
+.eco-node .en { display: block; font-size: 0.68rem; color: var(--muted); }
+.eco-core-box {
+  background: linear-gradient(145deg, rgba(94,179,246,0.12), rgba(125,211,168,0.08));
+  border: 1px solid var(--accent); border-radius: 8px; padding: 0.75rem;
+  margin-bottom: 0.5rem; text-align: center;
+}
+.eco-core-box strong { display: block; font-size: 1.05rem; margin-bottom: 0.25rem; }
+
+/* Skip link */
+.skip {
+  position: absolute; left: -9999px; top: 0.5rem;
+  background: var(--accent); color: #0f1419; padding: 0.5rem 1rem;
+  z-index: 2000; border-radius: 4px; font-weight: 700;
+}
+.skip:focus { left: 0.5rem; }
+
+@media (max-width: 640px) {
+  .kpi { grid-template-columns: 1fr 1fr; }
+  .process-step { flex: 1 1 45%; max-width: none; }
+}
+@media print {
+  .sticky-bar, .progress-bar { display: none; }
+  body { background: #fff; color: #111; }
+  .card, .viz-shell, .callout { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">跳到主要內容</a>
+<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="閱讀進度"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">公開資料研究簡報 · 互動視覺版 · 非銷售文案</div>
+    <h1>傑出材料科技股份有限公司</h1>
+    <p class="en">AMSpec · ADVANCED MATERIAL SPECIALTY INC.</p>
+    <p class="lede">
+      Eric，這份簡報整理自公開官網與經濟部商工登記轉載，方便你快速掌握這家公司「實際在做什麼」、
+      能幫什麼樣的客戶、以及對外介紹時該怎麼講、不該怎麼講。凡屬公司自述或推論，都會清楚標示。
+      本版加入可點選的價值鏈、生態系地圖、製程步驟與策略矩陣。
+    </p>
+    <div class="meta">
+      <span><strong>調查日期</strong> 2026-10-09（台北時間）</span>
+      <span><strong>統編</strong> 27313005</span>
+      <span><strong>官網</strong> <a href="https://www.amspec-inc.com/zh-hant/">amspec-inc.com</a></span>
+      <span><strong>操作</strong> 點節點看事實／推論 · 篩選標籤 · Tab 鍵可操作</span>
+    </div>
+  </div>
+</header>
+
+<div class="sticky-bar" role="region" aria-label="篩選與章節">
+  <div class="sticky-inner">
+    <span class="label">篩選</span>
+    <div class="chips" role="toolbar" aria-label="內容類型篩選">
+      <button type="button" class="chip active" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" class="chip" data-filter="fact" aria-pressed="false">事實</button>
+      <button type="button" class="chip" data-filter="self" aria-pressed="false">公司自述</button>
+      <button type="button" class="chip" data-filter="infer" aria-pressed="false">推論</button>
+      <button type="button" class="chip" data-filter="rec" aria-pressed="false">建議</button>
+    </div>
+    <nav class="toc-mini" aria-label="快速目錄">
+      <a href="#s1" data-toc="s1">01 公司</a>
+      <a href="#viz-chain" data-toc="viz-chain">價值鏈</a>
+      <a href="#viz-eco" data-toc="viz-eco">生態系</a>
+      <a href="#s2" data-toc="s2">02 製程</a>
+      <a href="#s4" data-toc="s4">04 對手</a>
+      <a href="#s8" data-toc="s8">08 產值</a>
+      <a href="#s9" data-toc="s9">09 來源</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+  <div class="kpi" aria-label="公司關鍵資料">
+    <div class="item" data-kind="fact">
+      <div class="label">法定名稱</div>
+      <div class="value">傑出材料科技股份有限公司</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">核准設立</div>
+      <div class="value">2004-04-27</div>
+      <div class="note">經濟部；財政部設立 2004-05-03</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">地址</div>
+      <div class="value">雲林縣斗六市科工二路 18 號</div>
+      <div class="note">雲林科技工業區</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">資本額</div>
+      <div class="value">額定 2 億／實收約 1.52 億</div>
+      <div class="note">官網寫「1.5 億」≈實收；額定與實收不同。登記更新欄 2025-08-06</div>
+    </div>
+    <div class="item" data-kind="self">
+      <div class="label">員工人數</div>
+      <div class="value">官網自述 66 人</div>
+      <div class="note">無統計日期、無年報可核；僅「公司如此自述」</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="tag tag-fact">事實</span>來源頁面或登記寫明</span>
+    <span><span class="tag tag-self">公司自述</span>官網句子，本次無第三方覆核</span>
+    <span><span class="tag tag-infer">推論</span>由產品／設備／產業慣例推出</span>
+    <span><span class="tag tag-conflict">衝突</span>官網數字互相不一致</span>
+    <span><span class="tag tag-rec">建議</span>策略推論，非公司明文</span>
+  </div>
+
+  <nav class="toc" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">公司是誰</a></li>
+      <li><a href="#viz-chain">互動：上游 → AMSpec → 下游價值鏈</a></li>
+      <li><a href="#viz-eco">互動：生態系地圖</a></li>
+      <li><a href="#s2">產品與製程（含互動流程）</a></li>
+      <li><a href="#s3">競爭優勢</a></li>
+      <li><a href="#s4">競爭對手（含比較視覺）</a></li>
+      <li><a href="#s5">可進入的應用領域</a></li>
+      <li><a href="#s6">上下游與可能客戶</a></li>
+      <li><a href="#s7">如果要幫忙推廣</a></li>
+      <li><a href="#s8">產能有限時怎麼拉高產值（策略矩陣）</a></li>
+      <li><a href="#s9">資料限制與來源</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1 -->
+  <section id="s1">
+    <h2><span class="num">01</span> 公司是誰</h2>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      傑出材料科技是一家設在雲林科技工業區的股份有限公司（統編 27313005；登記現況「核准設立」；使用統一發票）。
+      英文名稱 ADVANCED MATERIAL SPECIALTY INC. 見於官網頁尾；g0v 登記外文欄本次擷取為空。
+      電話／傳真：+886-5-551-6188／+886-5-551-6199。
+      公開業務信箱：<a href="mailto:melissa@amspec-inc.com">melissa@amspec-inc.com</a>、
+      <a href="mailto:claire@amspec-inc.com">claire@amspec-inc.com</a>（展會頁以 claire 作為預約窗口）。
+    </p>
+    <p data-kind="self">
+      <span class="tag tag-self">公司自述</span>
+      官網沿革：2004 公司成立，辦公室創於台北市、桃園蘆竹設廠；2007 遷雲林科技工業區；2018 擴廠。
+      與登記設立年分一致。蘆竹設廠沒有在本次讀到的登記摘要裡單列。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      定位（依官網自述）：高強度鋁合金擠型、無縫管、精抽、熱處理與部分後加工的製造商——
+      <strong>不是</strong>網站所呈現的一般建築鋁材廠，也<strong>不是</strong>壓鑄廠。
+      首頁標題同時寫「鋁合金管和鎂合金管」；產品規格頁以鋁合金為主，鎂的現役產品規格較薄（見第 2 節）。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      財政部行業別代碼為「242211 鋁合金鑄造」——這是稅籍代碼，不等於製程說明。
+      所營事業登記含金屬結構及建築組件製造、電子零組件製造、五金／機械批發、國際貿易等。
+      公開頁面<strong>沒有</strong>可引用的營收或市佔數字；應用總頁寫自行車、機車、運動器材「已有一定的市佔率」，沒有百分比。
+    </p>
+    <p class="small muted">
+      登記來源：<a href="http://gcis.nat.g0v.tw/id/27313005">gcis.nat.g0v.tw/id/27313005</a>　·　
+      公司介紹：<a href="https://www.amspec-inc.com/zh-hant/about/company-profile/">company-profile</a>　·　
+      沿革：<a href="https://www.amspec-inc.com/zh-hant/about/establishment/">establishment</a>
+    </p>
+  </section>
+
+  <!-- VALUE CHAIN -->
+  <section id="viz-chain">
+    <h2><span class="num">V1</span> 上游 → AMSpec → 下游價值鏈</h2>
+    <p class="muted small">點選或鍵盤操作節點，下方面板顯示<strong>事實</strong>與<strong>推論</strong>分欄。藍色實線＝事實鏈結較清楚；紫色虛線＝推論／部分委外。</p>
+    <div class="viz-shell">
+      <div class="viz-title">
+        VALUE CHAIN
+        <span class="viz-hint">點節點 · Esc 清除選取 · ←/→ 在節點間移動</span>
+      </div>
+      <div class="viz-canvas" id="chainSvgWrap"></div>
+      <div class="detail-panel" id="chainPanel" tabindex="-1" aria-live="polite">
+        <p class="dp-empty">點上方節點，查看事實／推論細節。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM -->
+  <section id="viz-eco">
+    <h2><span class="num">V2</span> 生態系地圖</h2>
+    <p class="muted small">
+      左：供應／合作（擠錠、模具、設備、表面處理、NC、檢測）· 中：AMSpec 核心與客戶／應用 · 右：同業與國際參考。
+      左框色＝性質：<span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span>
+    </p>
+    <div class="viz-shell">
+      <div class="viz-title">ECOSYSTEM · 點卡片展開詳情</div>
+      <div class="eco-map" id="ecoMap"></div>
+      <div class="detail-panel" id="ecoPanel" tabindex="-1" aria-live="polite">
+        <p class="dp-empty">點生態系節點，查看事實／推論細節。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section id="s2">
+    <h2><span class="num">02</span> 產品與製程</h2>
+    <p class="muted small" data-kind="fact">
+      網站資訊深度不均：合金表、無縫管、精抽管、前叉、曲棍球桿、設備頁較具體；客製化與部分應用總頁偏口號。
+      2023 型錄 PDF 存在，但本次未逐頁核對 PDF 內文，不以 PDF 獨有句子當事實。
+    </p>
+
+    <h3>製程串連（廠內為主；虛線為委外或部分委外）</h3>
+
+    <div class="viz-shell" id="viz-process">
+      <div class="viz-title">
+        PROCESS FLOW · 互動製程
+        <span class="viz-hint">點步驟看廠內／委外與事實／推論</span>
+      </div>
+      <div class="process-steps" id="processSteps" role="tablist" aria-label="製程步驟"></div>
+      <div class="detail-panel" id="processPanel" role="tabpanel" aria-live="polite">
+        <p class="dp-empty">點上方製程步驟。</p>
+      </div>
+      <p class="flow-caption" style="margin:0.75rem 0 0">實線步驟有設備／產品頁對應；虛線依官網明文（烤漆合作廠；航太頁 NC 委外）。軋延為窄板小量能力，未畫進主鏈。</p>
+    </div>
+
+
+    <h3>2.1 合金平台</h3>
+    <p>
+      <span class="tag tag-fact">事實</span>
+      頁面指公司長期做 7050、7075、7068、7055 與含鈧（Sc）合金的擠製與後加工，並擴到 2xxx、5xxx、6xxx。
+      含鈧合金被公司稱為少數商業化應用者之一。頁面寫 7000 系「目前佔有公司主要產能」。
+      MIG-29／1971 Alcoa 專利是頁面上的技術背景敘事，不是訂單證明。
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>合金</th><th>頁面寫的運用（公司推薦表，非出貨實績清單）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>2014、2024、2618</td><td>自行車／機車把手與避震管、NC 用棒、齒盤用板、國防組件</td></tr>
+          <tr><td>3003</td><td>電池外殼、冷凝用型材</td></tr>
+          <tr><td>4032、4142</td><td>耐磨材（熔鑄時著重 Si 顆粒微細化以便擠製）</td></tr>
+          <tr><td>5083、5086、5456</td><td>海事工程結構</td></tr>
+          <tr><td>6061、6082、6069、6066、6013</td><td>無縫管與型材，供自行車、機車、汽車、航太</td></tr>
+          <tr><td>7005、7075、7050、7150、7068、7055</td><td>同上；頁面寫此類佔主要產能</td></tr>
+          <tr><td>A600Sc、A800Sc（7xxx+Sc）</td><td>以取代碳纖為目標的輕薄運動管；A800Sc 沿革寫 2017 年棒材 TS&gt;760 MPa；合金頁另寫 TS&gt;650 MPa 為目標</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      機械性質表為公司數據（頁尾註明依規格而異），例如 7075：抗拉 605／降伏 549／伸長 16%；A600Sc：735／700／8%；7050：&gt;537／&gt;462／&gt;9%（MPa、%）。
+      來源：<a href="https://www.amspec-inc.com/zh-hant/product/aluminum-alloys/">aluminum-alloys</a>
+    </p>
+    <div class="callout warn">
+      <strong>通論頁注意：</strong>「常見應用」（飛機蒙皮、船舶、引擎缸體等）是合金通性，不能當成該公司出貨清單。
+      <a href="https://www.amspec-inc.com/zh-hant/鋁合金等級與其應用/">來源</a>
+    </div>
+
+    <h3>2.2 鋁棒／特殊異型材</h3>
+    <p>
+      <span class="tag tag-fact">事實</span>
+      合金 2xxx、5xxx、6xxx、7xxx；尺寸與公差「依照客戶需求」。應用列：安全部品、自行車輪圈、國防、建築。
+      製程主張：恆溫擠出、模具精度、熱處理後強度。此頁沒有產能或客戶名。
+      <a href="https://www.amspec-inc.com/zh-hant/product/extruded-profiles/">extruded-profiles</a>
+    </p>
+
+    <h3>2.3 無縫擠型管</h3>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      合金 2xxx、6xxx、7xxx。產品頁：外徑 &lt; 75 mm；公差外徑 ±0.3 mm、厚度 ±0.2 mm。應用：棒壘球棒、自行車、汽機車。
+    </p>
+    <p data-kind="fact">
+      設備頁：兩台 1500 噸、一台 2000 噸擠型機，可擠 6–9 吋鋁或鎂擠錠；複動穿芯式逆向（間接）擠型，可做外徑小於 90 mm 的高強度無縫管或型材。
+      間接擠型被公司用來對比直接擠型：間接適合中高強度、難擠的無縫管；直接擠型較適合複雜断面、中低強度、T5。
+      頁面沒有寫他們自己有沒有直接擠型機。
+    </p>
+    <div class="callout danger">
+      <span class="tag tag-conflict">衝突</span>
+      <strong>外徑上限：</strong>產品頁寫 &lt; 75 mm，設備頁寫小於 90 mm。對外報價前要向公司確認，本報告不取捨。
+      <br>
+      <a href="https://www.amspec-inc.com/zh-hant/product/seamless-extruded-tube/">seamless-extruded-tube</a>　·　
+      <a href="https://www.amspec-inc.com/zh-hant/process-equipment/extrusion-machine/">extrusion-machine</a>
+    </div>
+
+    <h3>2.4 無縫精抽管</h3>
+    <p data-kind="conflict fact">
+      <span class="tag tag-fact">事實</span>
+      以自有擠型管再抽製；強調克服熱處理殘留應力與矯直。合金 2xxx、6xxx、7xxx。
+      產品頁：外徑 7–80 mm、厚度 ≥0.7 mm、公差 ±0.02 mm。
+      優勢自述：無凹洞與振動紋、亮面 Ra 可到 0.2 μm 以下、細晶、高強度耐疲勞。
+      應用列：曲棍球桿、登山冰鎬、自行車、汽機車避震管、航太座椅管、醫療器材配件。
+    </p>
+    <p data-kind="fact">
+      日本 OPC（有機感光導體）管在同頁是「鏡面與高尺寸精度」的<strong>參照句</strong>，沒有寫成現有客戶或量產品項。
+    </p>
+    <ul>
+      <li><strong>長抽：</strong>外徑 10–80 mm，長度可到 2500 mm；應用寫自行車車架管、車把手、座管、曲棍球桿、冰鎬。</li>
+      <li><strong>短抽：</strong>外徑 15–70 mm，長度低於 1200 mm；應用寫避震前叉管、球棒、異型精抽管。</li>
+    </ul>
+    <p class="small muted">
+      <a href="https://www.amspec-inc.com/zh-hant/product/seamless-drawn-tube/">seamless-drawn-tube</a>　·　
+      <a href="https://www.amspec-inc.com/zh-hant/process-equipment/tube-drawing-machine/">tube-drawing-machine</a>
+    </p>
+
+    <h3>2.5 CNC 與其他後加工</h3>
+    <p>
+      <span class="tag tag-fact">事實</span>
+      範圍要看頁面，不能寫成大型綜合機工廠。
+    </p>
+    <ul data-kind="fact">
+      <li>CNC 車床：為航太、自行車、汽機車等做 OEM。最大旋徑 400 mm、最大加工直徑 320 mm、最大加工長度 481 mm、棒材加工徑 52 mm、主軸 4000 rpm、Fanuc。沒有機台數量。
+        <a href="https://www.amspec-inc.com/zh-hant/process-equipment/cnc/">CNC</a></li>
+      <li>搪磨：廠內設備，改善內孔粗糙度、尺寸、圓度、真直度、圓柱度。沒有規格數值。
+        <a href="https://www.amspec-inc.com/zh-hant/process-equipment/honing/">honing</a></li>
+      <li>沿革 2022：建立 2.5D 投影、CNC、Honing、Polishing，並寫廠內自製高精密度避震管；2020 建立 CMM 等品檢設備。</li>
+      <li>航太應用頁明文：擠型、抽製、熱處理在廠內；<strong>NC 加工走委外合格供應商</strong>。
+        <a href="https://www.amspec-inc.com/zh-hant/application/aerospace-extrusions/">aerospace-extrusions</a></li>
+    </ul>
+    <p>
+      <span class="tag tag-infer">推論</span>
+      廠內 CNC 車床偏管件、原型與避震管；較完整的銑削 NC 仍可能外發。兩頁並存，不能說「全部機加都在廠內」或「完全沒有機加」。
+    </p>
+
+    <h3>2.6 熱處理（廠內）</h3>
+    <p data-kind="infer">
+      <span class="tag tag-fact">事實</span>
+      退火、固溶、時效三座電熱熱風循環爐。頁面目標規範為 AMS 2770、AMS 2772、AMS 2750，以及 AIAG CQI-9。
+      用字是「以符合下列規範為目標」，<strong>不是</strong>已取得 CQI-9 或 Nadcap 證書。
+      本次全站閱讀沒有看到 IATF 16949 或 Nadcap 證書主張。
+    </p>
+    <ul data-kind="fact">
+      <li>固溶：空間 1100×900×1100 mm，6 支測溫棒，最高 560℃，100 kW。</li>
+      <li>時效：頁面寫空間長 44800 mm × 寬 1200 mm × 高 1000 mm，最高 220℃，75 kW。
+        <span class="tag tag-conflict">衝突</span> 44800 mm（44.8 m）與其他兩座爐尺度差一個數量級，<strong>疑似網頁數字錯誤</strong>；未向公司求證前不要引用這個長度。</li>
+      <li data-kind="conflict fact">退火：5000×1535×1000 mm，最高 460℃，220 kW。</li>
+    </ul>
+    <p class="small muted"><a href="https://www.amspec-inc.com/zh-hant/process-equipment/heat-treatments-furnace/">heat-treatments-furnace</a></p>
+
+    <h3>2.7 軋延（鋁板／鎂板，規模小）</h3>
+    <p>
+      <span class="tag tag-fact">事實</span>
+      兩款軋延機由日本東京大東製作所設計，做精密鋁或鎂合金板。冷軋可到最薄 0.6 mm、公差 0.04 mm；
+      滾輪直徑 300 mm、面長 400 mm、實際可軋寬度 360 mm、最大負荷 1.5 MN、速度最高 20 m/min。
+      這是窄板研究／小量設備，不是寬幅熱軋廠。
+      沿革 2006：AZ61 鎂板通過電池極片測試並開始量產（歷史事件，頁面沒有寫現在是否仍量產）。
+      <a href="https://www.amspec-inc.com/zh-hant/process-equipment/metal-rolling-machines/">metal-rolling-machines</a>
+    </p>
+
+    <h3>2.8 表面處理與組裝</h3>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      要把「做得到」和「哪一段在廠內」分開。客製化頁列 OEM：CNC、噴砂陽極、烤漆、貼標、鐳刻、零配件組裝（無製程參數）。
+      表面處理專頁寫噴砂、陽極、液體烤漆、貼標、雷射雕刻；關鍵句是「內部處理與合作廠商」都有。
+      <strong>液體烤漆明文是與合作廠代工。</strong> 製程設備選單沒有陽極線或塗裝線。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-infer">推論</span>
+      表面處理是可賣的服務包，不是已證明的完整廠內垂直整合；烤漆至少有一段在廠外。
+    </p>
+    <p class="small muted" data-kind="infer">
+      <a href="https://www.amspec-inc.com/zh-hant/product/oem-odm-service/">oem-odm</a>　·　
+      <a href="https://www.amspec-inc.com/zh-hant/鋁合金表面處理服務項目/">表面處理</a>
+    </p>
+
+    <h3>2.9 壓鑄與鎂</h3>
+    <div class="callout danger">
+      <span class="tag tag-avoid">不要講</span>
+      <strong>壓鑄：</strong>本次閱讀的產品、設備、應用、認證、新聞頁都沒有壓鑄（die casting）製程、機台或產品。
+      稅籍「鋁合金鑄造」與 4032 段落的「熔鑄」不能解讀成高壓壓鑄。若客戶要的是壓鑄件，公開資料對不上。
+    </div>
+    <p data-kind="rec">
+      <span class="tag tag-fact">事實</span>
+      鎂：首頁與擠型機頁寫可擠鎂擠錠；軋延頁寫可軋鎂板；2006 有 AZ61 鎂板量產敘事。
+      現行產品規格表幾乎全是鋁合金，<strong>沒有獨立的鎂管尺寸表</strong>。
+      不能把「鎂合金管製造商」寫成與鋁管同等已文件化的產品線。
+    </p>
+
+    <h3>2.10 具名應用頁（較具體）</h3>
+    <div class="card-grid two" data-kind="fact">
+      <div class="card">
+        <h4>自行車避震前叉管</h4>
+        <p class="why">
+          <span class="tag tag-self">公司自述</span>
+          通過 ISO 4210，並已用在 Fox、RockShox、SR SUNTOUR 等品牌的避震前叉零組件。
+          本次沒有品牌方或型錄交叉證明。
+        </p>
+        <p class="diff small" data-kind="self">
+          7000 系抗拉 &gt;580／降伏 &gt;500／伸長 &gt;10%；6000 系 &gt;445／&gt;400／&gt;13%。
+          疲勞：650 N、15 萬次無龜裂折損。公差內外徑與厚度 ±0.02 mm。
+          <a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/bicycle-suspension-fork-tube/">前叉管頁</a>
+        </p>
+      </div>
+      <div class="card">
+        <h4>曲棍球桿（Lacrosse）</h4>
+        <p class="why">
+          材質 6061／7050／7150／A600Sc。厚度 &gt;0.75 mm；長度 28–60 吋。
+          2016 沿革寫「成為高級 Lacrosse Shaft 等產品之主要供應商」，沒有客戶名。
+        </p>
+        <p class="diff small">
+          <a href="https://www.amspec-inc.com/zh-hant/application/cate-sports-equipment/lacrosse-shafts/">lacrosse-shafts</a>
+        </p>
+      </div>
+    </div>
+    <p>
+      棒壘球棒、冰鎬、輪圈、把手站內有專頁；本次完整讀過的是前叉、曲棍球桿、避震管總述、應用總頁與 2024 展會頁。
+      球棒／冰鎬／輪圈專頁沒有逐段核對，不補規格。
+      URL：
+      <a href="https://www.amspec-inc.com/zh-hant/application/cate-sports-equipment/baseball-softball-bat/">球棒</a> ·
+      <a href="https://www.amspec-inc.com/zh-hant/application/cate-sports-equipment/ice-axe-shaft-for-glacier/">冰鎬</a> ·
+      <a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/bicycle-rim-profile/">輪圈</a> ·
+      <a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/bicycle-handlebar/">把手</a>
+    </p>
+    <p>
+      汽機車避震管頁混了產業通論（橫樑、縱樑、天窗導槽等——頁面沒有說這些都是自己的量產品）與公司製程主張
+      （6061／6082 棒與無縫管；SPD 擠製 7xxx 棒抗拉 784 MPa、伸長 15%——只當公司自述）。
+      <a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/automotive-and-scooter-components/">汽機車頁</a>
+    </p>
+
+    <h3>2.11 航太相關與品質認證</h3>
+    <ul>
+      <li><span class="tag tag-self">公司自述</span> 2019 通過 AS9100；2022 沿革寫 AS9100D 換證。認證頁：2008 取得 ISO 9001，2015 再次認證；2019 取得 AS9100D；2023 取得 SIA Engineering Company 的<strong>材料供應商</strong>核准信。
+        <a href="https://www.amspec-inc.com/zh-hant/quality-management/certificates/">certificates</a></li>
+      <li data-kind="self">2020 接受汽車避震管與航太座椅管評估打樣；2023 年 2024-T3 滑翔器具用管量產；2024 取得航太客戶供應商資格並開始量產飛機座椅系統用管（客戶名稱除 SIA 外都沒寫）。</li>
+      <li>航太頁：擠型、抽製、熱處理廠內，NC 委外。研究方向從靜態性質轉向 SCC 與疲勞——這是方向，不是已合格飛行結構件的證明。</li>
+    </ul>
+    <div class="callout warn">
+      <span class="tag tag-conflict">衝突</span>
+      ISO 年份各頁不完全一致：認證頁說 2008 年 ISO 9001、2015 再認證；沿革寫 2008／2010／2018 對應不同版次。報告只指出不一致。
+      <br><br>
+      <strong>沒有看到的認證：</strong>IATF 16949、ISO 14001、Nadcap、ISO 13485。不要補。
+    </div>
+
+    <h3>2.12 展會（行銷活動，不是訂單）</h3>
+    <ul>
+      <li>2024-10-08–10，德國杜塞道夫 ALUMINIUM，4 號館 4D02。
+        <a href="https://www.amspec-inc.com/zh-hant/2024-德國鋁工業展/">2024 鋁工業展</a></li>
+      <li>首頁有「2026 杜塞道夫鋁工業展」標題；本次未打開該則內文。</li>
+      <li>AIX 2026（Aircraft Interiors Expo）：2026-04-14–16，漢堡 Hamburg Messe，Hall 7 Stand 7A21。
+        <a href="https://www.amspec-inc.com/zh-hant/2026年德國航太展/">2026 航太展</a></li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section id="s3">
+    <h2><span class="num">03</span> 競爭優勢</h2>
+
+    <h3>事實（頁面上有對應描述）</h3>
+    <ol>
+      <li>高強度難擠合金是主敘事；頁面寫 7xxx 佔主要產能，不是 6063 建築材路線。</li>
+      <li>間接／逆向擠型：1500 噸兩台、2000 噸一台；2000 噸機沿革寫 2018 擴建、自製可調沖心逆向擠型機，2019 加入產線。擠型機與抽管機都寫「專家設計、研發工程師發包組裝」。</li>
+      <li>無縫＋抽管＋廠內熱處理串在一起；精抽公差頁面寫到 ±0.02 mm；前叉頁有 ISO 4210 與疲勞／衝擊數字（仍是公司自述）。</li>
+      <li>含鈧合金 A600Sc／A800Sc 有多年量產敘事，曲棍球桿頁有機械性質——在台灣同業公開頁裡相對少見（不表示別人做不到）。</li>
+      <li>品質體系：ISO 9001 與 AS9100D（公司與認證頁）。SIA Engineering 材料供應商核准是具名第三方關係裡少數寫出來的一件——性質是 MRO／材料核准，不是飛機 OEM 結構件合約。</li>
+      <li>後加工已跨出純素材：CNC 車床、搪磨、拋光（沿革）、組裝與表面處理服務包。</li>
+      <li>地點在雲林科技工業區，具名出口導向展會（杜塞道夫、漢堡內裝展）。</li>
+    </ol>
+
+    <h3>推論（合理，但不是公司證明）</h3>
+    <div class="callout infer">
+      <ol style="margin-bottom:0">
+        <li>相對建築鋁擠型廠，利基是小批量、高合金、薄壁無縫與抽管；轉換成本在模具、熱處理參數與疲勞數據，不在噸價。</li>
+        <li>垂直整合是「擠型–抽管–熱處理–部分車削／搪磨」，不是熔鑄到陽極的完整鏈。烤漆已寫委外，NC 在航太頁寫委外。</li>
+        <li>若人數仍接近自述 66 人、實收約 1.52 億的規模：代表彈性與老闆／工程師可直接談規格，也代表產能、體系認證與多據點交貨不是優勢。</li>
+        <li>雲林對出口客戶沒有港口故事可講；優勢若存在，是成本與專用設備，不是供應鏈群聚。同縣就有大井輕金屬。</li>
+        <li>「全球最強」「一定市佔」沒有獨立數據，不能寫進對外簡報。</li>
+      </ol>
+    </div>
+
+    <h3>公開資料上看得到的弱點</h3>
+    <ul>
+      <li>無 IATF／Nadcap 的公開主張；CQI-9、AMS 2770 是「目標」用字。</li>
+      <li>規格頁互相打架（75 vs 90 mm；時效爐長度）。</li>
+      <li>客製化服務頁、部分應用頁資訊薄。</li>
+      <li>具名現役客戶很少。Fox／RockShox／SR SUNTOUR、King Cobra 球頭（2008 研發聯盟獎）、SIA、以及「知名品牌」字樣，都要保留「公司自述」或「歷史獎項」。</li>
+    </ul>
+  </section>
+
+  <!-- 4 -->
+  <section id="s4">
+    <h2><span class="num">04</span> 競爭對手</h2>
+    <p class="muted small">
+      選擇標準：公開頁面做高強度鋁擠型、無縫管或精抽管，應用落到運動、汽機車、航太或國防。
+      不把手機殼 CNC 大廠算進來（產品形態不同）。
+    </p>
+
+
+    <div class="viz-shell" id="viz-comp">
+      <div class="viz-title">
+        COMPETITOR SNAPSHOT · 僅公開主張，無噸產能對比
+        <span class="viz-hint">長條＝該公司官網「有主張」的程度（質性，非市佔）</span>
+      </div>
+      <div class="comp-legend">
+        <span class="l-yes">官網有明確主張</span>
+        <span class="l-partial">部分／目標用字／歷史</span>
+        <span class="l-no">本次未見主張</span>
+        <span class="l-na">資訊過薄不評</span>
+      </div>
+      <div class="table-wrap">
+        <table aria-label="同業公開主張比較">
+          <thead>
+            <tr>
+              <th>公司</th>
+              <th>高強度 2/7xxx</th>
+              <th>精抽／抽管敘事</th>
+              <th>含鈧合金</th>
+              <th>AS9100</th>
+              <th>Nadcap</th>
+              <th>IATF</th>
+              <th>運動／避震管</th>
+            </tr>
+          </thead>
+          <tbody id="compTableBody"></tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin:0.5rem 0 0">
+        說明：AMSpec 無公開噸數，故<strong>不與</strong>大井自述 7000 噸等比產能。Kaiser／Constellium 為國際層級參考，非同規模對手。
+        「含鈧」僅 AMSpec 官網有多年量產敘事；不表示同業做不到。廣宥產品頁過薄，多數維度標為不評。
+      </p>
+      <div class="radar-grid" id="radarGrid" style="margin-top:1rem"></div>
+    </div>
+
+    <h3>台灣（個別卡片）</h3>
+    <div class="card-grid">
+      <div class="card" data-kind="self fact infer">
+        <h4>燁鋒輕合金（Ye Fong Aluminium）</h4>
+        <p class="why"><a href="https://ye-fong.com/zh/關於燁鋒/">ye-fong.com</a></p>
+        <p><strong>為什麼算對手：</strong>頁面寫 2000／7000（點名 2024、7075、7050）與 5000／6000；產品含無縫鋁管、鋁棒、特殊擠型、熱軋盤元與熱軋板；客製熱處理與應力消除。應用自述從運動器材做到北美、歐洲航太與船艦。</p>
+        <p class="diff"><strong>公開認證差異（燁鋒自述）：</strong>ISO 9001、ISO 14001、AS9100、ABS、2017 Nadcap 熱處理、2019 Nadcap 浸水式超音波。 公司背景自述約 160 人、桃園新屋。
+          <span class="tag tag-infer">推論</span> 燁鋒公開的航太特殊製程認證較完整，也做板與線材；AMSpec 更強調自有抽管、含鈧合金與運動／避震管公差。</p>
+      </div>
+      <div class="card" data-kind="infer">
+        <h4>大井輕金屬 Great Well Aluminium</h4>
+        <p class="why"><a href="https://www.greatwell.com.tw/IN_Html/about.html">greatwell.com.tw</a> · <a href="https://www.greatwell.com.tw/index-ch.html">首頁</a></p>
+        <p><strong>為什麼算對手：</strong>棒、無縫管、精抽管、型材；強調 2000／6000／7000。應用自述：汽機車、航太、國防、航海、光學、運動器材。雲林崙背設廠——地理上是同縣同業。</p>
+        <p class="diff"><strong>公開認證差異（大井自述）：</strong>含 IATF 16949 與 AS9100。沿革自述 2018 擠型線增至 6 條、年產能寫到 7000 噸（公司自述；AMSpec 沒有公開噸數，本報告不比高低）。AMSpec 網站沒有汽車品質系統主張。</p>
+      </div>
+      <div class="card">
+        <h4>正盛工業（正盛鋁合金）</h4>
+        <p class="why"><a href="https://www.chainson.com.tw/aluminum_alloy.php">chainson.com.tw</a></p>
+        <p><strong>為什麼算對手：</strong>高強度 2000／5000／7000；無縫／有縫管、擠型；頁面寫「專注超高強度無縫管」。應用表含航太座椅固定座、汽機車避震與前叉、航海、球棒、登山勾、高爾夫、醫療擔架與輪椅、光學、國防。地址：高雄市大寮區。</p>
+        <p class="diff"><strong>公開認證差異：</strong>該頁未看到與 AMSpec 可直接對照的完整認證清單；部分機械性質為公司自述。沒有在該頁看到成立年，不補。</p>
+      </div>
+      <div class="card">
+        <h4>元太金屬 YUAN TAI METAL</h4>
+        <p class="why"><a href="https://www.yuan-tai.com.tw/product.html">yuan-tai.com.tw</a></p>
+        <p><strong>為什麼算對手：</strong>1000–7000 無縫管、有縫管、精抽管、棒、異型材、板；關鍵字含自行車管、汽車冷卻管、航太鋁材。無縫管尺寸表外徑約 φ8–φ100。地址：嘉義縣六腳鄉。</p>
+        <p class="diff"><strong>公開認證差異：</strong>頁面標 ISO 9001:2015、ISO 14001:2015。應用格子內文在擷取時幾乎是空的——應用深度比規格表薄。</p>
+      </div>
+      <div class="card">
+        <h4>廣宥鋁擠型廠</h4>
+        <p class="why"><a href="https://www.ge-aluminum.com/prod_detail.php?id=6">ge-aluminum.com</a></p>
+        <p><strong>為什麼算對手：</strong>頁面標題為 7075 與 2000／6000／7000 無縫圓管。地址：台南市山上區。</p>
+        <p class="diff"><strong>公開認證差異：</strong>打開的產品頁正文只有「規格／尺寸／材質：依客戶指定」——資訊很薄。可以當同業名單，不能依這頁描述其設備或認證。</p>
+      </div>
+    </div>
+
+    <h3>區域／國際（規模大很多；硬合金無縫管或航太擠型這點重疊）</h3>
+    <ul>
+      <li>
+        <strong>Kaiser Aluminum（美國）</strong> —
+        <a href="https://www.kaiseraluminum.com/end-markets/aerospace-and-high-strength/">aerospace-and-high-strength</a>。
+        Hard Alloy Drawn Seamless Tube、硬合金擠型、棒線板；座椅件用到抽製管（例：座椅樑 2024-T3、7075-T6／T73，生產地 Chandler）。
+        這是 AMSpec「航太座椅管」敘事的國際材料廠層級，不是台灣同規模對手。
+        PDF 能力檔：<a href="https://online.kaiseraluminum.com/depot/PublicProductInformation/Document/1009/Kaiser_Aluminum_Hard_Alloy_Drawn_Seamless_Tube_Capabilities.pdf">Hard Alloy Drawn Seamless Tube</a>（本次未逐行核對 PDF 內數字）。
+      </li>
+      <li>
+        <strong>Constellium（歐洲）</strong> —
+        <a href="https://www.constellium.com/aircraft">aircraft</a>。
+        航太鋁解決方案站點；本次沒有在擷取內容裡看到與 AMSpec 相同的運動器材精抽管產品線。
+        列為航太鋁材上游／大型擠型參考，<strong>不是一比一的同業</strong>。
+        空巴多年擠型供貨新聞：<a href="https://www.constellium.com/news/constellium-enters-multi-year-agreement-with-airbus-for-the-supply-of-aluminum-alloy-extrusions">Airbus agreement</a>。
+      </li>
+      <li>
+        <strong>UACJ（日本）</strong> —
+        <a href="https://www.uacj.co.jp/products/extrusion/">extrusion</a>。
+        搜尋摘要指向多穴管、熱交換器包覆管，和 AMSpec 的 7xxx 運動／避震無縫管不是同一細分。
+        <strong>不要寫成已證實的正面競爭者。</strong>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 5 -->
+  <section id="s5">
+    <h2><span class="num">05</span> 可進入的應用領域</h2>
+
+    <div class="pill-row">
+      <span class="pill">不要講半導體設備</span>
+      <span class="pill">不要講壓鑄</span>
+    </div>
+
+    <h3>已對上（公司頁面有依據）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>領域</th><th>頁面依據</th><th>注意</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>自行車</td><td>前叉管、把手、輪圈、車架管、座管；ISO 4210；Fox／RockShox／SR SUNTOUR 為公司自述</td><td>文件最完整的下游</td></tr>
+          <tr><td>機車</td><td>把手、避震管；2020 沿革寫機車避震管出口</td><td>沒有車廠名</td></tr>
+          <tr><td>汽車</td><td>避震管評估與打樣（2020）；展會頁列汽機車避震管</td><td>沒有電動車專頁，也沒有 IATF</td></tr>
+          <tr><td>航太內裝／座椅管、滑翔器具用管</td><td>2023–2024 沿革；AS9100D；AIX 2026</td><td>不是機體蒙皮或起落架的證明</td></tr>
+          <tr><td>航太馬達外殼</td><td>2018–2019「評估／委託」6063 外殼</td><td>用字是委託評估，不要寫成量產結構件</td></tr>
+          <tr><td>運動器材</td><td>曲棍球桿、棒壘球棒、冰鎬；2012 7055 級球棒；2016 lacrosse</td><td>球棒頁本次未逐段讀</td></tr>
+          <tr><td>高爾夫（歷史）</td><td>2008 King Cobra UFI 擊球面板鋁代鈦</td><td>歷史，不代表現在主力</td></tr>
+          <tr><td>安全部品</td><td>應用總頁：錨定掛點、安全帶扣環；型材頁列安全部品</td><td>總頁偏概念</td></tr>
+          <tr><td>手工具、長管運動用品</td><td>2020 沿革：配合 NC 供應鏈出口</td><td>沒有品牌</td></tr>
+          <tr><td>國防組件</td><td>合金表與型材應用列了國防</td><td>沒有案名，頁面薄</td></tr>
+          <tr><td>海事結構</td><td>5xxx 合金推薦與 5052／5083 段落</td><td>是能力／推薦，不是契約</td></tr>
+          <tr><td>醫療器材配件</td><td>精抽管頁與 2024 展會頁各點名一次</td><td>沒有器械名稱、沒有 ISO 13485</td></tr>
+          <tr><td>電池外殼、冷凝型材</td><td>僅 3003 列在合金推薦表</td><td>頁面薄，不要寫成儲能或電動車主業</td></tr>
+          <tr><td>建築</td><td>型材應用列了建築；登記事業含金屬結構</td><td>不是網站主敘事</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>只能推論（公司沒有明文）</h3>
+    <ul>
+      <li><strong>電動車：</strong>只有「汽車避震／輕量化」可外推到 EV 懸吊管。沒有電池盒、電驅動殼、防撞樑量產證據。3003 電池外殼一句不够。</li>
+      <li><strong>半導體設備：</strong>沒有。OPC 句是精度類比，且 OPC 是事務機感光鼓，不是晶圓設備。<strong>不要寫進半導體。</strong></li>
+      <li><strong>消費電子機構件：</strong>登記營業項目有電子零組件製造業，網站幾乎不講 3C 機構件。最多是外殼型材的推論，證據弱。</li>
+      <li><strong>印表機／影印機 OPC 鋁管：</strong>僅精度類比，未證實出貨。</li>
+    </ul>
+  </section>
+
+  <!-- 6 -->
+  <section id="s6">
+    <h2><span class="num">06</span> 上下游與可能客戶</h2>
+
+    <h3>上游</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>項目</th><th>事實</th><th>推論</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>鋁（鎂）擠錠</td>
+            <td>擠型機吃 6–9 吋擠錠。航太頁寫與「原料供應鏈」指定調配 7050 成分；品質頁可追溯鋁錠爐號與成分。稅籍行業是鋁合金鑄造。</td>
+            <td>成分跟鑄錠供應鏈一起定，不是自己從原鋁電解做起。頁面沒有熔鑄產線，不能斷言垂直整合到熔煉。鈧、鋅含量高的錠成本與採購資格會是瓶頸。</td>
+          </tr>
+          <tr>
+            <td>擠型／抽管設備</td>
+            <td>2000 噸機稱自製並發包組裝；抽管機同樣；軋延機由東京大東製作所設計。</td>
+            <td>設備商是上游，但是專案式，不是每月原料。</td>
+          </tr>
+          <tr>
+            <td>模具</td>
+            <td>多頁強調模具設計與精度。</td>
+            <td>沒有寫模具工場是否在廠內。可能自製也可能委外。</td>
+          </tr>
+          <tr>
+            <td>表面處理</td>
+            <td>烤漆明文合作廠；陽極／噴砂為內部與合作廠並存。</td>
+            <td>陽極線若在廠外，交期與色差會受合作廠限制。</td>
+          </tr>
+          <tr>
+            <td>NC</td>
+            <td>航太頁：委外合格 NC。</td>
+            <td>機加供應商是上游也是製程的一環。</td>
+          </tr>
+          <tr>
+            <td>檢測</td>
+            <td>與學校借用分析設備。</td>
+            <td>高階金相／CAE 不完全在廠內。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted small">公司沒有公開任何原料廠名稱。不要編。</p>
+
+    <h3>下游客戶型態</h3>
+    <p><span class="tag tag-fact">事實能對上的買家類型</span></p>
+    <ul data-kind="fact">
+      <li>自行車避震前叉品牌或其零組件體系（公司點名 Fox、RockShox、SR SUNTOUR——公司自述）。</li>
+      <li>運動器材品牌或球棒／曲棍球桿代工（「主要供應商」句，無名字）。</li>
+      <li>航太材料審核方：SIA Engineering Company（材料供應商核准）。座椅管量產的客戶沒具名。</li>
+      <li>外銷買主：沿革寫機車避震管、運動長管、手工具出口；展會在德國。</li>
+    </ul>
+    <p><span class="tag tag-infer">推論的客戶型態</span></p>
+    <ul data-kind="infer">
+      <li>品牌端的材料工程師、產品工程師、SQE，權重高於一般採購——合金、熱處理與疲勞是設計輸入。</li>
+      <li>懸吊、車架、座椅機構的 tier-1／專廠，而不是整車廠中央採購。</li>
+      <li>貿易商與歐洲、北美運動用品進口商（他們自己去杜塞道夫）。</li>
+      <li>國防與海事若要做，多半是專案與圖面，不是型錄標售。證據目前只到「頁面有列」。</li>
+    </ul>
+  </section>
+
+  <!-- 7 -->
+  <section id="s7">
+    <h2><span class="num">07</span> 如果要幫忙推廣</h2>
+    <p class="muted small">不估計營收與市佔。以下「怎麼做」是推論，建立在前面已核對的產品範圍上。</p>
+
+    <h3>客戶是誰</h3>
+    <ol>
+      <li><strong>設計／材料工程師與 SQE（最重要）。</strong>前叉、座椅管、球棒都是安全件。採購無法在沒有疲勞、追溯、熱處理記錄時下單。</li>
+      <li><strong>運動與兩輪的專廠、品牌工程窗口。</strong>比汽車整車採購接近他們現在的證據。</li>
+      <li><strong>航太座椅與客艙內裝的 tier-1，以及 MRO／材料核准單位。</strong>AIX 選在內裝展，和「座椅管」敘事一致。SIA 證明他們肯走供應商問卷，不證明能進空巴或波音結構件清單。</li>
+      <li><strong>貿易商。</strong>適合已凍結的管材圖面與重複單；不適合第一次的合金開發。</li>
+      <li><strong>汽車懸吊零件廠的工程採購。</strong>可談。整車 OEM 直接導入，公開資料不夠（沒有 IATF 主張）。</li>
+    </ol>
+    <div class="callout danger">
+      <strong>不優先找：</strong>建築鋁門窗採購、壓鑄件採購、半導體設備機構採購、需要 Nadcap 特殊製程的飛行件採購。
+    </div>
+
+    <h3>怎麼接觸</h3>
+    <ul>
+      <li><strong>對外一句話：</strong>雲林的高強度鋁無縫管與精抽廠，主軸是 2xxx／7xxx（含鈧）避震管、運動管與航太座椅管；附帶 CNC 車削、搪磨與可安排的表面處理。不要說成「精密加工什麼都能做」。</li>
+      <li><strong>帶著能核對的東西：</strong>合金與狀態、公差、ISO 4210／疲勞條件、AS9100D 證書範圍、爐號追溯樣本、英文一頁規格。展會頁已經用 claire@ 約會議，沿這條比冷郵件有效。</li>
+      <li><strong>新客戶路徑：</strong>圖面評估 → 打樣（沿革多次用「評估及打樣」）→ 疲勞或客戶自己的驗證 → 小批。高強度薄壁（頁面自己舉 D/t &gt; 20 的變形問題）代表打樣週期不會短。</li>
+      <li><strong>分工：</strong>介紹適合<strong>問題定義清楚的工程師</strong>（要多輕、要過哪條疲勞、年量約多少）。不適合只把公司放進「台灣 CNC 名錄」。</li>
+      <li>汽車案子要先問對方是否強制 IATF 或 CQI-9 證書。公司網站只把 CQI-9 寫成熱處理目標。沒有證書就不要承諾。</li>
+      <li>航太案子先問是內裝管還是飛行結構。前者與現有敘事相符；後者還缺 Nadcap 等公開證據。</li>
+      <li>同業價格與交期不要報。沒有公開價格。</li>
+    </ul>
+
+    <h3>不該講什麼</h3>
+    <ul>
+      <li>不要講壓鑄、半導體設備、IATF／Nadcap／ISO 13485（公開資料沒有）。</li>
+      <li>不要把 Fox、RockShox、SR SUNTOUR、King Cobra、SIA 寫成已獨立查證的合約——前三者與 King Cobra 是公司網站句子；SIA 是公司稱 2023 年材料供應商核准。</li>
+      <li>不要講營收、市佔、單價、噸產能（AMSpec 沒有公開噸數）。</li>
+      <li>不要把鎂寫成與鋁管同等完整的產品目錄；不要把「全球最強」當證據。</li>
+      <li>不要引用時效爐長度 44800 mm；不要在未確認前硬選 75 mm 或 90 mm 外徑上限。</li>
+    </ul>
+
+    <h3>展望（定性）</h3>
+    <div class="card-grid two">
+      <div class="card">
+        <h4>運動／兩輪 — 最硬</h4>
+        <p class="diff">全球運動器材與兩輪避震仍要用高強度薄壁鋁管時，台灣這類專廠有出口理由。他們已經用德展而不是只做內銷。含鈧與 7xxx 抽管是差異點；燁鋒、大井、正盛、元太、Kaiser 則說明這不是空白市場。</p>
+      </div>
+      <div class="card">
+        <h4>座椅管 — 下一階</h4>
+        <p class="diff">合理的下一階：AS9100D、薄壁製程敘事與 AIX 場次一致。轉換慢，客戶集中，失敗時不會有大量替代訂單。</p>
+      </div>
+      <div class="card">
+        <h4>汽車 — 中期</h4>
+        <p class="diff">避震管技術相鄰，但體系門檻比自行車高。沒有公開的車廠實績與 IATF。可以當中期，不宜當短期營收假設。</p>
+      </div>
+      <div class="card">
+        <h4>不適合噸計合約材</h4>
+        <p class="diff">自述約 66 人、實收資本約 1.52 億元量級。<span class="tag tag-infer">推論</span>「專案與中小批量」優於「以噸計的合約鋁材」。介紹超大年量的結構型材，公開設備（三台中小型擠型機、窄幅軋延）對不上。</p>
+      </div>
+    </div>
+    <div class="callout warn" data-kind="infer">
+      <strong>風險提醒：</strong>品牌名是單方主張；規格頁有矛盾；表面處理與部分 NC 在廠外，交期不完全由自己決定；鎂與壓鑄、半導體、醫療器械都不能當現成市場講。
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section id="s8">
+    <h2><span class="num">08</span> 產能有限時怎麼拉高產值</h2>
+    <p class="muted small">
+      核心問題：官網自述約 66 人（無統計日期），擠型／抽管／熱處理工時有限——在<strong>現有產品線</strong>下，如何差異化、提高每噸／每機時價值？
+      若要改製程或產品組合，什麼是「成本最小、上行空間最大」的變動？
+      以下不發明營收、吞吐、單價或產能噸數；66 人僅作公司未標日期的自述。
+    </p>
+
+    <div class="viz-shell" id="viz-strategy">
+      <div class="viz-title">STRATEGY · 產能有限時的 Do / Don't</div>
+      <div class="matrix">
+        <div class="m-card do" data-kind="rec">
+          <div class="m-label">優先做 · 拉高每機時價值</div>
+          <ul>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 難擠 2xxx／7xxx（含 Sc）無縫＋精抽、避震／前叉／運動安全管</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 追溯文件＋一頁能力表（合金／公差／AS9100D／廠內委外邊界）</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 航太<strong>座椅／內裝管</strong>（非飛行結構）</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 產品組合往前叉／避震／運動／座椅管傾斜（排程紀律）</li>
+          </ul>
+        </div>
+        <div class="m-card dont" data-kind="rec">
+          <div class="m-label">不要做 · 對不上資產</div>
+          <ul>
+            <li data-kind="rec"><span class="tag tag-avoid">不要講</span> 壓鑄、半導體設備、噸價建築／商品 6xxx</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 不要買新壓機衝噸數</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 不要為故事自建烤漆線或大型銑削</li>
+            <li data-kind="rec"><span class="tag tag-avoid">不要講</span> 需 Nadcap 的飛行結構件、無 IATF 的整車中央採購大單</li>
+          </ul>
+        </div>
+        <div class="m-card mid" data-kind="rec">
+          <div class="m-label">有條件 · 中成本</div>
+          <ul>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> IATF／正式 CQI-9：僅具名汽車專案強制時再做</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 高強度無縫棒／安全部品／國防：挑有圖面與驗證的專案</li>
+          </ul>
+        </div>
+        <div class="m-card do" data-kind="fact rec">
+          <div class="m-label">最低成本 · 先釐清衝突</div>
+          <ul>
+            <li data-kind="conflict fact"><span class="tag tag-conflict">衝突</span> 外徑 &lt;75 mm vs &lt;90 mm；時效爐 44800 mm 疑誤</li>
+            <li data-kind="rec"><span class="tag tag-rec">建議</span> 對內確認可報規格，對外發能力表——幾乎零設備支出</li>
+            <li data-kind="fact"><span class="tag tag-fact">事實</span> 烤漆與航太 NC 已委外——維持即可</li>
+          </ul>
+        </div>
+      </div>
+      <div class="prio-list" id="prioList" aria-label="工時優先序"></div>
+      <div class="detail-panel" id="prioPanel" aria-live="polite">
+        <p class="dp-empty">點優先序卡片，查看對應公開證據。</p>
+      </div>
+    </div>
+
+
+    <h3>前提（事實 vs 推論）</h3>
+    <ul>
+      <li><span class="tag tag-self">公司自述</span> 官網寫「目前員工人數 66 人」；頁面無統計日期、無公開年報可核。</li>
+      <li><span class="tag tag-fact">事實</span> 公開設備：1500 噸擠型兩台、2000 噸一台（間接／逆向）；廠內熱處理三座爐；精抽與部分 CNC／搪磨；烤漆明文合作廠；航太頁 NC 委外。</li>
+      <li data-kind="fact"><span class="tag tag-fact">事實</span> 認證自述有 ISO 9001、AS9100D；未見 IATF、Nadcap。頁面寫 7xxx「目前佔有公司主要產能」。規格衝突：無縫管外徑產品頁 &lt; 75 mm vs 設備頁 &lt; 90 mm。</li>
+      <li data-kind="fact"><span class="tag tag-infer">推論</span> 若人數仍接近自述，瓶頸會落在擠型／抽管／爐時與工程／品保人力，而不是「再多一台壓機就能用噸數換營收」。本節不假設實際機時利用率或毛利。</li>
+    </ul>
+
+    <h3>1. 適合約 66 人廠的差異化（不是噸價商品）</h3>
+    <div class="callout infer">
+      <span class="tag tag-rec">建議</span>
+      把稀缺工時賣成<strong>規格難度 × 追溯 × 小批安全件</strong>，不要去跟建築／通用 6xxx 搶噸價。
+    </div>
+    <ul data-kind="rec">
+      <li><span class="tag tag-rec">建議</span> <strong>利基規格：</strong>難擠 2xxx／7xxx（含鈧）無縫＋精抽、薄壁高公差、避震／前叉／運動安全管——這些頁面證據最完整，轉換成本在模具、熱處理參數與疲勞數據，不在噸價。</li>
+      <li data-kind="rec"><span class="tag tag-rec">建議</span> <strong>追溯與文件：</strong>品質頁已寫可依鋁錠爐號與成分追溯、可提供檢測報告；AS9100D 已在認證頁。對工程師／SQE，一頁可核對的能力表＋爐號樣本，比「我們什麼都能擠」更值錢。</li>
+      <li data-kind="rec"><span class="tag tag-rec">建議</span> <strong>小批安全管：</strong>前叉、避震、座椅管、曲棍球桿等是安全／結構相關件；適合專案與中小批量，不適合以噸計的合約鋁材（公開設備也對不上超大年量結構型材）。</li>
+      <li data-kind="rec"><span class="tag tag-fact">事實對照</span> 烤漆與航太 NC 已委外——差異化應建立在擠型–抽管–熱處理與部分車削／搪磨，而不是承諾完整廠內塗裝或大型銑削工廠。</li>
+    </ul>
+
+    <h3>2. 稀缺的擠型／抽管／爐時，該優先給誰</h3>
+    <p class="muted small" data-kind="fact">排序是策略推論；未使用未公開的營收或產能數字。</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>優先</th><th>現有線／產品形態</th><th>理由（對應公開證據）</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>高</strong></td>
+            <td>自行車避震前叉管、汽機車／自行車避震精抽管</td>
+            <td>文件最完整：ISO 4210、公差 ±0.02 mm、疲勞／衝擊數字（公司自述）；短抽應用直接對上；廠內 CNC／搪磨／拋光沿革與此線相關。</td>
+          </tr>
+          <tr>
+            <td><strong>高</strong></td>
+            <td>2xxx／7xxx（含 Sc）運動精抽管（曲棍球桿、球棒、冰鎬等）</td>
+            <td>7xxx 頁面寫佔主要產能；含鈧與精抽是同業公開頁相對少見的敘事；長抽應用對上。</td>
+          </tr>
+          <tr>
+            <td><strong>高／次高</strong></td>
+            <td>航太座椅管、滑翔器具用管（內裝／管材，非飛行結構）</td>
+            <td>AS9100D、2023–2024 量產敘事、AIX 2026；擠抽熱在廠內。缺 Nadcap——優先內裝管，不拿爐時去賭飛行結構件。</td>
+          </tr>
+          <tr>
+            <td><strong>中</strong></td>
+            <td>高強度無縫擠型管／棒（安全部品、國防列名、客製難擠件）</td>
+            <td>間接擠型主敘事相符；但國防／安全部品頁面薄，宜挑有圖面與驗證條件的專案，避免佔滿機時卻無文件溢價。</td>
+          </tr>
+          <tr>
+            <td><strong>低</strong></td>
+            <td>建築型材、通用／商品型 6xxx、單純噸價合約材</td>
+            <td>非網站主敘事；同縣與區域有更大噸數主張的同業；66 人規模下用噸換營收不划算（推論）。</td>
+          </tr>
+          <tr>
+            <td><strong>不排程</strong></td>
+            <td>壓鑄件、半導體設備機構件、需 Nadcap 的飛行結構件、無 IATF 的整車中央採購大單</td>
+            <td>公開資料對不上或不該承諾（見第 5、7 節）。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>3. 最小成本變動 × 上行空間（努力由小到大）</h3>
+    <p>
+      <span class="tag tag-rec">建議</span>
+      以下依「公開資料已具備什麼／還缺什麼」排序；不假設投資報酬率數字。
+    </p>
+    <div class="card-grid" data-kind="rec">
+      <div class="card">
+        <h4>① 最低成本 · 高上行 — 釐清規格衝突＋一頁能力表</h4>
+        <p class="diff">
+          <span class="tag tag-fact">事實</span> 產品頁外徑 &lt; 75 mm 與設備頁 &lt; 90 mm 衝突；時效爐長度 44800 mm 疑似錯誤。<br>
+          <span class="tag tag-rec">建議</span> 對內先確認真實可報 OD／爐體尺寸，對外發<strong>一頁英文／中文能力表</strong>（合金與狀態、公差、追溯、AS9100D 範圍、廠內／委外邊界）。幾乎零設備支出，卻直接減少報價失誤與工程師流失。
+        </p>
+      </div>
+      <div class="card" data-kind="fact">
+        <h4>② 低成本 · 高上行 — 產品組合往前叉／避震／運動／座椅管傾斜</h4>
+        <p class="diff" data-kind="rec">
+          <span class="tag tag-rec">建議</span> 機時與模具優先給已有公差／疲勞／展會敘事的管線；主動降權建築與商品 6xxx。不需新壓機；是接單與排程紀律，不是資本支出。
+        </p>
+      </div>
+      <div class="card" data-kind="rec">
+        <h4>③ 低成本 · 維持優勢 — 烤漆與航太 NC 繼續委外</h4>
+        <p class="diff">
+          <span class="tag tag-fact">事實</span> 液體烤漆明文合作廠；航太頁 NC 委外；設備選單無塗裝線。<br>
+          <span class="tag tag-rec">建議</span> 不要為了「垂直整合故事」自建烤漆線或大型銑削廠。把資本與人力留在擠抽熱與避震管後加工；表面處理當可安排的服務包即可。
+        </p>
+      </div>
+      <div class="card" data-kind="fact">
+        <h4>④ 中成本 · 有條件 — IATF／CQI-9 證書</h4>
+        <p class="diff" data-kind="rec">
+          <span class="tag tag-fact">事實</span> 網站未主張 IATF；CQI-9 是熱處理「目標」用字。<br>
+          <span class="tag tag-rec">建議</span> <strong>只有</strong>具名汽車／懸吊專案強制要求時才啟動 IATF 或正式 CQI-9；不要為了「以後也許接車廠」先燒體系成本。自行車／運動／航太內裝不依賴 IATF。
+        </p>
+      </div>
+      <div class="card" data-kind="fact">
+        <h4>⑤ 高成本 · 不建議當下一步 — 新壓機、半導體、壓鑄</h4>
+        <p class="diff" data-kind="rec">
+          <span class="tag tag-rec">建議</span> <strong>不要買新壓機</strong>來衝噸數——公開敘事與同業比較都指向難擠小批，不是產能競賽。<br>
+          <span class="tag tag-avoid">不要講</span> 半導體設備（OPC 句只是精度類比）、壓鑄（全站無製程／機台）。這兩條會佔用業務與工程注意力，卻對不上現有資產。
+        </p>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <strong>邊界再強調：</strong>本節未估計每噸單價、機時產值或投資回收年數——公開資料沒有這些數字。
+      「拉高產值」在此指<strong>把有限工時配置到較難替代、文件較完整的現有線</strong>，以及用最低成本的規格／組合修正減少洩漏，不是財務預測。
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section id="s9">
+    <h2><span class="num">09</span> 資料限制與來源</h2>
+    <p>
+      <span class="tag tag-fact">事實</span>
+      本報告只依據公開官網頁面與經濟部商工登記轉載（g0v GCIS）、同業官網。
+      調查日期：2026-10-09（台北時間）。未在來源出現的營收、市佔、價格、員工人數更新值、未具名客戶，一律不補。
+      官網行銷語只當文案，不當證據。多頁規格互相不一致時並陳，不自行取一個「正確值」。
+    </p>
+
+    <h3>公司與登記</h3>
+    <ul class="sources">
+      <li><a href="https://www.amspec-inc.com/zh-hant/">https://www.amspec-inc.com/zh-hant/</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/about/">https://www.amspec-inc.com/zh-hant/about/</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/about/company-profile/">https://www.amspec-inc.com/zh-hant/about/company-profile/</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/about/establishment/">https://www.amspec-inc.com/zh-hant/about/establishment/</a></li>
+      <li><a href="http://gcis.nat.g0v.tw/id/27313005">http://gcis.nat.g0v.tw/id/27313005</a></li>
+      <li><a href="https://www.findcompany.com.tw/index.php/傑出材料科技股份有限公司">findcompany.com.tw（進出口資格為次級轉載）</a></li>
+      <li><a href="https://www.twfile.com/傑出材料科技股份有限公司/27313005">twfile.com（同上）</a></li>
+    </ul>
+
+    <h3>產品、製程、品質、新聞</h3>
+    <ul class="sources">
+      <li><a href="https://www.amspec-inc.com/zh-hant/product/aluminum-alloys/">aluminum-alloys</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/product/extruded-profiles/">extruded-profiles</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/product/seamless-extruded-tube/">seamless-extruded-tube</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/product/seamless-drawn-tube/">seamless-drawn-tube</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/product/oem-odm-service/">oem-odm-service</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/鋁合金等級與其應用/">鋁合金等級與其應用</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/鋁合金表面處理服務項目/">鋁合金表面處理服務項目</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/extrusion-machine/">extrusion-machine</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/tube-drawing-machine/">tube-drawing-machine</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/heat-treatments-furnace/">heat-treatments-furnace</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/cnc/">cnc</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/honing/">honing</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/process-equipment/metal-rolling-machines/">metal-rolling-machines</a></li>
+      <li><a href="https://www.amspec-inc.com/process-equipment/">process-equipment（選單）</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/quality-management/certificates/">certificates</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/quality-management/quality-assurance/">quality-assurance</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/2024-德國鋁工業展/">2024 德國鋁工業展</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/2026年德國航太展/">2026 德國航太展</a></li>
+      <li><a href="https://www.amspec-inc.com/wp-content/uploads/AMSpec-Catalogue-2023-update.pdf">AMSpec-Catalogue-2023-update.pdf</a>（存在；內文本次未逐頁採用）</li>
+    </ul>
+
+    <h3>應用</h3>
+    <ul class="sources">
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/">application</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/aerospace-extrusions/">aerospace-extrusions</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/">bicycle-motorcycle-automobile</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/bicycle-suspension-fork-tube/">bicycle-suspension-fork-tube</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/cate-bicycle-motorcycle-automobile/automotive-and-scooter-components/">automotive-and-scooter-components</a></li>
+      <li><a href="https://www.amspec-inc.com/zh-hant/application/cate-sports-equipment/lacrosse-shafts/">lacrosse-shafts</a></li>
+    </ul>
+
+    <h3>同業與國際</h3>
+    <ul class="sources">
+      <li><a href="https://ye-fong.com/zh/關於燁鋒/">燁鋒</a></li>
+      <li><a href="https://www.greatwell.com.tw/IN_Html/about.html">大井</a></li>
+      <li><a href="https://www.chainson.com.tw/aluminum_alloy.php">正盛</a></li>
+      <li><a href="https://www.yuan-tai.com.tw/product.html">元太</a></li>
+      <li><a href="https://www.ge-aluminum.com/prod_detail.php?id=6">廣宥</a></li>
+      <li><a href="https://www.kaiseraluminum.com/end-markets/aerospace-and-high-strength/">Kaiser</a></li>
+      <li><a href="https://www.constellium.com/aircraft">Constellium</a></li>
+      <li><a href="https://www.uacj.co.jp/products/extrusion/">UACJ</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>僅供內部理解與協助推廣討論之用。資料來源以各連結頁面為準；公司自述未經驗證處已標示。本報告不含營收、市佔、價格等未公開數字，亦不含任何個人或家庭背景。</p>
+    <p>調查日期：2026-10-09（台北時間） · 互動視覺版 · 檔案：/workspace/reports/amspec/index.html</p>
+  </footer>
+
+</main>
+
+<script>
+/* ========== AMSpec interactive report ========== */
+(function () {
+  "use strict";
+
+  /* ---- Progress + TOC highlight ---- */
+  var progressBar = document.getElementById("progressBar");
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc-mini a[data-toc]"));
+  var sections = ["s1","viz-chain","viz-eco","s2","s3","s4","s5","s6","s7","s8","s9"]
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+
+  function onScroll() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = pct + "%";
+      progressBar.setAttribute("aria-valuenow", Math.round(pct));
+    }
+    var y = window.scrollY + 120;
+    var current = sections[0] && sections[0].id;
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= y) current = sec.id;
+    });
+    tocLinks.forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-toc") === current);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---- Filter chips ---- */
+  var chips = document.querySelectorAll(".chip[data-filter]");
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var f = chip.getAttribute("data-filter");
+      document.body.classList.remove("filter-fact", "filter-infer", "filter-rec", "filter-self");
+      chips.forEach(function (c) {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+      });
+      chip.classList.add("active");
+      chip.setAttribute("aria-pressed", "true");
+      if (f !== "all") document.body.classList.add("filter-" + f);
+    });
+  });
+
+  /* ---- Detail panel helper ---- */
+  function renderPanel(el, data) {
+    if (!el) return;
+    if (!data) {
+      el.innerHTML = '<p class="dp-empty">點節點查看事實／推論細節。</p>';
+      return;
+    }
+    var html = '<div class="dp-title">' + data.title + "</div>";
+    if (data.meta) html += '<div class="dp-meta">' + data.meta + "</div>";
+    if (data.fact) {
+      html += '<div class="dp-fact"><span class="tag tag-fact">事實</span> ' + data.fact + "</div>";
+    }
+    if (data.self) {
+      html += '<div class="dp-fact"><span class="tag tag-self">公司自述</span> ' + data.self + "</div>";
+    }
+    if (data.infer) {
+      html += '<div class="dp-infer"><span class="tag tag-infer">推論</span> ' + data.infer + "</div>";
+    }
+    if (data.rec) {
+      html += '<div class="dp-rec"><span class="tag tag-rec">建議</span> ' + data.rec + "</div>";
+    }
+    if (data.conflict) {
+      html += '<div class="dp-fact"><span class="tag tag-conflict">衝突</span> ' + data.conflict + "</div>";
+    }
+    if (data.note) {
+      html += '<p class="dp-body muted small" style="margin-top:0.5rem">' + data.note + "</p>";
+    }
+    el.innerHTML = html;
+  }
+
+  /* =========================================================
+     VALUE CHAIN SVG
+     ========================================================= */
+  var chainNodes = [
+    { id: "billet", col: 0, row: 0, label: "鋁／鎂擠錠", sub: "6–9 吋", kind: "fact",
+      title: "鋁（鎂）擠錠", meta: "上游 · 原料",
+      fact: "擠型機吃 6–9 吋鋁或鎂擠錠。航太頁寫與原料供應鏈指定調配 7050 成分；品質頁可追溯鋁錠爐號與成分。稅籍行業是鋁合金鑄造。",
+      infer: "成分跟鑄錠供應鏈一起定，不是自己從原鋁電解做起。頁面沒有熔鑄產線，不能斷言垂直整合到熔煉。鈧、鋅含量高的錠成本與採購資格會是瓶頸。公司沒有公開任何原料廠名稱。" },
+    { id: "die", col: 0, row: 1, label: "模具", sub: "設計／精度", kind: "infer",
+      title: "模具", meta: "上游 · 工具",
+      fact: "多頁強調模具設計與精度。",
+      infer: "沒有寫模具工場是否在廠內。可能自製也可能委外。" },
+    { id: "equip", col: 0, row: 2, label: "設備商", sub: "擠／抽／軋", kind: "fact",
+      title: "擠型／抽管／軋延設備", meta: "上游 · 專案式",
+      fact: "2000 噸機稱自製並發包組裝；抽管機同樣；軋延機由東京大東製作所設計。",
+      infer: "設備商是上游，但是專案式，不是每月原料。" },
+    { id: "surface_up", col: 0, row: 3, label: "表面處理廠", sub: "烤漆等", kind: "fact",
+      title: "表面處理合作廠", meta: "上游／製程延伸",
+      fact: "液體烤漆明文與合作廠代工；陽極／噴砂為內部與合作廠並存。設備選單無塗裝線。",
+      infer: "陽極線若在廠外，交期與色差會受合作廠限制。" },
+    { id: "nc_up", col: 0, row: 4, label: "委外 NC", sub: "航太合格商", kind: "fact",
+      title: "航太 NC 委外", meta: "上游／製程延伸",
+      fact: "航太應用頁明文：擠型、抽製、熱處理在廠內；NC 加工走委外合格供應商。",
+      infer: "廠內 CNC 車床偏管件、原型與避震管；較完整銑削 NC 仍可能外發。" },
+    { id: "lab", col: 0, row: 5, label: "學校／檢測", sub: "借用設備", kind: "fact",
+      title: "檢測與分析", meta: "上游／能力延伸",
+      fact: "品質頁寫長期與學校借用分析設備；廠內有 CMM、2.5D 投影等（沿革）。",
+      infer: "高階金相／CAE 不完全在廠內。" },
+
+    { id: "amspec", col: 1, row: 1.5, label: "AMSpec", sub: "擠型·抽管·HT·CNC", kind: "fact", w: 150, h: 56,
+      title: "傑出材料科技（AMSpec）", meta: "核心 · 雲林科技工業區",
+      fact: "高強度鋁合金擠型、無縫管、精抽、廠內熱處理與部分後加工。公開設備：1500 噸×2、2000 噸×1（間接／逆向）。精抽公差頁面寫到 ±0.02 mm。認證自述 ISO 9001、AS9100D。",
+      self: "官網自述員工 66 人（無日期）。7xxx「目前佔有公司主要產能」。",
+      conflict: "無縫管外徑產品頁 <75 mm vs 設備頁 <90 mm；時效爐長度 44800 mm 疑似錯誤。" },
+    { id: "ext", col: 1, row: 3.2, label: "間接擠型", sub: "無縫管／型材", kind: "fact",
+      title: "間接／逆向擠型", meta: "AMSpec 核心製程",
+      fact: "兩台 1500 噸、一台 2000 噸；複動穿芯式逆向擠型；可擠 6–9 吋錠。間接適合中高強度難擠無縫管。",
+      note: "頁面沒有寫自己有沒有直接擠型機。" },
+    { id: "draw", col: 1, row: 4.2, label: "精抽", sub: "±0.02 mm", kind: "fact",
+      title: "無縫精抽管", meta: "AMSpec 核心製程",
+      fact: "以自有擠型管再抽製。產品頁：外徑 7–80 mm、厚度 ≥0.7 mm、公差 ±0.02 mm。長抽／短抽各有尺寸與應用。" },
+    { id: "ht", col: 1, row: 5.2, label: "熱處理", sub: "退火·固溶·時效", kind: "fact",
+      title: "廠內熱處理", meta: "AMSpec 核心製程",
+      fact: "三座電熱熱風循環爐。目標規範 AMS 2770／2772／2750、AIAG CQI-9——用字是「目標」，不是已取得 CQI-9 或 Nadcap。",
+      conflict: "時效爐頁面長度 44800 mm 與另兩座尺度差一個數量級，疑似網頁錯誤。" },
+
+    { id: "bike", col: 2, row: 0, label: "自行車前叉", sub: "Fox 等＊", kind: "self",
+      title: "自行車避震前叉管", meta: "下游 · 文件最完整",
+      self: "通過 ISO 4210；公司稱已用在 Fox、RockShox、SR SUNTOUR 等品牌避震前叉零組件。本次無品牌方交叉證明。",
+      fact: "機械性質、疲勞 650 N／15 萬次、公差 ±0.02 mm 等均見前叉專頁（公司數據）。" },
+    { id: "sports", col: 2, row: 1, label: "運動器材", sub: "曲棍球桿等", kind: "self",
+      title: "運動器材管", meta: "下游",
+      fact: "曲棍球桿專頁有合金、公差、長度規格。棒壘球棒、冰鎬站內有專頁（部分未逐段核對）。",
+      self: "2016 沿革寫成為高級 Lacrosse Shaft 等主要供應商，無客戶名。" },
+    { id: "aero", col: 2, row: 2, label: "航太座椅管", sub: "SIA 材料核准＊", kind: "self",
+      title: "航太內裝／座椅管", meta: "下游 · 下一階敘事",
+      self: "2023–2024 沿革：座椅系統用管量產；2023 SIA Engineering 材料供應商核准。AS9100D。",
+      fact: "AIX 2026 漢堡內裝展（Hall 7 Stand 7A21）。",
+      infer: "不是機體蒙皮或起落架證明；缺 Nadcap 公開主張。" },
+    { id: "moto", col: 2, row: 3, label: "機車避震", sub: "出口敘事", kind: "self",
+      title: "機車避震管", meta: "下游",
+      self: "2020 沿革寫機車避震管出口；無車廠名。" },
+    { id: "auto", col: 2, row: 4, label: "汽車避震", sub: "評估打樣", kind: "infer",
+      title: "汽車避震管", meta: "下游 · 中期推論",
+      fact: "2020 沿革寫汽車避震管評估打樣；展會頁列汽機車避震管。網站未主張 IATF。",
+      infer: "技術相鄰，可當中期；不宜當短期營收假設。電動車僅能外推到 EV 懸吊管，無電池盒量產證據。" },
+    { id: "tools", col: 2, row: 5, label: "手工具／長管", sub: "出口", kind: "self",
+      title: "手工具、長管運動用品", meta: "下游",
+      self: "2020 沿革：配合 NC 供應鏈出口；沒有品牌。" }
+  ];
+
+  var chainById = {};
+  chainNodes.forEach(function (n) { chainById[n.id] = n; });
+
+  var chainEdges = [
+    ["billet", "amspec", false],
+    ["die", "amspec", true],
+    ["equip", "amspec", false],
+    ["surface_up", "amspec", true],
+    ["nc_up", "amspec", true],
+    ["lab", "amspec", true],
+    ["amspec", "ext", false],
+    ["ext", "draw", false],
+    ["draw", "ht", false],
+    ["amspec", "bike", false],
+    ["amspec", "sports", false],
+    ["amspec", "aero", false],
+    ["amspec", "moto", false],
+    ["amspec", "auto", true],
+    ["amspec", "tools", false]
+  ];
+
+  function kindColor(kind) {
+    if (kind === "infer") return { fill: "#2a2340", stroke: "#c9a0e8", text: "#e8eef5" };
+    if (kind === "self") return { fill: "#3a2e1a", stroke: "#f0b060", text: "#e8eef5" };
+    if (kind === "rec") return { fill: "#1a3328", stroke: "#7dd3a8", text: "#e8eef5" };
+    return { fill: "#1a2a3a", stroke: "#5eb3f6", text: "#e8eef5" }; // fact
+  }
+
+  function buildChainSvg() {
+    var wrap = document.getElementById("chainSvgWrap");
+    if (!wrap) return;
+    var W = 920, H = 520;
+    var colX = [90, 460, 780];
+    var rowH = 72;
+    var top = 48;
+
+    function pos(n) {
+      var w = n.w || 118, h = n.h || 44;
+      var x = colX[n.col] - w / 2;
+      var y = top + n.row * rowH;
+      return { x: x, y: y, w: w, h: h, cx: x + w / 2, cy: y + h / 2 };
+    }
+
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "上游到下游價值鏈圖");
+    svg.style.minWidth = "640px";
+
+    // column headers
+    [
+      [colX[0], "上游供應／合作"],
+      [colX[1], "AMSpec 核心"],
+      [colX[2], "下游應用／客戶"]
+    ].forEach(function (h) {
+      var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t.setAttribute("x", h[0]); t.setAttribute("y", 22);
+      t.setAttribute("text-anchor", "middle");
+      t.setAttribute("fill", "#9aadc2");
+      t.setAttribute("font-size", "12");
+      t.setAttribute("font-weight", "700");
+      t.textContent = h[1];
+      svg.appendChild(t);
+    });
+
+    // edges
+    var gEdges = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    chainEdges.forEach(function (e) {
+      var a = chainById[e[0]], b = chainById[e[1]];
+      if (!a || !b) return;
+      var pa = pos(a), pb = pos(b);
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      var x1 = pa.x + pa.w, y1 = pa.cy, x2 = pb.x, y2 = pb.cy;
+      if (a.col === b.col) {
+        x1 = pa.cx; y1 = pa.y + pa.h; x2 = pb.cx; y2 = pb.y;
+      }
+      var mx = (x1 + x2) / 2;
+      path.setAttribute("d", "M" + x1 + "," + y1 + " C" + mx + "," + y1 + " " + mx + "," + y2 + " " + x2 + "," + y2);
+      path.setAttribute("class", "edge" + (e[2] ? " dashed" : ""));
+      if (e[2]) path.setAttribute("stroke", "#c9a0e8");
+      gEdges.appendChild(path);
+    });
+    svg.appendChild(gEdges);
+
+    var gNodes = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    var nodeEls = [];
+    chainNodes.forEach(function (n, idx) {
+      var p = pos(n);
+      var c = kindColor(n.kind);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "viz-node kind-" + n.kind);
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", n.label + "（" + n.kind + "）");
+      g.dataset.id = n.id;
+      g.dataset.idx = String(idx);
+
+      var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", p.x); rect.setAttribute("y", p.y);
+      rect.setAttribute("width", p.w); rect.setAttribute("height", p.h);
+      rect.setAttribute("rx", 8);
+      rect.setAttribute("fill", c.fill);
+      rect.setAttribute("stroke", c.stroke);
+      rect.setAttribute("stroke-width", n.id === "amspec" ? 2.5 : 1.5);
+      g.appendChild(rect);
+
+      var t1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t1.setAttribute("x", p.cx); t1.setAttribute("y", p.y + (n.sub ? 18 : 26));
+      t1.setAttribute("text-anchor", "middle");
+      t1.setAttribute("fill", c.text);
+      t1.setAttribute("font-size", n.id === "amspec" ? "14" : "12");
+      t1.setAttribute("font-weight", "700");
+      t1.textContent = n.label;
+      g.appendChild(t1);
+
+      if (n.sub) {
+        var t2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        t2.setAttribute("x", p.cx); t2.setAttribute("y", p.y + 34);
+        t2.setAttribute("text-anchor", "middle");
+        t2.setAttribute("fill", "#9aadc2");
+        t2.setAttribute("font-size", "10");
+        t2.textContent = n.sub;
+        g.appendChild(t2);
+      }
+
+      function select() {
+        nodeEls.forEach(function (el) { el.classList.remove("selected"); });
+        g.classList.add("selected");
+        renderPanel(document.getElementById("chainPanel"), n);
+        document.getElementById("chainPanel").focus({ preventScroll: true });
+      }
+      g.addEventListener("click", select);
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(); }
+        if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
+          ev.preventDefault();
+          var dir = ev.key === "ArrowRight" ? 1 : -1;
+          var next = nodeEls[(idx + dir + nodeEls.length) % nodeEls.length];
+          next.focus();
+        }
+        if (ev.key === "Escape") {
+          g.classList.remove("selected");
+          renderPanel(document.getElementById("chainPanel"), null);
+        }
+      });
+      gNodes.appendChild(g);
+      nodeEls.push(g);
+    });
+    svg.appendChild(gNodes);
+
+    // footnote
+    var fn = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    fn.setAttribute("x", 20); fn.setAttribute("y", H - 12);
+    fn.setAttribute("fill", "#9aadc2"); fn.setAttribute("font-size", "10");
+    fn.textContent = "＊Fox／RockShox／SR SUNTOUR／SIA 均為公司自述或公司稱之核准，本次無獨立合約查證。虛線＝推論或委外。";
+    svg.appendChild(fn);
+
+    wrap.innerHTML = "";
+    wrap.appendChild(svg);
+  }
+
+  /* =========================================================
+     ECOSYSTEM MAP
+     ========================================================= */
+  var ecoData = {
+    suppliers: [
+      { id: "e-billet", label: "鋁／鎂擠錠供應鏈", en: "Billets 6–9\"", kind: "fact",
+        title: "擠錠供應", fact: "擠型機吃 6–9 吋擠錠；航太頁與原料供應鏈調配 7050；可追溯爐號。",
+        infer: "非原鋁電解。無公開原料廠名。頁面無熔鑄產線。" },
+      { id: "e-die", label: "模具（設計／精度）", en: "Dies", kind: "infer",
+        title: "模具", fact: "多頁強調模具設計與精度。", infer: "廠內或委外不明。" },
+      { id: "e-equip", label: "設備：自製發包＋大東軋延", en: "Equipment", kind: "fact",
+        title: "設備商", fact: "2000 噸／抽管機發包組裝；軋延機東京大東製作所設計。" },
+      { id: "e-surf", label: "表面處理合作廠", en: "Paint / anodize partners", kind: "fact",
+        title: "表面處理", fact: "烤漆明文合作廠；陽極／噴砂內部與合作廠並存。" },
+      { id: "e-nc", label: "航太合格 NC 供應商", en: "Outsourced NC", kind: "fact",
+        title: "委外 NC", fact: "航太頁：NC 走委外合格供應商。" },
+      { id: "e-lab", label: "學校分析設備／量具", en: "Labs & metrology", kind: "fact",
+        title: "檢測", fact: "與學校借用分析設備；Mitutoyo、TESA；CMM（沿革 2020）。" }
+    ],
+    core: [
+      { id: "e-core", label: "擠型 → 精抽 → 熱處理", en: "Core process", kind: "fact",
+        title: "AMSpec 核心", fact: "間接擠型三台壓機；精抽 ±0.02 mm；廠內三座爐；部分 CNC／搪磨／拋光。",
+        self: "7xxx 佔主要產能；含鈧 A600Sc／A800Sc 多年量產敘事。" },
+      { id: "e-cert", label: "ISO 9001 · AS9100D", en: "QMS (claimed)", kind: "self",
+        title: "品質體系", self: "認證頁：ISO 9001、AS9100D；2023 SIA 材料供應商核准。",
+        fact: "未見 IATF、Nadcap、ISO 13485、ISO 14001 主張。" }
+    ],
+    customers: [
+      { id: "e-fox", label: "前叉品牌（Fox 等）", en: "Company-claimed", kind: "self",
+        title: "自行車前叉客戶", self: "公司稱用於 Fox、RockShox、SR SUNTOUR。無第三方覆核。" },
+      { id: "e-lax", label: "曲棍球桿／運動代工", en: "Sports OEM", kind: "self",
+        title: "運動器材", self: "「主要供應商」句，無名字；有規格頁。" },
+      { id: "e-sia", label: "SIA Engineering", en: "Material approval 2023", kind: "self",
+        title: "SIA", self: "公司稱 2023 年材料供應商核准信。MRO／材料核准，非 OEM 結構件合約。" },
+      { id: "e-seat", label: "航太座椅／內裝（未具名）", en: "Seat tubes", kind: "self",
+        title: "座椅管客戶", self: "2024 取得航太客戶供應商資格並量產座椅系統用管；名稱除 SIA 外沒寫。" },
+      { id: "e-auto", label: "汽車避震（推論）", en: "Inferred mid-term", kind: "infer",
+        title: "汽車", fact: "2020 評估打樣；無 IATF。", infer: "中期機會；非整車中央採購優先。" }
+    ],
+    competitors: [
+      { id: "e-yf", label: "燁鋒 Ye Fong", en: "Nadcap HT/UT · 桃園", kind: "self",
+        title: "燁鋒輕合金", self: "自述 ISO／AS9100／Nadcap 熱處理與超音波、約 160 人。",
+        infer: "航太特殊製程認證較完整；AMSpec 更強調抽管、含鈧、避震公差。" },
+      { id: "e-gw", label: "大井 Great Well", en: "IATF · 雲林崙背", kind: "self",
+        title: "大井輕金屬", self: "自述 IATF 16949、AS9100；2018 擠型線 6 條、年產能 7000 噸（公司自述）。",
+        note: "不與 AMSpec 比噸數（AMSpec 無公開噸數）。" },
+      { id: "e-cs", label: "正盛 Chainson", en: "高雄 · 超高強度無縫管", kind: "self",
+        title: "正盛工業", self: "高強度 2/5/7xxx；應用表含航太座椅固定座、避震前叉、運動。" },
+      { id: "e-yt", label: "元太 Yuan Tai", en: "嘉義 · φ8–100", kind: "self",
+        title: "元太金屬", self: "無縫／精抽尺寸表；ISO 9001／14001。應用格子擷取時偏薄。" },
+      { id: "e-ge", label: "廣宥", en: "台南 · 頁面薄", kind: "infer",
+        title: "廣宥", fact: "標題 7075／2/6/7xxx 無縫圓管。", infer: "正文幾乎只有依客戶指定——名單用，不評設備認證。" },
+      { id: "e-kaiser", label: "Kaiser（國際參考）", en: "Hard alloy drawn tube", kind: "fact",
+        title: "Kaiser Aluminum", fact: "Hard Alloy Drawn Seamless Tube；座椅樑用抽製管。國際材料廠層級，非台灣同規模對手。" }
+    ]
+  };
+
+  function buildEco() {
+    var map = document.getElementById("ecoMap");
+    var panel = document.getElementById("ecoPanel");
+    if (!map) return;
+
+    function col(title, items, extraClass) {
+      var d = document.createElement("div");
+      d.className = "eco-col " + (extraClass || "");
+      d.innerHTML = "<h4>" + title + "</h4>";
+      items.forEach(function (item) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "eco-node kind-" + item.kind;
+        btn.dataset.id = item.id;
+        btn.innerHTML = item.label + (item.en ? '<span class="en">' + item.en + "</span>" : "");
+        btn.addEventListener("click", function () {
+          map.querySelectorAll(".eco-node").forEach(function (b) { b.classList.remove("selected"); });
+          btn.classList.add("selected");
+          renderPanel(panel, item);
+        });
+        btn.addEventListener("keydown", function (ev) {
+          if (ev.key === "Escape") { btn.classList.remove("selected"); renderPanel(panel, null); }
+        });
+        d.appendChild(btn);
+      });
+      return d;
+    }
+
+    map.innerHTML = "";
+    map.appendChild(col("供應／合作夥伴", ecoData.suppliers, "eco-col-sup"));
+
+    var coreWrap = document.createElement("div");
+    coreWrap.className = "eco-col eco-col-core";
+    coreWrap.innerHTML = '<div class="eco-core-box"><strong>AMSpec 傑出材料</strong><span class="muted small">雲林斗六 · 高強度無縫／精抽</span></div>';
+    var h = document.createElement("h4");
+    h.textContent = "核心能力與體系";
+    coreWrap.appendChild(h);
+    ecoData.core.forEach(function (item) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "eco-node kind-" + item.kind;
+      btn.innerHTML = item.label + (item.en ? '<span class="en">' + item.en + "</span>" : "");
+      btn.addEventListener("click", function () {
+        map.querySelectorAll(".eco-node").forEach(function (b) { b.classList.remove("selected"); });
+        btn.classList.add("selected");
+        renderPanel(panel, item);
+      });
+      coreWrap.appendChild(btn);
+    });
+    var h2 = document.createElement("h4");
+    h2.textContent = "客戶／應用";
+    h2.style.marginTop = "0.85rem";
+    coreWrap.appendChild(h2);
+    ecoData.customers.forEach(function (item) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "eco-node kind-" + item.kind;
+      btn.innerHTML = item.label + (item.en ? '<span class="en">' + item.en + "</span>" : "");
+      btn.addEventListener("click", function () {
+        map.querySelectorAll(".eco-node").forEach(function (b) { b.classList.remove("selected"); });
+        btn.classList.add("selected");
+        renderPanel(panel, item);
+      });
+      coreWrap.appendChild(btn);
+    });
+    map.appendChild(coreWrap);
+
+    map.appendChild(col("競爭對手／國際參考", ecoData.competitors, "eco-col-comp"));
+
+    // invisible placeholder for grid cell if needed
+    var custPlaceholder = document.createElement("div");
+    custPlaceholder.className = "eco-col-cust";
+    custPlaceholder.style.display = "none";
+    map.appendChild(custPlaceholder);
+  }
+
+  /* =========================================================
+     PROCESS FLOW
+     ========================================================= */
+  var processSteps = [
+    { id: "p1", num: "01", label: "擠錠進料", sub: "6–9 吋", out: false,
+      title: "擠錠進料", fact: "設備頁：可擠 6–9 吋鋁或鎂擠錠。品質頁可追溯鋁錠爐號與成分。",
+      infer: "非電解原鋁；熔鑄產線未見於設備選單。" },
+    { id: "p2", num: "02", label: "間接／逆向擠型", sub: "1500×2 · 2000×1", out: false,
+      title: "間接擠型", fact: "複動穿芯式逆向擠型；適合中高強度難擠無縫管。2000 噸機沿革 2018 擴建、2019 加入產線。",
+      conflict: "產品頁外徑 <75 mm，設備頁 <90 mm——報價前向公司確認。" },
+    { id: "p3", num: "03", label: "無縫管／型材", sub: "2/6/7xxx", out: false,
+      title: "無縫擠型管／型材", fact: "合金 2xxx、6xxx、7xxx。應用列棒壘球棒、自行車、汽機車等。" },
+    { id: "p4", num: "04", label: "精抽", sub: "長抽／短抽", out: false,
+      title: "精抽", fact: "外徑 7–80 mm、公差 ±0.02 mm。長抽至 2500 mm；短抽 <1200 mm（避震前叉等）。" },
+    { id: "p5", num: "05", label: "熱處理", sub: "廠內三爐", out: false,
+      title: "熱處理", fact: "退火、固溶、時效。目標 AMS／CQI-9，非已取得 Nadcap／CQI-9 證書。",
+      conflict: "時效爐長度 44800 mm 疑誤，勿引用。" },
+    { id: "p6", num: "06", label: "CNC／搪磨", sub: "部分廠內", out: false,
+      title: "CNC／搪磨／拋光", fact: "CNC 車床規格見設備頁（無台數）；搪磨廠內；沿革 2022 建立 CNC／Honing／Polishing。",
+      infer: "偏管件與避震管；完整銑削可能外發。" },
+    { id: "p7", num: "07", label: "表面處理", sub: "部分合作廠", out: true,
+      title: "表面處理", fact: "噴砂、陽極、烤漆、貼標、雷刻。液體烤漆明文合作廠代工。",
+      infer: "可賣服務包，非完整廠內垂直整合。" },
+    { id: "p8", num: "08", label: "客戶驗證", sub: "打樣→疲勞→小批", out: true,
+      title: "客戶驗證／出貨", fact: "沿革多次「評估及打樣」；可提供檢測報告與爐號追溯。",
+      self: "前叉頁有 ISO 4210 與疲勞／衝擊數字（公司自述）。",
+      infer: "高強度薄壁（D/t > 20）打樣週期不會短。" }
+  ];
+
+  function buildProcess() {
+    var host = document.getElementById("processSteps");
+    var panel = document.getElementById("processPanel");
+    if (!host) return;
+    host.innerHTML = "";
+    processSteps.forEach(function (step, i) {
+      if (i > 0) {
+        var arr = document.createElement("div");
+        arr.className = "process-arrow";
+        arr.setAttribute("aria-hidden", "true");
+        arr.textContent = "→";
+        host.appendChild(arr);
+      }
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "process-step" + (step.out ? " out" : "");
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-selected", "false");
+      btn.id = step.id;
+      btn.innerHTML = '<span class="ps-num">' + step.num + '</span><span class="ps-label">' + step.label + '</span><span class="ps-sub">' + step.sub + "</span>";
+      btn.addEventListener("click", function () {
+        host.querySelectorAll(".process-step").forEach(function (b) {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        renderPanel(panel, step);
+      });
+      host.appendChild(btn);
+    });
+  }
+
+  /* =========================================================
+     COMPETITOR TABLE + RADAR CARDS
+     ========================================================= */
+  // scores: 2=yes clear claim, 1=partial/goal/thin, 0=not seen, -1=too thin to rate
+  var comps = [
+    { name: "AMSpec", scores: [2, 2, 2, 2, 0, 0, 2],
+      note: "精抽與含鈧敘事強；無 IATF／Nadcap 主張",
+      dims: [
+        ["難擠合金主敘事", 2, "強"],
+        ["精抽公差文件", 2, "±0.02 mm"],
+        ["含鈧公開敘事", 2, "A600/800Sc"],
+        ["航太特殊製程證", 0, "無 Nadcap"],
+        ["汽車品質系統", 0, "無 IATF"],
+        ["運動／避震深度", 2, "前叉專頁"]
+      ]},
+    { name: "燁鋒", scores: [2, 1, 0, 2, 2, 0, 1],
+      note: "Nadcap HT/UT；板線材；人數自述約 160",
+      dims: [
+        ["難擠合金主敘事", 2, "2/7xxx"],
+        ["精抽公差文件", 1, "有管／未強調同公差"],
+        ["含鈧公開敘事", 0, "本次未見"],
+        ["航太特殊製程證", 2, "Nadcap"],
+        ["汽車品質系統", 0, "本次未強調"],
+        ["運動／避震深度", 1, "有運動敘事"]
+      ]},
+    { name: "大井", scores: [2, 2, 0, 2, 0, 2, 1],
+      note: "自述 IATF；雲林同業；噸數自述不拿來比",
+      dims: [
+        ["難擠合金主敘事", 2, "2/6/7xxx"],
+        ["精抽公差文件", 2, "有精抽"],
+        ["含鈧公開敘事", 0, "本次未見"],
+        ["航太特殊製程證", 0, "AS9100有／Nadcap未見"],
+        ["汽車品質系統", 2, "IATF 自述"],
+        ["運動／避震深度", 1, "應用列運動"]
+      ]},
+    { name: "正盛", scores: [2, 2, 0, 1, -1, -1, 2],
+      note: "超高強度無縫管敘事；認證清單該頁不全",
+      dims: [
+        ["難擠合金主敘事", 2, "2/5/7xxx"],
+        ["精抽公差文件", 2, "有精抽"],
+        ["含鈧公開敘事", 0, "本次未見"],
+        ["航太特殊製程證", 1, "應用有座椅"],
+        ["汽車品質系統", -1, "該頁未對照"],
+        ["運動／避震深度", 2, "應用表廣"]
+      ]},
+    { name: "元太", scores: [2, 2, 0, 0, 0, 0, 1],
+      note: "尺寸表具體；應用格子偏薄；ISO 9001/14001",
+      dims: [
+        ["難擠合金主敘事", 2, "1–7xxx"],
+        ["精抽公差文件", 2, "有尺寸表"],
+        ["含鈧公開敘事", 0, "本次未見"],
+        ["航太特殊製程證", 0, "關鍵字有／深度薄"],
+        ["汽車品質系統", 0, "未見 IATF"],
+        ["運動／避震深度", 1, "關鍵字"]
+      ]},
+    { name: "廣宥", scores: [1, -1, 0, -1, -1, -1, -1],
+      note: "產品頁過薄，多數不評",
+      dims: [
+        ["難擠合金主敘事", 1, "標題有 7075"],
+        ["精抽公差文件", -1, "不評"],
+        ["含鈧公開敘事", 0, "未見"],
+        ["航太特殊製程證", -1, "不評"],
+        ["汽車品質系統", -1, "不評"],
+        ["運動／避震深度", -1, "不評"]
+      ]},
+    { name: "Kaiser", scores: [2, 2, 0, 2, -1, -1, 1],
+      note: "國際層級參考，非同規模對手",
+      dims: [
+        ["難擠合金主敘事", 2, "Hard alloy"],
+        ["精抽公差文件", 2, "Drawn seamless"],
+        ["含鈧公開敘事", 0, "本次未採"],
+        ["航太特殊製程證", 2, "航太終端市場"],
+        ["汽車品質系統", -1, "非本報告重點"],
+        ["運動／避震深度", 1, "座椅管重疊"]
+      ]}
+  ];
+
+  function barHtml(score) {
+    if (score < 0) return '<div class="bar-row"><div class="bar none" title="不評"><i style="width:0"></i></div><span class="bar-note">不評</span></div>';
+    if (score === 0) return '<div class="bar-row"><div class="bar muted"><i style="width:8%"></i></div><span class="bar-note">未見</span></div>';
+    if (score === 1) return '<div class="bar-row"><div class="bar warn"><i style="width:50%"></i></div><span class="bar-note">部分</span></div>';
+    return '<div class="bar-row"><div class="bar"><i style="width:100%"></i></div><span class="bar-note">有</span></div>';
+  }
+
+  function buildComp() {
+    var tbody = document.getElementById("compTableBody");
+    var radar = document.getElementById("radarGrid");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    comps.forEach(function (c) {
+      var tr = document.createElement("tr");
+      var cells = c.scores.map(function (s) { return '<td class="bar-cell">' + barHtml(s) + "</td>"; }).join("");
+      tr.innerHTML = "<th scope=\"row\">" + c.name + "</th>" + cells;
+      tbody.appendChild(tr);
+    });
+    if (radar) {
+      radar.innerHTML = "";
+      comps.slice(0, 6).forEach(function (c) {
+        var card = document.createElement("div");
+        card.className = "radar-card";
+        var rows = c.dims.map(function (d) {
+          var pct = d[1] < 0 ? 0 : d[1] === 0 ? 8 : d[1] === 1 ? 50 : 100;
+          var cls = d[1] < 0 ? "none" : d[1] === 0 ? "muted" : d[1] === 1 ? "warn" : "";
+          return '<div class="radar-dim"><span class="d-name">' + d[0] + '</span><div class="bar ' + cls + '"><i style="width:' + pct + '%"></i></div><span class="d-val">' + d[2] + "</span></div>";
+        }).join("");
+        card.innerHTML = "<h4>" + c.name + "</h4>" + rows + '<p class="small muted" style="margin:0.5rem 0 0">' + c.note + "</p>";
+        radar.appendChild(card);
+      });
+    }
+  }
+
+  /* =========================================================
+     STRATEGY PRIORITY LIST
+     ========================================================= */
+  var prios = [
+    { level: "hi", badge: "高", title: "前叉／避震精抽管",
+      desc: "ISO 4210、±0.02 mm、疲勞數字（公司自述）；短抽應用直接對上。",
+      fact: "前叉專頁與精抽／短抽設備頁對得上；廠內 CNC／搪磨沿革與此線相關。",
+      rec: "工時優先給此線。" },
+    { level: "hi", badge: "高", title: "2xxx／7xxx（含 Sc）運動精抽管",
+      desc: "7xxx 佔主要產能；含鈧敘事相對少見；長抽應用對上。",
+      fact: "合金頁、曲棍球桿頁、長抽應用。",
+      rec: "維持運動管排程優先。" },
+    { level: "hi", badge: "高／次高", title: "航太座椅／滑翔器具用管",
+      desc: "AS9100D、2023–2024 量產敘事、AIX 2026。",
+      fact: "擠抽熱在廠內；NC 委外。",
+      rec: "優先內裝管，不拿爐時賭飛行結構（缺 Nadcap）。" },
+    { level: "mid", badge: "中", title: "高強度無縫棒／安全部品／國防列名",
+      desc: "間接擠型主敘事相符；頁面薄。",
+      rec: "只接有圖面與驗證條件的專案。" },
+    { level: "lo", badge: "低", title: "建築／商品型 6xxx、噸價合約材",
+      desc: "非網站主敘事；區域有更大噸數主張同業。",
+      infer: "66 人規模下用噸換營收不划算。",
+      rec: "主動降權。" },
+    { level: "no", badge: "不排程", title: "壓鑄 · 半導體 · Nadcap 飛行件 · 無 IATF 整車大單",
+      desc: "公開資料對不上或不該承諾。",
+      rec: "業務與工程注意力不要被帶偏。" }
+  ];
+
+  function buildPrio() {
+    var list = document.getElementById("prioList");
+    var panel = document.getElementById("prioPanel");
+    if (!list) return;
+    list.innerHTML = "";
+    prios.forEach(function (p) {
+      var div = document.createElement("div");
+      div.className = "prio-item";
+      div.tabIndex = 0;
+      div.innerHTML = '<div class="prio-badge ' + p.level + '">' + p.badge + '</div><div><p class="prio-title">' + p.title + '</p><p class="prio-desc">' + p.desc + "</p></div>";
+      function sel() {
+        list.querySelectorAll(".prio-item").forEach(function (x) { x.classList.remove("active"); });
+        div.classList.add("active");
+        renderPanel(panel, p);
+      }
+      div.addEventListener("click", sel);
+      div.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); sel(); }
+      });
+      list.appendChild(div);
+    });
+  }
+
+  /* ---- Expandable wrappers for long competitor cards (progressive) ---- */
+  function enhanceCards() {
+    document.querySelectorAll("#s4 .card-grid > .card").forEach(function (card) {
+      card.setAttribute("tabindex", "0");
+    });
+  }
+
+  /* ---- Init ---- */
+  buildChainSvg();
+  buildEco();
+  buildProcess();
+  buildComp();
+  buildPrio();
+  enhanceCards();
+
+  // Deep-link: if hash matches a chain/eco id, try to open
+  if (location.hash === "#viz-chain" || location.hash === "#viz-eco") {
+    /* already scrolled by browser */
+  }
+})();
+</script>
+</body>
+</html>
