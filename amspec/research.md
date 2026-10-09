@@ -2,7 +2,7 @@
 
 > 互動視覺 HTML 報告：同目錄 `index.html`（GitHub Pages 可直接託管；含價值鏈／生態系／製程／策略矩陣）。
 
-調查日期：2026-10-09（台北時間）。方法：官網頁面（WebFetch）、經濟部商工登記轉載（g0v GCIS）、同業官網。凡公司自述而未見第三方覆核者，標為「公司自述」。未在來源出現的營收、市佔、價格、員工人數更新值、未具名客戶，一律不補。
+調查日期：2026-10-09（台北時間）。方法：官網頁面（WebFetch）、經濟部商工登記轉載（g0v GCIS）、同業官網；另見第三方海關提單鏡像／工業局 PDF／透明足跡（§「第三方出口證據」與 `upstream-downstream-findings.md`）。凡公司自述而未見第三方覆核者，標為「公司自述」。未在來源出現的營收、市佔、價格、員工人數更新值、未具名客戶，一律不補。
 
 本報告不含任何個人或家庭資料。董監事姓名、持股不列入。
 
@@ -315,10 +315,11 @@ https://www.uacj.co.jp/products/extrusion/
 
 事實能對上的買家類型：
 
-- 自行車避震前叉品牌或其零組件體系（公司點名 Fox、RockShox、SR SUNTOUR）。
-- 運動器材品牌或球棒／曲棍球桿代工（「主要供應商」句，無名字）。
-- 航太材料審核方：SIA Engineering Company（材料供應商核准）。座椅管量產的客戶沒具名。
-- 外銷買主：沿革寫機車避震管、運動長管、手工具出口；展會在德國。
+- 美國公開提單彙整可見收貨人：String King Lacrosse（鋁製曲棍球桿／管，HS 7608.20，主導）、JRI Shocks（鋁合金管）、RPA Cycling、Epoch Lacrosse、P4X／Per4Max Medical 等（見下「第三方出口證據」）。
+- 自行車避震前叉品牌或其零組件體系（公司點名 Fox、RockShox、SR SUNTOUR——**仍僅公司自述**；可見美國客戶表未出現這些字樣）。
+- 運動器材品牌或球棒／曲棍球桿代工：官網「主要供應商」句無名字；海關側已有 String King／Epoch 可對。
+- 航太材料審核方：SIA Engineering Company（公司稱材料供應商核准並續證）。座椅管量產的 OEM 客戶仍沒具名。
+- 外銷買主：沿革寫機車避震管、運動長管、手工具出口；展會在德國；對美海運約 177–179 筆可見紀錄。
 
 推論的客戶型態（公司沒有組織圖）：
 
@@ -326,6 +327,18 @@ https://www.uacj.co.jp/products/extrusion/
 - 懸吊、車架、座椅機構的 tier-1／專廠，而不是整車廠中央採購。
 - 貿易商與歐洲、北美運動用品進口商（他們自己去杜塞道夫）。
 - 國防與海事若要做，多半是專案與圖面，不是型錄標售。證據目前只到「頁面有列」。
+
+### 第三方出口證據（摘要）
+
+詳細筆記見同目錄 `upstream-downstream-findings.md`；互動報告 `index.html` **§06b**。以下只列可直接引用的事實點：
+
+- **〔事實｜海關彙整〕** shipper ADVANCED MATERIAL SPECIALTY INC.（斗六地址）約 177–179 筆對美提單；主導收貨人 **String King Lacrosse**（aluminum lacrosse shafts，HS 7608.20）；具名避震買家 **JRI Shocks**；另見 RPA Cycling、Epoch、Per4Max／P4X。來源：ImportYeti／ImportGenius／ImportInfo（2026-10 擷取）。聚合頁；貨描≠合金牌號；非獨家。
+- **〔事實｜海關彙整〕** 可見客戶表**未列出** Fox、RockShox、SR SUNTOUR——官網前叉品牌句維持**公司自述**。
+- **〔事實｜政府 PDF〕** 經濟部工業局 106Q3 補捐助：超高強度鋁合金及高值化組件研製計畫 **NT$556,000**；勿沿用傳聞 2,000 萬。
+- **〔事實｜環境〕** 透明足跡 P46A1473：產業類型「鋁材軋延、擠型及伸線業」；空／水／廢曾列管已解除（資料日期 2026-10-04）。
+- **〔公司自述〕** AIX 2024／2025／2026（7A21）；SIA Qualified Supplier 官網稱續證。
+- **〔事實｜股權〕** 法人股東新台股份有限公司登記約 30.9%（監察人席）；本業非鋁加工。
+- **〔推論〕** 展維／煜旌 7075+Sc、鄰居揚崧／元創**不是**已證實供應商；泳富豪／展暉同無公開 Fox；燁鋒座椅敘事較清楚。
 
 ---
 
@@ -408,6 +421,18 @@ https://www.uacj.co.jp/products/extrusion/
 - https://www.amspec-inc.com/zh-hant/application/cate-sports-equipment/lacrosse-shafts/
 - 未逐段閱讀、僅確認 URL 存在於站內搜尋：球棒、冰鎬、輪圈、把手頁（見第 2.11 節）
 
+### 第三方交叉驗證
+
+- https://www.importyeti.com/supplier/advanced-material-specialty
+- https://www.importgenius.cn/suppliers/advanced-material-specialty-inc
+- https://www.importgenius.cn/importers/jri-shocks-llc
+- https://www.importinfo.com/advanced-material-specialty-inc
+- https://www.ida.gov.tw/ctlr?f=executive&id=11579&PRO=filepath.DownloadFile&t=f （工業局 106Q3 補捐助 PDF）
+- https://thaubing.gcaa.org.tw/facility/P46A1473
+- https://www.amspec-inc.com/aix2024/ ；https://www.amspec-inc.com/we-are-exhibiting-at-aix-2025-2/
+- https://www.amspec-inc.com/amspec-achieves-supplier-certification-renewal-from-sia-engineering-company/
+- 完整筆記：`upstream-downstream-findings.md`
+
 ### 同業與國際
 
 - https://ye-fong.com/zh/關於燁鋒/
@@ -438,7 +463,7 @@ AMSpec 公開資料**沒有**營收、毛利率、淨利、噸產能、ASP 或�
 
 - 不要寫員工人數除了「官網自述 66、無日期」。
 - 不要寫營收、市佔、單價、噸產能（AMSpec 沒有公開噸數）。若引用 §08b，必須標「情境假設／推論」，並說明非公司財報。
-- 不要把 Fox、RockShox、SR SUNTOUR、King Cobra、SIA 寫成已獨立查證的合約；前三個與 King Cobra 是公司網站句子，SIA 是公司稱 2023 年材料供應商核准。
+- 不要把 Fox、RockShox、SR SUNTOUR、King Cobra 寫成已獨立查證的合約；前三個與 King Cobra 是公司網站句子，可見美國提單客戶表未出現 Fox／RockShox／SUNTOUR。SIA 是公司稱材料供應商核准並續證。可具名 String King、JRI 等海關可見收貨人，但須標提單彙整／非獨家／貨描≠合金。
 - 不要寫壓鑄、IATF、Nadcap、ISO 13485、半導體設備。
 - 時效爐長度 44800 mm、擠型管 75 mm 對 90 mm，保留衝突。
 - 鎂是標題與設備能力，不是已文件化的完整產品目錄。
