@@ -442,6 +442,39 @@ footer {
   .kpi { grid-template-columns: 1fr 1fr; }
   .process-step { flex: 1 1 45%; max-width: none; }
 }
+
+.tag-sec { background: rgba(154,173,194,0.18); color: var(--muted); }
+.tag-internal { background: rgba(201,160,232,0.14); color: var(--infer); }
+.uplift-wrap {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem; margin: 1rem 0;
+}
+.uplift-wrap .uw-title { font-size: 0.85rem; font-weight: 700; color: var(--muted); margin: 0 0 0.75rem; }
+.uplift-bars { display: flex; flex-direction: column; gap: 0.65rem; }
+.uplift-row { display: grid; grid-template-columns: 7.5rem 1fr auto; gap: 0.5rem; align-items: center; font-size: 0.82rem; }
+.uplift-row .ur-label { color: var(--muted); }
+.uplift-row .ur-val { color: var(--text); font-weight: 600; min-width: 4.5rem; text-align: right; font-size: 0.78rem; }
+.uplift-track {
+  height: 14px; border-radius: 7px; background: var(--bg3); overflow: hidden; position: relative;
+}
+.uplift-track > i {
+  display: block; height: 100%; border-radius: 7px;
+  background: linear-gradient(90deg, #3d5570, var(--muted));
+}
+.uplift-track.alt > i {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.hc-conflict {
+  display: grid; grid-template-columns: 1fr; gap: 0.65rem; margin: 0.75rem 0;
+}
+@media (min-width: 640px) { .hc-conflict { grid-template-columns: 1fr 1fr; } }
+.hc-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.85rem 1rem;
+}
+.hc-box .hc-n { font-size: 1.45rem; font-weight: 700; color: var(--accent); line-height: 1.2; }
+.hc-box .hc-src { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
 @media print {
   .sticky-bar, .progress-bar { display: none; }
   body { background: #fff; color: #111; }
@@ -489,6 +522,7 @@ footer {
       <a href="#s2" data-toc="s2">02 產品</a>
       <a href="#s4" data-toc="s4">04 對手</a>
       <a href="#s6b" data-toc="s6b">06b 交叉</a>
+      <a href="#s1b" data-toc="s1b">104／觀察</a>
       <a href="#s8" data-toc="s8">08 策略</a>
       <a href="#s9" data-toc="s9">09 來源</a>
     </nav>
@@ -527,8 +561,10 @@ footer {
   <div class="legend">
     <span><span class="tag tag-fact">事實</span>登記／政府／可核對原站</span>
     <span><span class="tag tag-self">公司自述</span>官網／展商頁，本次無第三方覆核</span>
+    <span><span class="tag tag-sec">次級／104</span>104 公司頁自述（可能落後登記）</span>
+    <span><span class="tag tag-internal">內部說法</span>非正式｜委託方現場觀察（非公開財報）</span>
     <span><span class="tag tag-infer">推論</span>由產品／產業慣例推出</span>
-    <span><span class="tag tag-conflict">衝突</span>來源互相不一致或地址並存</span>
+    <span><span class="tag tag-conflict">衝突</span>來源互相不一致</span>
     <span><span class="tag tag-rec">建議</span>策略推論，非公司明文</span>
   </div>
 
@@ -549,8 +585,8 @@ footer {
       <li><a href="#s6">上下游</a></li>
       <li><a href="#s6b">第三方交叉（標案、許可、透明足跡）</a></li>
       <li><a href="#s7">對外怎麼講／不該講</a></li>
-      <li><a href="#s8">策略建議（產能有限時如何拉高價值）</a></li>
-      <li><a href="#s8b">與 AMSpec／傑出材料註記</a></li>
+      <li><a href="#s1b">104 公司頁與現場觀察</a></li>
+      <li><a href="#s8">策略：少量設備升級與價值拉升</a></li>
       <li><a href="#s9">資料限制與來源</a></li>
     </ol>
   </nav>
@@ -592,6 +628,78 @@ footer {
       <span class="tag tag-fact">事實＋公司自述</span>
       一句話定位：台灣<strong>活性碳製造與廢碳再生</strong>專業廠（Acro Chemical），以粉狀／粒狀／柱狀等活性碳與更換再生服務為主；近年對半導體廢水 H₂O₂ 分解與資源循環敘事參展 SEMICON。
     </p>
+  </section>
+
+  <section id="s1b">
+    <h2><span class="num">01b</span> 104 公司頁與現場觀察</h2>
+    <p class="muted small">104 內容標「次級／104自述」（可能落後官方登記）；現場／內部說法標「內部說法（非正式｜2026-10）」——非公開財報，不作硬事實。</p>
+
+    <h3>104 公司頁摘要</h3>
+    <p data-kind="self">
+      <span class="tag tag-sec">次級／104自述</span>
+      來源：<a href="https://www.104.com.tw/company/aclj36o">104 公司頁 aclj36o</a>（委託方貼文／人工讀取；104 可能落後商工公示）。
+    </p>
+    <ul>
+      <li data-kind="self"><span class="tag tag-sec">次級／104</span> 產業：化學原料製造業；描述專業<strong>活性碳製造及廢碳再生</strong></li>
+      <li data-kind="self"><span class="tag tag-sec">次級／104</span> 資本額 1 億；電話 07-7116511；地址 高雄苓雅中正一路120號7F之3（與登記一致）</li>
+      <li data-kind="conflict self"><span class="tag tag-conflict">衝突訊號</span><span class="tag tag-sec">104</span> 員工人數寫 <strong>27 人</strong>——與其他估計並存，見下方</li>
+      <li data-kind="self"><span class="tag tag-sec">次級／104</span> ISO 9001／14001／45001 主張（104 年份字串可能凌亂，以官網新聞為輔）</li>
+      <li data-kind="self"><span class="tag tag-sec">次級／104</span> 產品／服務：製造、廢碳再生、到場更換（on-site change-out）、諮詢、濾材貿易、石化添加劑代理——與官網主線相符</li>
+      <li data-kind="self"><span class="tag tag-sec">次級／104</span> 福利：週休二日、年終、三節、國外旅遊、團保、體檢等；相簿可見多屆<strong>日本員工旅遊</strong>（約 2016–2025）——公司自述／104 相簿</li>
+    </ul>
+
+    <h3>員額訊號並存（不選邊當唯一真相）</h3>
+    <div class="hc-conflict">
+      <div class="hc-box" data-kind="self">
+        <div class="hc-n">27 人</div>
+        <div class="hc-src"><span class="tag tag-sec">次級／104</span> 104 公司頁自述</div>
+      </div>
+      <div class="hc-box" data-kind="infer">
+        <div class="hc-n">約 40–50 人</div>
+        <div class="hc-src"><span class="tag tag-internal">內部說法（非正式｜2026-10）</span> 委託方提供之現場估計</div>
+      </div>
+    </div>
+    <p data-kind="conflict" class="small">
+      <span class="tag tag-conflict">衝突</span>
+      Bunnycha 次級曾寫 22；104 寫 27；內部估計約 40–50。本報告<strong>並列呈現</strong>，不挑單一「正確」員額。
+    </p>
+
+    <h3>職缺與薪資帶（104 現役約 15 則）</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>職缺（摘要）</th><th>薪資帶（104）</th><th>備註</th></tr></thead>
+        <tbody>
+          <tr data-kind="self"><td>RD 研發工程師（斗六）</td><td>年薪 500,000～900,000</td><td>職缺長期在招的訊號可寫</td></tr>
+          <tr data-kind="self"><td>機械設備工程師</td><td>月薪 46,000～60,000</td><td>與製程／設備可靠度相關</td></tr>
+          <tr data-kind="self"><td>生產輪班</td><td>月薪 38,000～43,000</td><td>—</td></tr>
+          <tr data-kind="self"><td>操作</td><td>月薪 34,000＋</td><td>—</td></tr>
+          <tr data-kind="self"><td>會計</td><td>月薪 33,000～45,000</td><td>—</td></tr>
+          <tr data-kind="self"><td>業務經理</td><td>年薪 60～100 萬</td><td>—</td></tr>
+          <tr data-kind="self"><td>北區業務</td><td>年薪／月薪帶 56～100 萬級</td><td>104 區間</td></tr>
+          <tr data-kind="self"><td>中南區業務</td><td>56～75 萬級</td><td>—</td></tr>
+          <tr data-kind="self"><td>工安</td><td>面議</td><td>—</td></tr>
+          <tr data-kind="self"><td>廠務／人資</td><td>月薪 34,000～45,000</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-kind="infer" class="small">
+      <span class="tag tag-infer">推論</span>
+      多則職缺顯示應徵 0～5 人——<strong>招募偏軟</strong>的訊號（非因果證明）。
+    </p>
+
+    <h3>現場／內部觀察（非正式）</h3>
+    <div class="callout infer" data-kind="infer">
+      <span class="tag tag-internal">內部說法（非正式｜2026-10）</span>
+      以下為委託方提供之現場觀察與口述，<strong>非</strong>公開財報、非公司官方聲明。
+    </div>
+    <ul>
+      <li data-kind="infer"><span class="tag tag-internal">內部說法</span> 經營風格偏<strong>保守</strong>：資本支出節奏慢；廠房／設備被描述為偏老舊。</li>
+      <li data-kind="infer"><span class="tag tag-internal">內部說法</span> ESG 屋頂太陽能已研究多年仍未裝設——與部分同業／一般民宅較快落地形成對照（僅作節奏觀察）。</li>
+      <li data-kind="infer"><span class="tag tag-internal">內部說法</span> 研發現金薪資經多年緩升後約落在<strong>月薪 ~5 萬</strong>附近；對照 104 刊登 RD 年薪 50～90 萬帶，且該職長期難補——<span class="tag tag-infer">推論</span> 薪資競爭力／招募摩擦力可能偏高。</li>
+      <li data-kind="infer self"><span class="tag tag-internal">內部說法</span><span class="tag tag-sec">104 相簿對齊</span> 年度<strong>日本員工旅遊</strong>持續辦理——在 CAPEX 保守背景下，暗示現金流仍能支撐福利文化優先。</li>
+      <li data-kind="infer"><span class="tag tag-internal">內部說法</span> 管理層近期曾赴<strong>中國考察設備</strong>，另有行程規劃中——可作「選擇性升級」機會框架（非已簽約）。</li>
+      <li data-kind="rec"><span class="tag tag-rec">建議／推論</span> 產業外表或看像營運效率不高，但<strong>利潤可能更靠許可門檻、合法再生路徑，以及關係／標案業務</strong>支撐——非純技術軍備競賽。少量、對準瓶頸的設備升級（尤其對齊中國供應商考察短名單）對吞吐／品質／營收的槓桿，可能大於廣泛 ESG 形象工程。</li>
+    </ul>
   </section>
 
   <section id="viz-chain">
@@ -835,59 +943,123 @@ footer {
           <li data-kind="rec"><span class="tag tag-avoid">避免</span> 「台積電供應商」或具名 fab——無公開標案／新聞證據</li>
           <li data-kind="rec"><span class="tag tag-avoid">避免</span> 發明營收、市佔、新碳年產噸數</li>
           <li data-kind="rec"><span class="tag tag-avoid">避免</span> 「零裁罰／零環境紀錄」——2021 有三筆已改善裁罰</li>
-          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 把斗六同工業帶的 AMSpec 畫成供應鏈關係</li>
         </ul>
       </div>
     </div>
     <div class="pill-row">
       <span class="pill">不是塗裝化學品</span>
       <span class="pill">不是具名 fab 直供證明</span>
-      <span class="pill">不是 AMSpec 烤漆夥伴</span>
+      <span class="pill">不要發明員額唯一真相</span>
       <span class="pill">不要發明營收</span>
     </div>
   </section>
 
   <section id="s8">
-    <h2><span class="num">08</span> 策略建議（產能有限時如何拉高價值）</h2>
+    <h2><span class="num">08</span> 策略：少量設備升級與價值拉升</h2>
     <p data-kind="rec" class="muted">
       <span class="tag tag-rec">建議</span><span class="tag tag-infer">推論</span>
-      以下為策略推論，非公司明文。錨點：再生許可 365 t／月是硬上限之一；新碳噸產未公開。
+      以下為策略推論，非公司明文、非財報。硬錨僅再利用許可 <strong>R-2408 · 365 t／月</strong>；新碳噸產與營收未公開——下方「前後」數字皆標<strong>情境假設</strong>。
     </p>
+
+    <div class="callout rec" data-kind="rec">
+      <span class="tag tag-rec">建議｜主軸</span>
+      優先做<strong>瓶頸型、少量 CAPEX</strong>（機械可靠度、製程控制、再生爐／冷卻線），對齊近期設備考察短名單；保留許可／標案／關係型護城河。不做大型 greenfield、不做廣泛 ESG 形象工程當成長引擎。
+    </div>
+
     <div class="matrix">
       <div class="m-card do" data-kind="rec">
-        <div class="m-label">Do · 拉高單價／黏著度</div>
+        <div class="m-label">Do · 少量升級槓桿</div>
         <ul>
-          <li>再生＋更換／移動碳塔服務（閉環合約，不只賣粉）</li>
-          <li>高值機能碳／催化碳（H₂O₂、超純水相關）——用 SEMICON 敘事換試用與規格鎖入</li>
-          <li>GRP／減碳數據打包進標案與 ESG 採購文件</li>
+          <li>機械可靠度／備品與關鍵轉動件（呼應機械設備工程師職缺訊號）</li>
+          <li>再生爐／活化線與乾式冷卻的瓶頸段：減停機、穩產量、穩品質</li>
+          <li>製程儀控與排放條件穩定（護住許可與標案稽核）</li>
+          <li>把中國設備考察結果收成<strong>短名單＋ROI 假設</strong>，再決定下單</li>
+          <li>再生＋更換／移動碳塔閉環合約（許可量內拉高利用率與黏著）</li>
           <li>石化煉廠、焚化長約延續（已有得標軌跡）</li>
         </ul>
       </div>
       <div class="m-card dont" data-kind="rec">
-        <div class="m-label">Don't · 低價換噸</div>
+        <div class="m-label">Don't · 避開</div>
         <ul>
-          <li>過度依賴低價粉碳公開標案搶量（毛利與運能雙殺）</li>
+          <li>大型 greenfield 新廠或「一次換全新產線」敘事</li>
+          <li>以屋頂太陽能等 ESG 形象工程替代產能瓶頸投資</li>
+          <li>過度依賴低價粉碳公開標案搶噸（毛利與運能雙殺）</li>
           <li>承諾未驗證的半導體效能數字當合約保證</li>
-          <li>用資本擴廠敘事掩蓋許可／環保合規邊界</li>
+          <li>發明營收／市佔；把假設情境寫成財報事實</li>
           <li>跨入鋁表面處理化學——能力與證據都不在那</li>
         </ul>
       </div>
       <div class="m-card mid" data-kind="rec">
         <div class="m-label">中優先 · 條件式</div>
         <ul>
-          <li>食品／發酵脫氯等利基（有菸酒標案軌跡）——量小但可作組合</li>
-          <li>與濾芯／淨水品牌再生合作——賽道在擴大，需評估毛利</li>
-          <li>出口（有進出口資格）——本次缺對美提單交叉，先釐清目標市場再投資源</li>
+          <li>機能／催化碳（H₂O₂）試用鎖入——SEMICON 敘事換規格，證據仍偏自述</li>
+          <li>食品／發酵脫氯等利基（菸酒標案軌跡）——量小可作組合</li>
+          <li>與濾芯／淨水品牌再生合作——需評估毛利</li>
+          <li>出口（有國貿資格）——先釐清目標市場再投資源</li>
         </ul>
       </div>
       <div class="m-card do" data-kind="rec">
-        <div class="m-label">合規護城河</div>
+        <div class="m-label">護城河（先守再攻）</div>
         <ul>
           <li>維持 R-2408／GRP 效期與空污許可條件（2021 裁罰已改善，勿再破）</li>
           <li>戴奧辛／排放申報持續合格作標案與客戶稽核素材</li>
+          <li>關係／標案業務與合法再生路徑——可能比「純技術規格戰」更能撐利潤</li>
         </ul>
       </div>
     </div>
+
+    <h3>情境假設：少量 CAPEX vs 維持現狀（非財報）</h3>
+    <p data-kind="infer" class="small">
+      <span class="tag tag-infer">情境假設</span>
+      錨點：許可再生量 365 t／月（年化名義約 4,380 t／年＝許可量，非實際利用率）。下圖為<strong>質性相對</strong>條，用來討論「小升級可能改善什麼」——<strong>不是</strong>公司營收、毛利或已實現產量。
+    </p>
+    <div class="uplift-wrap" data-kind="infer" aria-label="情境假設條圖">
+      <div class="uw-title">許可量內 · 相對表現（假設｜非財報）</div>
+      <div class="uplift-bars">
+        <div class="uplift-row">
+          <span class="ur-label">稼動／利用率</span>
+          <div class="uplift-track"><i style="width:55%"></i></div>
+          <span class="ur-val">現狀假設</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">稼動／利用率</span>
+          <div class="uplift-track alt"><i style="width:75%"></i></div>
+          <span class="ur-val">小升級後</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">再生收率穩定</span>
+          <div class="uplift-track"><i style="width:60%"></i></div>
+          <span class="ur-val">現狀假設</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">再生收率穩定</span>
+          <div class="uplift-track alt"><i style="width:78%"></i></div>
+          <span class="ur-val">小升級後</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">噸勞動強度↓</span>
+          <div class="uplift-track"><i style="width:70%"></i></div>
+          <span class="ur-val">現狀假設（偏高）</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">噸勞動強度↓</span>
+          <div class="uplift-track alt"><i style="width:50%"></i></div>
+          <span class="ur-val">小升級後（較低）</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">非計畫停機</span>
+          <div class="uplift-track"><i style="width:65%"></i></div>
+          <span class="ur-val">現狀假設（偏高）</span>
+        </div>
+        <div class="uplift-row">
+          <span class="ur-label">非計畫停機</span>
+          <div class="uplift-track alt"><i style="width:35%"></i></div>
+          <span class="ur-val">小升級後（較低）</span>
+        </div>
+      </div>
+      <p class="small muted" style="margin:0.75rem 0 0">灰＝維持現狀假設；綠藍＝瓶頸設備小升級後假設。條長僅示相對方向，無絕對噸數或金額。</p>
+    </div>
+
     <h3>工時／產能優先序（點選看細節）</h3>
     <div class="prio-list" id="prioList"></div>
     <div class="detail-panel" id="prioPanel" aria-live="polite">
@@ -897,33 +1069,9 @@ footer {
       <p style="margin:0 0 0.5rem"><span class="tag tag-infer">推論｜產能錨點（非財務）</span></p>
       <p class="small" style="margin:0">
         若以再利用許可 <strong>365 t／月</strong> 為再生產能上限粗錨，年化名義量級約 <strong>4,380 t／年</strong>（365×12）——僅代表<strong>許可量</strong>，非實際利用率，亦<strong>非</strong>新碳產量，更<strong>非</strong>營收。
-        公開資料不足以建立可信營收／毛利情境，故本報告<strong>不提供財務推估圖表</strong>。後續若取得實際稼動或單價區間，再另開標示清楚的假設檔。
+        公開資料不足以建立可信營收／毛利情境；上圖僅為標示清楚的假設比較。後續若取得實際稼動或單價區間，再另開假設檔。
       </p>
     </div>
-  </section>
-
-  <section id="s8b">
-    <h2><span class="num">08b</span> 與 AMSpec／傑出材料註記</h2>
-    <div class="callout warn" data-kind="fact">
-      <span class="tag tag-fact">事實｜排除</span>
-      巨鑫化學／Acrochem（統編 22529580）為活性碳製造與廢碳再生業者，產品與政府標案均屬吸附／再利用，
-      <strong>不是</strong>鋁合金液體烤漆或陽極處理化學品供應商。因此不得列為 AMSpec 烤漆委外化學夥伴候選。
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>維度</th><th>AMSpec</th><th>Acrochem</th><th>交叉意義</th></tr></thead>
-        <tbody>
-          <tr data-kind="fact"><td>園區</td><td>科工二路 18 號</td><td>斗工五路／十六路</td><td>同縣斗六工業集群，門牌體系不同</td></tr>
-          <tr data-kind="fact"><td>主業</td><td>高強度鋁無縫擠／精抽</td><td>活性碳＋廢碳再生</td><td><strong>無產品重疊</strong></td></tr>
-          <tr data-kind="fact"><td>公共標案</td><td>公司喵查無</td><td>大量中油／環保局標案</td><td>商業模式相反</td></tr>
-          <tr data-kind="infer"><td>供應鏈</td><td>—</td><td>—</td><td>地理鄰近≠供應關係；不可畫實線</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p data-kind="infer" class="small">
-      <span class="tag tag-infer">推論｜地理</span>
-      斗六工業帶除鋁加工外，另有活性碳再生等化學／環保廠——只說明縣內產業混合度，<strong>不構成</strong>上下游關係。詳見同目錄 <code>amspec-crosscheck.md</code>。
-    </p>
   </section>
 
   <section id="s9">
@@ -932,7 +1080,8 @@ footer {
     <ul>
       <li>不發明營收、市佔、新碳噸產能（除政府再利用許可量）。</li>
       <li>標案金額為次級轉載；ISO 證書未下載第三方 PDF。</li>
-      <li>104 公司頁本次遭 Cloudflare 阻擋；員額次級寫 22，勿當硬事實。</li>
+      <li>104 公司頁已由委託方貼文補齊（次級／104自述）；員額 27 vs 內部估計 40–50 vs Bunnycha 22——並列，勿當唯一硬事實。</li>
+      <li>內部說法／現場觀察為非正式口述（2026-10），非公開財報。</li>
       <li>ImportYeti／對美提單無穩定可引用列表；專利 TIPO 正式檢索建議後續人工存檔。</li>
       <li>司法次級摘要（支付命令、採購法訴案）標「未讀裁判原文」。</li>
     </ul>
@@ -943,7 +1092,8 @@ footer {
       <li>工商次級：<a href="https://twincn.com/item.aspx?no=22529580">twincn 22529580</a>；bunnycha；inc.com.tw</li>
       <li>SEMICON 展商：<a href="https://semicon-tw-2026.omnimatcher.com/info/exhibitors/acro-chemical-corporation">omnimatcher 展商頁</a></li>
       <li>競爭：<a href="https://carbon.com.tw/about-us/">中國炭素</a>；<a href="https://www.tac-carbon.com/">台灣炭素</a></li>
-      <li>本目錄：<code>research.md</code>、<code>summary.txt</code>、<code>amspec-crosscheck.md</code></li>
+      <li>104：<a href="https://www.104.com.tw/company/aclj36o">www.104.com.tw/company/aclj36o</a></li>
+      <li>本目錄：<code>research.md</code>、<code>summary.txt</code></li>
     </ul>
   </section>
 
@@ -959,7 +1109,7 @@ footer {
 
   var progressBar = document.getElementById("progressBar");
   var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc-mini a[data-toc]"));
-  var sections = ["s1","viz-chain","viz-eco","s2","s3","s4","s5","s6","s6b","s7","s8","s8b","s9"]
+  var sections = ["s1","s1b","viz-chain","viz-eco","s2","s3","s4","s5","s6","s6b","s7","s8","s9"]
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
 
@@ -1062,7 +1212,7 @@ footer {
     { id: "air", col: 2, row: 4.4, label: "空／氣相淨化", sub: "通用路徑", kind: "infer",
       title: "空氣與氣體淨化", meta: "下游 · 推論",
       self: "公司列空氣與氣體淨化為應用。",
-      infer: "烤漆／表面處理廠 VOC 吸附理論上可能用活性碳——通用耗材路徑，無交易證據，不可寫成供應鏈。" },
+      infer: "一般工業 VOC／廢氣吸附理論上可能用活性碳——通用耗材路徑，無具名交易證據，不可寫成特定供應鏈。" },
     { id: "retail", col: 2, row: 5.4, label: "零售小包裝", sub: "ACROEASE", kind: "self",
       title: "ACROEASE 小包裝", meta: "下游 · 零售敘事",
       self: "1KG 包裝品牌敘事（2019 新聞）。" }
@@ -1373,29 +1523,29 @@ footer {
   }
 
   var prios = [
-    { level: "hi", badge: "高", title: "再生＋更換閉環合約",
-      desc: "許可量硬錨＋服務黏著；不只賣一次粉碳。",
+    { level: "hi", badge: "高", title: "瓶頸設備少量升級",
+      desc: "機械可靠度／再生爐與冷卻線／儀控——對齊設備考察短名單。",
+      infer: "內部說法：設備偏老、CAPEX 保守；近期有中國設備考察。",
+      rec: "先短名單＋ROI 假設，再下單；不做 greenfield。" },
+    { level: "hi", badge: "高", title: "再生＋更換閉環（許可量內拉稼動）",
+      desc: "許可量硬錨＋服務黏著；小升級服務於利用率。",
       fact: "R-2408 365 t／月；更換服務流程見官網。",
       rec: "產能優先給長約再生／更換，而非一次性低價粉碳。" },
     { level: "hi", badge: "高", title: "石化煉廠／焚化長約延續",
       desc: "已有中油、環保局得標軌跡。",
       fact: "次級標案多年度重複。",
       rec: "維持合規與交期口碑，延長約優於新開低價戰場。" },
-    { level: "hi", badge: "高／次高", title: "機能／催化碳（H₂O₂）試用鎖入",
+    { level: "mid", badge: "中", title: "機能／催化碳（H₂O₂）試用鎖入",
       desc: "SEMICON 敘事換規格討論；證據層級仍是自述。",
       self: "催化碳、RO 保護、放流 &lt;20 ppm 為公司展會主張。",
       rec: "用試用與第三方驗證換單價，勿把行銷數字寫進保證條款。" },
-    { level: "mid", badge: "中", title: "食品／發酵脫氯等利基",
-      desc: "菸酒脫氯塔等標案有軌跡；量相對小。",
-      fact: "菸酒竹南等標案紀錄。",
-      rec: "作組合填補，不作主力噸數。" },
-    { level: "lo", badge: "低", title: "低價粉碳公開標案搶量",
-      desc: "可見度高但易殺價；運能與毛利雙壓。",
-      infer: "資本與兩廠規模下，用噸換營收不划算。",
-      rec: "主動篩選，避免成為唯一成長引擎。" },
-    { level: "no", badge: "不排程", title: "鋁烤漆化學 · 具名 fab 保證 · 發明營收故事",
+    { level: "lo", badge: "低", title: "廣泛 ESG 形象工程當成長引擎",
+      desc: "例：研究多年未落地的屋頂太陽能等。",
+      infer: "內部說法：ESG 太陽能久研未裝；福利旅遊與 CAPEX 優先序不同。",
+      rec: "合規與許可必要項照做；成長槓桿放瓶頸 CAPEX，不作形象替代。" },
+    { level: "no", badge: "不排程", title: "Greenfield · 發明營收 · 具名 fab 保證",
       desc: "公開資料對不上或不該承諾。",
-      rec: "業務敘事與投資人簡報都不要被帶偏。" }
+      rec: "業務敘事與簡報都不要被帶偏；假設條圖勿當財報。" }
   ];
 
   function buildPrio() {
