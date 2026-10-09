@@ -1,0 +1,15 @@
+---
+description: Hard invariants for public research briefs in this repo
+globs: "**/index.html,**/research.md"
+alwaysApply: true
+---
+
+# Research briefs
+
+Public GitHub Pages only. Details live in `.cursor/skills/` — do not improvise a new method.
+
+- **Public sources only** on published HTML. No oral/family/internal gossip.
+- **Tag claims:** 事實／公司自述／推論／建議／次級／衝突 (`data-kind` + visible tag).
+- **No CDN.** Each brief is one self-contained `index.html` (inline CSS/JS).
+- **Never invent** revenue, tonnage, named customers, or supplier deals without a URL.
+- Hub cards are **independent companies**. Skills: `/company-research-report`, `/interactive-research-html`, `/public-data-osint`.
