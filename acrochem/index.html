@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>巨鑫化學／Acrochem — 公開資料研究簡報（互動版）</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a2332;
+  --bg3: #243044;
+  --card: #1e2a3a;
+  --border: #2d3f56;
+  --text: #e8eef5;
+  --muted: #9aadc2;
+  --accent: #5eb3f6;
+  --accent2: #7dd3a8;
+  --warn: #f0b060;
+  --fact: #5eb3f6;
+  --infer: #c9a0e8;
+  --danger: #f08080;
+  --self: #f0b060;
+  --rec: #7dd3a8;
+  --radius: 10px;
+  --max: 1080px;
+  --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { border-bottom-color: var(--accent); }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem 4rem; }
+
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 1000; transition: width 0.1s linear;
+}
+
+.sticky-bar {
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(15,20,25,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0;
+  margin: 0 0 1.25rem;
+}
+.sticky-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 1.25rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem;
+}
+.sticky-bar .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip {
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.28rem 0.7rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg2);
+  color: var(--muted); cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+}
+.chip:hover, .chip:focus-visible { border-color: var(--accent); color: var(--text); outline: none; }
+.chip.active { background: rgba(94,179,246,0.18); color: var(--accent); border-color: var(--accent); }
+.chip[data-filter="fact"].active { background: rgba(94,179,246,0.18); color: var(--fact); border-color: var(--fact); }
+.chip[data-filter="infer"].active { background: rgba(201,160,232,0.18); color: var(--infer); border-color: var(--infer); }
+.chip[data-filter="rec"].active { background: rgba(125,211,168,0.18); color: var(--rec); border-color: var(--rec); }
+.chip[data-filter="self"].active { background: rgba(240,176,96,0.18); color: var(--self); border-color: var(--self); }
+.toc-mini { display: none; flex-wrap: wrap; gap: 0.25rem; margin-left: auto; }
+@media (min-width: 900px) { .toc-mini { display: flex; } }
+.toc-mini a {
+  font-size: 0.7rem; color: var(--muted); padding: 0.2rem 0.4rem;
+  border-radius: 4px; border-bottom: none;
+}
+.toc-mini a:hover { color: var(--accent); background: var(--bg3); }
+.toc-mini a.active { color: var(--accent2); background: rgba(125,211,168,0.12); }
+
+.hero {
+  background: linear-gradient(165deg, #152238 0%, #0f1419 55%, #1a2a22 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.75rem 0 2.25rem;
+}
+.hero .eyebrow {
+  display: inline-block; font-size: 0.78rem; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--accent2);
+  background: rgba(125,211,168,0.12); padding: 0.25rem 0.65rem;
+  border-radius: 999px; margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-size: clamp(1.55rem, 4vw, 2.15rem); line-height: 1.25;
+  margin: 0 0 0.5rem; font-weight: 700;
+}
+.hero .en { color: var(--muted); font-size: 1.05rem; margin: 0 0 1rem; }
+.hero .lede { color: var(--muted); max-width: 44rem; margin: 0 0 1.1rem; font-size: 0.98rem; }
+.hero .meta {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.85rem; color: var(--muted);
+}
+.hero .meta strong { color: var(--text); font-weight: 600; }
+
+.kpi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem; margin: 1.25rem 0 1.5rem;
+}
+.kpi .item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.9rem 1rem;
+}
+.kpi .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 0.35rem; }
+.kpi .value { font-size: 0.95rem; font-weight: 600; line-height: 1.35; }
+.kpi .note { font-size: 0.72rem; color: var(--warn); margin-top: 0.35rem; line-height: 1.4; }
+
+.toc {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.15rem 1.35rem; margin-bottom: 2rem;
+}
+.toc h2 {
+  font-size: 0.9rem; margin: 0 0 0.75rem; color: var(--muted);
+  font-weight: 600; letter-spacing: 0.04em;
+}
+.toc ol { margin: 0; padding-left: 1.25rem; }
+@media (min-width: 640px) { .toc ol { columns: 2; column-gap: 2rem; } }
+.toc li { margin-bottom: 0.4rem; break-inside: avoid; }
+.toc a { color: var(--text); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent); }
+
+section { margin-bottom: 2.75rem; scroll-margin-top: 4.5rem; }
+section > h2 {
+  font-size: 1.35rem; margin: 0 0 1rem; padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.6rem;
+}
+section > h2 .num { color: var(--accent); font-weight: 700; font-size: 1rem; }
+h3 { font-size: 1.08rem; margin: 1.6rem 0 0.7rem; color: var(--text); }
+h4 { font-size: 0.98rem; margin: 1.2rem 0 0.5rem; color: var(--accent2); }
+p { margin: 0 0 0.9rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+li { margin-bottom: 0.4rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+
+.tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.04em; padding: 0.12rem 0.45rem; border-radius: 4px;
+  vertical-align: middle; margin-right: 0.35rem;
+}
+.tag-fact { background: rgba(94,179,246,0.18); color: var(--fact); }
+.tag-infer { background: rgba(201,160,232,0.18); color: var(--infer); }
+.tag-self { background: rgba(240,176,96,0.18); color: var(--warn); }
+.tag-conflict { background: rgba(240,128,128,0.18); color: var(--danger); }
+.tag-avoid { background: rgba(240,128,128,0.22); color: var(--danger); }
+.tag-rec { background: rgba(125,211,168,0.18); color: var(--accent2); }
+
+body.filter-fact [data-kind]:not([data-kind~="fact"]):not([data-kind~="conflict"]) { opacity: 0.28; }
+body.filter-infer [data-kind]:not([data-kind~="infer"]) { opacity: 0.28; }
+body.filter-rec [data-kind]:not([data-kind~="rec"]) { opacity: 0.28; }
+body.filter-self [data-kind]:not([data-kind~="self"]) { opacity: 0.28; }
+body.filter-fact .viz-node:not(.kind-fact):not(.kind-conflict),
+body.filter-infer .viz-node:not(.kind-infer),
+body.filter-rec .viz-node:not(.kind-rec),
+body.filter-self .viz-node:not(.kind-self) { opacity: 0.22; }
+
+.callout {
+  background: var(--bg2); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.93rem;
+}
+.callout.warn { border-left-color: var(--warn); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.infer { border-left-color: var(--infer); }
+.callout.rec { border-left-color: var(--rec); }
+
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 0.85rem; margin: 1rem 0; }
+@media (min-width: 700px) {
+  .card-grid.two { grid-template-columns: 1fr 1fr; }
+  .card-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+}
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.1rem;
+}
+.card h4 { margin-top: 0; }
+.card .why { font-size: 0.9rem; color: var(--muted); margin: 0.4rem 0; }
+
+.expand {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); margin: 0.6rem 0; overflow: hidden;
+}
+.expand > summary {
+  list-style: none; cursor: pointer; padding: 0.85rem 1.1rem;
+  font-weight: 600; display: flex; align-items: center; gap: 0.6rem;
+  user-select: none;
+}
+.expand > summary::-webkit-details-marker { display: none; }
+.expand > summary::before {
+  content: "▸"; color: var(--accent); font-size: 0.85rem;
+  transition: transform .15s;
+}
+.expand[open] > summary::before { transform: rotate(90deg); }
+.expand > summary:hover { background: var(--bg3); }
+.expand .expand-body { padding: 0 1.1rem 1rem; font-size: 0.93rem; border-top: 1px solid var(--border); }
+
+.table-wrap { overflow-x: auto; margin: 1rem 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 520px; }
+th, td {
+  border: 1px solid var(--border); padding: 0.55rem 0.7rem;
+  text-align: left; vertical-align: top;
+}
+th {
+  background: var(--bg3); color: var(--muted); font-weight: 600;
+  font-size: 0.78rem; letter-spacing: 0.03em;
+}
+td { background: var(--card); }
+tr:nth-child(even) td { background: #1a2636; }
+
+.viz-shell {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem; margin: 1.2rem 0 1.5rem;
+}
+.viz-shell .viz-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.04em; margin: 0 0 0.75rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem;
+}
+.viz-hint { font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+.viz-canvas { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.viz-canvas svg { display: block; max-width: 100%; height: auto; margin: 0 auto; }
+.viz-node { cursor: pointer; transition: opacity .15s, filter .15s; }
+.viz-node:hover, .viz-node:focus { filter: brightness(1.15); outline: none; }
+.viz-node.selected { filter: brightness(1.25) drop-shadow(0 0 6px rgba(94,179,246,0.55)); }
+.viz-node text { pointer-events: none; font-family: var(--font); }
+.edge { stroke: #3d5570; stroke-width: 1.5; fill: none; opacity: 0.7; }
+.edge.dashed { stroke-dasharray: 5 4; }
+
+.detail-panel {
+  margin-top: 0.85rem; padding: 0.9rem 1.05rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; min-height: 3.2rem; font-size: 0.9rem;
+}
+.detail-panel .dp-empty { color: var(--muted); font-size: 0.85rem; }
+.detail-panel .dp-title { font-weight: 700; margin: 0 0 0.35rem; color: var(--text); }
+.detail-panel .dp-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.45rem; }
+.detail-panel .dp-body { margin: 0; color: var(--text); }
+.detail-panel .dp-fact { border-left: 3px solid var(--fact); padding-left: 0.65rem; margin: 0.4rem 0; }
+.detail-panel .dp-infer { border-left: 3px solid var(--infer); padding-left: 0.65rem; margin: 0.4rem 0; }
+.detail-panel .dp-rec { border-left: 3px solid var(--rec); padding-left: 0.65rem; margin: 0.4rem 0; }
+
+.process-steps {
+  display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: stretch;
+  margin: 0.5rem 0;
+}
+.process-step {
+  flex: 1 1 110px; min-width: 100px; max-width: 160px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.65rem; cursor: pointer;
+  text-align: center; transition: border-color .15s, background .15s;
+}
+.process-step:hover, .process-step:focus-visible {
+  border-color: var(--accent); outline: none;
+}
+.process-step.active {
+  border-color: var(--accent); background: rgba(94,179,246,0.12);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.process-step .ps-num {
+  display: block; font-size: 0.68rem; color: var(--accent);
+  font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.25rem;
+}
+.process-step .ps-label { font-size: 0.82rem; font-weight: 600; line-height: 1.3; }
+.process-step .ps-sub { font-size: 0.68rem; color: var(--muted); margin-top: 0.25rem; }
+.process-arrow {
+  display: none; align-self: center; color: var(--accent); opacity: 0.7; font-size: 1.1rem;
+}
+@media (min-width: 800px) {
+  .process-arrow { display: block; }
+  .process-step { max-width: none; }
+}
+
+.matrix {
+  display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 1rem 0;
+}
+@media (min-width: 700px) { .matrix { grid-template-columns: 1fr 1fr; } }
+.matrix .m-card {
+  border-radius: var(--radius); padding: 1rem 1.1rem;
+  border: 1px solid var(--border); background: var(--card);
+}
+.matrix .m-card.do { border-top: 3px solid var(--accent2); }
+.matrix .m-card.dont { border-top: 3px solid var(--danger); }
+.matrix .m-card.mid { border-top: 3px solid var(--warn); }
+.matrix .m-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; margin-bottom: 0.5rem;
+}
+.matrix .do .m-label { color: var(--accent2); }
+.matrix .dont .m-label { color: var(--danger); }
+.matrix .mid .m-label { color: var(--warn); }
+.matrix ul { margin: 0.4rem 0 0; padding-left: 1.15rem; font-size: 0.9rem; }
+
+.prio-list { display: flex; flex-direction: column; gap: 0.55rem; margin: 1rem 0; }
+.prio-item {
+  display: grid; grid-template-columns: 72px 1fr; gap: 0.75rem;
+  align-items: start; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.9rem; cursor: pointer;
+}
+.prio-item:hover, .prio-item:focus-visible { border-color: var(--accent); outline: none; }
+.prio-item.active { border-color: var(--accent); background: rgba(94,179,246,0.08); }
+.prio-badge {
+  font-size: 0.72rem; font-weight: 700; text-align: center;
+  padding: 0.35rem 0.3rem; border-radius: 6px; line-height: 1.3;
+}
+.prio-badge.hi { background: rgba(125,211,168,0.18); color: var(--accent2); }
+.prio-badge.mid { background: rgba(240,176,96,0.18); color: var(--warn); }
+.prio-badge.lo { background: rgba(154,173,194,0.18); color: var(--muted); }
+.prio-badge.no { background: rgba(240,128,128,0.18); color: var(--danger); }
+.prio-title { font-weight: 600; font-size: 0.92rem; margin: 0 0 0.25rem; }
+.prio-desc { font-size: 0.82rem; color: var(--muted); margin: 0; }
+
+.comp-table td.bar-cell { min-width: 120px; }
+.bar-row { display: flex; align-items: center; gap: 0.35rem; height: 1.4rem; }
+.bar {
+  height: 8px; border-radius: 4px; background: var(--bg3);
+  flex: 1; overflow: hidden; position: relative;
+}
+.bar > i {
+  display: block; height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+.bar.muted > i { background: var(--muted); opacity: 0.5; }
+.bar.warn > i { background: var(--warn); }
+.bar.none { background: repeating-linear-gradient(90deg, var(--bg3), var(--bg3) 4px, transparent 4px, transparent 8px); }
+.bar.none > i { width: 0 !important; }
+.bar-note { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
+.comp-legend {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.78rem; color: var(--muted); margin: 0.5rem 0 1rem;
+}
+.comp-legend span::before {
+  content: ""; display: inline-block; width: 10px; height: 10px;
+  border-radius: 2px; margin-right: 0.35rem; vertical-align: -1px;
+}
+.comp-legend .l-yes::before { background: var(--accent2); }
+.comp-legend .l-partial::before { background: var(--warn); }
+.comp-legend .l-no::before { background: var(--border); }
+.comp-legend .l-na::before {
+  background: repeating-linear-gradient(90deg, var(--muted), var(--muted) 2px, transparent 2px, transparent 4px);
+}
+
+.radar-grid {
+  display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 1rem 0;
+}
+@media (min-width: 720px) { .radar-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .radar-grid { grid-template-columns: repeat(3, 1fr); } }
+.radar-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.9rem 1rem;
+}
+.radar-card h4 { margin: 0 0 0.65rem; font-size: 0.95rem; }
+.radar-dim {
+  display: grid; grid-template-columns: 7.5rem 1fr auto;
+  gap: 0.4rem; align-items: center; margin-bottom: 0.4rem;
+  font-size: 0.78rem;
+}
+.radar-dim .d-name { color: var(--muted); }
+.radar-dim .d-val { color: var(--text); font-weight: 600; min-width: 3.5rem; text-align: right; }
+
+.legend {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.82rem; color: var(--muted); margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem; background: var(--bg2);
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+.sources { font-size: 0.88rem; }
+.sources li { margin-bottom: 0.35rem; word-break: break-all; }
+footer {
+  margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--muted);
+}
+.pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0 1rem; }
+.pill {
+  font-size: 0.78rem; padding: 0.25rem 0.6rem; border-radius: 999px;
+  background: rgba(240,128,128,0.12); color: var(--danger);
+  border: 1px solid rgba(240,128,128,0.3);
+}
+
+.eco-map { display: grid; gap: 0.75rem; grid-template-columns: 1fr; }
+@media (min-width: 800px) {
+  .eco-map {
+    grid-template-columns: 1fr 1.15fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .eco-col-sup { grid-column: 1; grid-row: 1 / span 2; }
+  .eco-col-core { grid-column: 2; grid-row: 1; }
+  .eco-col-comp { grid-column: 3; grid-row: 1 / span 2; }
+  .eco-col-cust { grid-column: 2; grid-row: 2; }
+}
+.eco-col {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.85rem;
+}
+.eco-col h4 {
+  margin: 0 0 0.65rem; font-size: 0.82rem; letter-spacing: 0.04em;
+  color: var(--muted); text-transform: uppercase;
+}
+.eco-node {
+  display: block; width: 100%; text-align: left;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 0.5rem 0.65rem; margin-bottom: 0.4rem;
+  color: var(--text); font-size: 0.82rem; cursor: pointer;
+  font-family: inherit; line-height: 1.35;
+  transition: border-color .15s, background .15s;
+}
+.eco-node:hover, .eco-node:focus-visible { border-color: var(--accent); outline: none; }
+.eco-node.selected { border-color: var(--accent); background: rgba(94,179,246,0.12); }
+.eco-node.kind-fact { border-left: 3px solid var(--fact); }
+.eco-node.kind-infer { border-left: 3px solid var(--infer); }
+.eco-node.kind-self { border-left: 3px solid var(--self); }
+.eco-node .en { display: block; font-size: 0.68rem; color: var(--muted); }
+.eco-core-box {
+  background: linear-gradient(145deg, rgba(94,179,246,0.12), rgba(125,211,168,0.08));
+  border: 1px solid var(--accent); border-radius: 8px; padding: 0.75rem;
+  margin-bottom: 0.5rem; text-align: center;
+}
+.eco-core-box strong { display: block; font-size: 1.05rem; margin-bottom: 0.25rem; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0.5rem;
+  background: var(--accent); color: #0f1419; padding: 0.5rem 1rem;
+  z-index: 2000; border-radius: 4px; font-weight: 700;
+}
+.skip:focus { left: 0.5rem; }
+.cap-anchor {
+  background: rgba(201,160,232,0.08); border: 1px dashed var(--infer);
+  border-radius: 8px; padding: 0.9rem 1.05rem; margin: 1rem 0;
+}
+@media (max-width: 640px) {
+  .kpi { grid-template-columns: 1fr 1fr; }
+  .process-step { flex: 1 1 45%; max-width: none; }
+}
+@media print {
+  .sticky-bar, .progress-bar { display: none; }
+  body { background: #fff; color: #111; }
+  .card, .viz-shell, .callout { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">跳到主要內容</a>
+<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="閱讀進度"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">公開資料研究簡報 · 互動視覺版 · 非銷售文案</div>
+    <h1>巨鑫化學股份有限公司</h1>
+    <p class="en">Acro Chemical Corporation · Acrochem</p>
+    <p class="lede">
+      本簡報受委託整理自公開資料，方便快速掌握這家公司「實際在做什麼」、能幫什麼樣的客戶、以及對外介紹時該怎麼講、不該怎麼講。
+      主業是<strong>活性碳製造與廢碳再生</strong>——不是鋁烤漆／陽極化學品商。凡屬公司自述或推論，都會清楚標示。
+    </p>
+    <div class="meta">
+      <span><strong>調查日期</strong> 2026-10-09（台北時間）</span>
+      <span><strong>統編</strong> 22529580</span>
+      <span><strong>官網</strong> <a href="https://www.acrochem.com/">acrochem.com</a></span>
+      <span><strong>操作</strong> 點節點看事實／推論 · 篩選標籤 · Tab 鍵可操作</span>
+    </div>
+  </div>
+</header>
+
+<div class="sticky-bar" role="region" aria-label="篩選與章節">
+  <div class="sticky-inner">
+    <span class="label">篩選</span>
+    <div class="chips" role="toolbar" aria-label="內容類型篩選">
+      <button type="button" class="chip active" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" class="chip" data-filter="fact" aria-pressed="false">事實</button>
+      <button type="button" class="chip" data-filter="self" aria-pressed="false">公司自述</button>
+      <button type="button" class="chip" data-filter="infer" aria-pressed="false">推論</button>
+      <button type="button" class="chip" data-filter="rec" aria-pressed="false">建議</button>
+    </div>
+    <nav class="toc-mini" aria-label="快速目錄">
+      <a href="#s1" data-toc="s1">01 公司</a>
+      <a href="#viz-chain" data-toc="viz-chain">價值鏈</a>
+      <a href="#viz-eco" data-toc="viz-eco">生態系</a>
+      <a href="#s2" data-toc="s2">02 產品</a>
+      <a href="#s4" data-toc="s4">04 對手</a>
+      <a href="#s6b" data-toc="s6b">06b 交叉</a>
+      <a href="#s8" data-toc="s8">08 策略</a>
+      <a href="#s9" data-toc="s9">09 來源</a>
+    </nav>
+  </div>
+</div>
+
+<main class="wrap" id="main">
+
+  <div class="kpi" aria-label="公司關鍵資料">
+    <div class="item" data-kind="fact">
+      <div class="label">法定名稱</div>
+      <div class="value">巨鑫化學股份有限公司</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">核准設立</div>
+      <div class="value">1987-06-03</div>
+      <div class="note">民國 76 年 6 月 3 日</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">登記地址</div>
+      <div class="value">高雄市苓雅區中正一路120號7樓之3</div>
+      <div class="note">工廠在雲林斗六工業區兩廠</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">實收資本</div>
+      <div class="value">NT$100,000,000</div>
+      <div class="note">2023-11 由 75M→100M；代表人 郭乾利</div>
+    </div>
+    <div class="item" data-kind="fact">
+      <div class="label">再利用許可</div>
+      <div class="value">R-2408 · 365 t／月</div>
+      <div class="note">廢活性碳；效期至 2027-03-22</div>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="tag tag-fact">事實</span>登記／政府／可核對原站</span>
+    <span><span class="tag tag-self">公司自述</span>官網／展商頁，本次無第三方覆核</span>
+    <span><span class="tag tag-infer">推論</span>由產品／產業慣例推出</span>
+    <span><span class="tag tag-conflict">衝突</span>來源互相不一致或地址並存</span>
+    <span><span class="tag tag-rec">建議</span>策略推論，非公司明文</span>
+  </div>
+
+  <div class="callout danger" data-kind="fact">
+    <strong>不是什麼：</strong>公開產品與標案全部落在<strong>活性碳／廢碳再利用</strong>。名稱含「化學」易被誤判為鋁陽極藥劑、烤漆樹脂或金屬表面處理劑——<strong>無此證據</strong>。
+  </div>
+
+  <nav class="toc" aria-label="目錄">
+    <h2>目錄</h2>
+    <ol>
+      <li><a href="#s1">公司是誰</a></li>
+      <li><a href="#viz-chain">互動：上游 → Acrochem → 下游價值鏈</a></li>
+      <li><a href="#viz-eco">互動：生態系地圖</a></li>
+      <li><a href="#s2">產品與服務（含再生許可量）</a></li>
+      <li><a href="#s3">優勢／弱點</a></li>
+      <li><a href="#s4">競爭對手</a></li>
+      <li><a href="#s5">應用與客戶證據</a></li>
+      <li><a href="#s6">上下游</a></li>
+      <li><a href="#s6b">第三方交叉（標案、許可、透明足跡）</a></li>
+      <li><a href="#s7">對外怎麼講／不該講</a></li>
+      <li><a href="#s8">策略建議（產能有限時如何拉高價值）</a></li>
+      <li><a href="#s8b">與 AMSpec／傑出材料註記</a></li>
+      <li><a href="#s9">資料限制與來源</a></li>
+    </ol>
+  </nav>
+  <section id="s1">
+    <h2><span class="num">01</span> 公司是誰</h2>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      巨鑫化學是高雄市政府經濟發展局核准設立的股份有限公司（統編 <strong>22529580</strong>；核准設立 <strong>1987-06-03</strong>；稅籍營業中）。
+      登記地址：高雄市苓雅區中正一路120號7樓之3。電話／傳真：07-7116511／07-7215921。
+      實收資本 <strong>NT$100,000,000</strong>（已發行 1,000 萬股，面額 10）；最後核准變更 2025-01-23。有進口、有出口資格。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      代表人／董事長 <strong>郭乾利</strong>（持股約 44%）；監察人 <strong>徐秀琴</strong>（約 32%）。<strong>未見法人股東席</strong>。
+      同址關聯公司：京群股份有限公司（統編 86462992），業務關聯本次未深挖。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      工廠兩座，皆在雲林縣斗六市榴南里斗六工業區：
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>工廠</th><th>地址</th><th>工廠編號</th><th>狀態</th></tr></thead>
+        <tbody>
+          <tr data-kind="fact"><td>一廠</td><td>斗工五路1號</td><td>99654576</td><td>生產中（約 2004 核准）</td></tr>
+          <tr data-kind="fact"><td>二廠</td><td>斗工十六路45號</td><td>09000840</td><td>生產中（約 2019；官網 2019-09 宣布啟用）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-kind="conflict fact">
+      <span class="tag tag-conflict">注意</span>
+      透明足跡另列斗工<strong>二路</strong>52號「一廠」列管地址（P46B6004），與工廠登記斗工五路並存——報告並列，勿自行合併為同一門牌。
+    </p>
+    <p data-kind="self">
+      <span class="tag tag-self">公司自述</span>
+      早期以貿易為主，後於斗六工業區投資兩廠並自行設計全／半自動再生設備。
+    </p>
+    <p data-kind="fact self">
+      <span class="tag tag-fact">事實＋公司自述</span>
+      一句話定位：台灣<strong>活性碳製造與廢碳再生</strong>專業廠（Acro Chemical），以粉狀／粒狀／柱狀等活性碳與更換再生服務為主；近年對半導體廢水 H₂O₂ 分解與資源循環敘事參展 SEMICON。
+    </p>
+  </section>
+
+  <section id="viz-chain">
+    <h2><span class="num">V1</span> 上游 → Acrochem → 下游價值鏈</h2>
+    <p class="muted small">點選或鍵盤操作節點，下方面板顯示<strong>事實</strong>與<strong>推論</strong>分欄。藍色實線＝事實鏈結較清楚；紫色虛線＝推論／產業通論。</p>
+    <div class="viz-shell">
+      <div class="viz-title">價值鏈互動圖 <span class="viz-hint">點節點看細節</span></div>
+      <div class="viz-canvas" id="chainSvgWrap"></div>
+      <div class="detail-panel" id="chainPanel" tabindex="-1" aria-live="polite">
+        <p class="dp-empty">點上方節點，查看事實／推論細節。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="viz-eco">
+    <h2><span class="num">V2</span> 生態系地圖</h2>
+    <p class="muted small">
+      左框色＝性質：<span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span>
+    </p>
+    <div class="viz-shell">
+      <div class="eco-map" id="ecoMap"></div>
+      <div class="detail-panel" id="ecoPanel" tabindex="-1" aria-live="polite">
+        <p class="dp-empty">點生態系節點，查看事實／推論細節。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <h2><span class="num">02</span> 產品與服務（含再生許可量）</h2>
+    <h3>產品線</h3>
+    <p data-kind="self">
+      <span class="tag tag-self">公司自述</span>
+      六類具名產品（官網＋SEMICON 展商頁）：PAC 粉狀、GAC 粒狀／不規則、EAC 柱狀、BAC 珠狀、CAC 客製、FAC 機能型。另有零售小包裝品牌敘事 ACROEASE（1KG，2019 新聞）。
+    </p>
+    <div class="card-grid three">
+      <div class="card" data-kind="self"><h4>PAC／GAC／EAC</h4><p class="why">粉／粒／柱——公共標案與工業吸附主體</p></div>
+      <div class="card" data-kind="self"><h4>BAC／CAC／FAC</h4><p class="why">珠狀、客製、機能型——高值敘事</p></div>
+      <div class="card" data-kind="self"><h4>H₂O₂ 催化碳</h4><p class="why">半導體廢水雙氧水分解；RO 保護（放流 &lt;20 ppm）——公司展會自述</p></div>
+    </div>
+    <p data-kind="self" class="small">
+      <span class="tag tag-self">公司自述</span>
+      規格量級：粒狀直徑約 1–6 mm；不規則 4–40 mesh；粉末 40–325 mesh。原料敘事：木炭、果殼、煤等碳化後活化。檢測參考 CNS／ASTM／AWWA／JIS／JWWA。
+    </p>
+    <h3>服務與再生流程</h3>
+    <div class="viz-shell" id="viz-process">
+      <div class="viz-title">廢碳再生／更換服務流程 <span class="viz-hint">點步驟看細節</span></div>
+      <div class="process-steps" id="processSteps" role="tablist" aria-label="再生與更換步驟"></div>
+      <div class="detail-panel" id="processPanel" role="tabpanel" aria-live="polite">
+        <p class="dp-empty">點上方步驟查看細節。</p>
+      </div>
+    </div>
+    <h3>政府硬數字：再利用許可</h3>
+    <div class="callout" data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      再利用機構許可 <strong>R-2408</strong>：廢活性碳 <strong>365 公噸／月</strong>；效期 2022-03-22～2027-03-22；用途＝再生活性碳原料。
+      另有資源再生綠色產品 <strong>GRP1120008</strong>（有效至 2026-10-29；再生活性碳柱狀／粒狀）。
+      <strong>新碳年產能噸數未公開</strong>——365 t／月是唯一硬產能量級錨點。
+    </div>
+    <h3>工廠製程特色</h3>
+    <ul>
+      <li data-kind="self"><span class="tag tag-self">公司自述</span> 設備自行研發（全／半自動）；乾式冷卻，「製程零廢水排放」敘事；旋轉爐使用 LPG／液化天然氣。</li>
+      <li data-kind="self"><span class="tag tag-self">公司自述</span> 品管實驗室：液相／氣相動態吸附試驗。</li>
+      <li data-kind="self"><span class="tag tag-self">公司自述</span> ISO 9001:2015、ISO 14001:2015（2022-06）、ISO 45001:2018（2022-08）。</li>
+    </ul>
+  </section>
+  <section id="s3">
+    <h2><span class="num">03</span> 優勢／弱點</h2>
+    <div class="card-grid two">
+      <div class="card" data-kind="fact">
+        <h4>優勢（有證據）</h4>
+        <ul>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 合法廢碳再利用許可＋GRP 綠色產品證</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 公共標案穩定得標：中油煉廠、焚化／污水粉碳</li>
+          <li data-kind="self"><span class="tag tag-self">公司自述</span> 自研再生設備、斗六中部區位（運距）</li>
+          <li data-kind="self"><span class="tag tag-self">公司自述</span> 近年 SEMICON 曝光與 H₂O₂ 催化碳敘事</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 食品業者登錄；商標 ACRO／ACROGreenX</li>
+        </ul>
+      </div>
+      <div class="card" data-kind="infer">
+        <h4>弱點／限制</h4>
+        <ul>
+          <li data-kind="infer"><span class="tag tag-infer">推論</span> 資本 1 億、斗六兩廠——相對中國炭素（觀音多廠）規模較小</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 新碳噸產、營收、市佔：無可靠公開</li>
+          <li data-kind="self"><span class="tag tag-self">公司自述</span> 半導體效能數字仍偏行銷前端；無具名 fab 標案</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 2021 雲林空污裁罰 3 筆共 55.5 萬（已改善繳清）——非「零紀錄」</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 對美公開提單本次未找到可引用列表</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <h2><span class="num">04</span> 競爭對手</h2>
+    <p data-kind="fact" class="muted small">質性比較依公開官網主張；<strong>無比噸產能、無營收</strong>。分數僅反映「公開敘事清晰度」，非市佔。</p>
+    <div class="comp-legend">
+      <span class="l-yes">有清楚公開主張</span>
+      <span class="l-partial">部分／目標／偏薄</span>
+      <span class="l-no">本次未見</span>
+      <span class="l-na">資料過薄不評</span>
+    </div>
+    <div class="table-wrap">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>業者</th>
+            <th>製造＋再生</th>
+            <th>更換服務</th>
+            <th>綠色／再生證</th>
+            <th>半導體敘事</th>
+            <th>公共標案可見度</th>
+            <th>多廠規模敘事</th>
+          </tr>
+        </thead>
+        <tbody id="compTableBody"></tbody>
+      </table>
+    </div>
+    <div class="radar-grid" id="radarGrid"></div>
+    <details class="expand">
+      <summary>對手摘要（可展開）</summary>
+      <div class="expand-body">
+        <ul>
+          <li data-kind="fact"><strong>中國炭素工業</strong>：1964 起；五股＋觀音多廠；製造＋再生＋更換；ISO 三體系；綠色產品。<a href="https://carbon.com.tw/about-us/">carbon.com.tw</a></li>
+          <li data-kind="fact"><strong>台灣炭素工業</strong>：自有活化爐；與電鍍等應用敘事。<a href="https://www.tac-carbon.com/">tac-carbon.com</a></li>
+          <li data-kind="infer"><strong>國際牌</strong>（Calgon／Kuraray 等）：全球 GAC 領導敘事；台灣落地細節本次未深挖。</li>
+          <li data-kind="infer"><strong>溢泰等淨水濾芯鏈再生新進者</strong>：媒體敘事（天下等）；屬再生賽道擴大。</li>
+        </ul>
+      </div>
+    </details>
+  </section>
+
+  <section id="s5">
+    <h2><span class="num">05</span> 應用與客戶證據（標案 vs 自述）</h2>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      證據強度由強到弱：政府標案 → 再利用許可 → 公司產業應用自述 → 具名半導體 fab／鋁鏈（無）。
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>機關／用途（摘要）</th><th>約略決標金額（次級）</th><th>性質</th></tr></thead>
+        <tbody>
+          <tr data-kind="fact"><td>台灣中油桃園煉油廠 — 粉末活性碳長約、廢活性碳再利用長約（多年度）</td><td>例：114-115 再利用約 351 萬；114 粉末約 327 萬</td><td>事實｜次級標案</td></tr>
+          <tr data-kind="fact"><td>高雄市環保局南區／中區資源回收廠 — 粉狀活性碳</td><td>例：114 南區約 766 萬；中區約 519 萬</td><td>同上</td></tr>
+          <tr data-kind="fact"><td>臺北市政府工務局／北投焚化廠等 — 粉狀活性碳</td><td>例：112 工務局約 780 萬</td><td>同上</td></tr>
+          <tr data-kind="fact"><td>台電大林發電廠 — 椰殼活性碳＋廢碳清除</td><td>約 84 萬</td><td>同上</td></tr>
+          <tr data-kind="fact"><td>台糖生技 — 柱狀；菸酒竹南啤酒廠 — 脫氯塔 25 噸</td><td>約 11 萬／265 萬</td><td>同上</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" data-kind="fact">決標金額為次級站轉載，宜對政府電子採購原公告再核。標案加總≠公司總營收。</p>
+    <div class="callout infer" data-kind="infer">
+      <span class="tag tag-infer">推論</span>
+      公共端客戶結構＝<strong>石化煉廠＋焚化／污水／電廠空污防制＋食品發酵製程</strong>。與「半導體 fab 直供」是不同證據層級——半導體客戶名僅公司參展自述，本次<strong>未</strong>在公開標案／新聞具名台積電等。
+    </div>
+    <p data-kind="self">
+      <span class="tag tag-self">公司自述</span>
+      應用產業：半導體、電子、食品飲料、水處理、廢棄物處理、製藥、空氣與氣體淨化、石化；液相（飲用水、超純水／HF 殘留、H₂O₂、污水、脫色、貴金屬回收）；氣相處理。
+    </p>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      公開資料<strong>無</strong>具名連結至鋁擠型廠、烤漆廠、陽極廠、航太 OEM、自行車品牌或汽車 OEM。
+      <span class="tag tag-infer">推論</span>
+      活性碳可被烤漆／表面處理廠用於 VOC／廢氣吸附，屬通用環保耗材路徑，<strong>不能</strong>因此寫成「鋁表面處理化學夥伴」。
+    </p>
+  </section>
+
+  <section id="s6">
+    <h2><span class="num">06</span> 上下游</h2>
+    <div class="card-grid two">
+      <div class="card">
+        <h4>上游</h4>
+        <ul>
+          <li data-kind="self infer"><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span> 椰殼／煤／木質等含碳原料——具名進口商或礦源未公開</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> ImportYeti 本次未取得可引用對美提單列表</li>
+          <li data-kind="self"><span class="tag tag-self">公司自述</span> 早期曾兼化學品貿易</li>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 廢活性碳進料（R-2408 再利用路徑）是再生業務上游</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4>下游</h4>
+        <ul>
+          <li data-kind="fact"><span class="tag tag-fact">事實</span> 具名：中油桃煉、高雄／台北環保焚化與污水、台電、台糖、菸酒、臺鐵等（標案）</li>
+          <li data-kind="self"><span class="tag tag-self">公司自述</span> 半導體／電子廠水處理與廢氣；食品藥品；一般工業</li>
+          <li data-kind="infer"><span class="tag tag-infer">推論</span> 更換＋再生閉環是商業模式核心（耗材＋服務＋合法廢棄物路徑）</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section id="s6b">
+    <h2><span class="num">06b</span> 第三方交叉（標案、許可、透明足跡）</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>主張</th><th>強度</th><th>說明</th></tr></thead>
+        <tbody>
+          <tr data-kind="fact"><td>統編、地址、資本、董監、兩廠登記</td><td>高</td><td>登記次級多源一致</td></tr>
+          <tr data-kind="fact"><td>主業＝活性碳製造＋再生</td><td>高</td><td>官網＋標案＋再利用許可＋透明足跡</td></tr>
+          <tr data-kind="fact"><td>公共客戶（中油、環保焚化等）</td><td>高</td><td>標案次級；建議抽樣對原公告</td></tr>
+          <tr data-kind="fact"><td>GRP＋365 t／月再利用</td><td>高</td><td>政府資料次級轉載</td></tr>
+          <tr data-kind="self"><td>ISO 三體系</td><td>中</td><td>公司自述＋證書圖；未下載第三方 PDF</td></tr>
+          <tr data-kind="self"><td>半導體 H₂O₂ 催化碳效能數字</td><td>低–中</td><td>公司展會自述</td></tr>
+          <tr data-kind="fact"><td>營收／市佔／員工精確數</td><td>無</td><td>Bunnycha 次級寫 22；104 本次被擋</td></tr>
+          <tr data-kind="fact"><td>對美海關出貨</td><td>未找到</td><td>—</td></tr>
+          <tr data-kind="fact"><td>鋁表面處理／烤漆化學供應</td><td>否定／無證據</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>環境裁罰（透明足跡）</h3>
+    <p data-kind="fact">
+      <span class="tag tag-fact">事實</span>
+      2021 年雲林縣固定空污相關 <strong>3 筆</strong>，合計罰鍰 <strong>NT$555,000</strong>，均註「已改善完成／已繳清」：
+    </p>
+    <ul>
+      <li data-kind="fact">2021-12-06：NOx 343 ppm 超標（標準 150）— 150,000</li>
+      <li data-kind="fact">2021-09-29：洗滌器溫度未達許可區間、袋濾洩漏 — 305,000</li>
+      <li data-kind="fact">2021-08-26：袋濾壓降不符許可 — 100,000</li>
+    </ul>
+    <p data-kind="fact" class="small">來源：<a href="https://thaubing.gcaa.org.tw/corp/22529580">透明足跡 22529580</a>。戴奧辛檢測（P4607691）稽查／定檢合格紀錄見次級轉載。</p>
+    <h3>展會與政策</h3>
+    <ul>
+      <li data-kind="self"><span class="tag tag-self">公司自述</span> SEMICON Taiwan 2025 攤位 R8105；2026 攤位 R7721（高效能與循環經濟／H₂O₂）</li>
+      <li data-kind="self"><span class="tag tag-self">公司自述</span> 台灣國際水展多屆（2022–2024）；2025 過濾與分離學會年會／碳捕集工作坊</li>
+      <li data-kind="self fact"><span class="tag tag-self">公司自述</span> 經濟部產發署「廢棄物能資源再利用生命週期減碳效益評估」計畫提供實務數據（2025-12 頒感謝狀）</li>
+    </ul>
+  </section>
+
+  <section id="s7">
+    <h2><span class="num">07</span> 對外怎麼講／不該講</h2>
+    <div class="matrix">
+      <div class="m-card do" data-kind="rec">
+        <div class="m-label">可以這樣講</div>
+        <ul>
+          <li data-kind="rec"><span class="tag tag-rec">建議</span> 「台灣活性碳製造＋合法廢碳再生廠；斗六兩廠；公共端有中油／焚化標案實證」</li>
+          <li data-kind="rec"><span class="tag tag-rec">建議</span> 「再利用許可 365 t／月；GRP 綠色產品有效證」</li>
+          <li data-kind="rec"><span class="tag tag-rec">建議</span> 「更換碳＋再生閉環：耗材＋服務＋合法廢棄物路徑」</li>
+          <li data-kind="rec"><span class="tag tag-rec">建議</span> 半導體敘事標「公司自述／展會產品」：催化碳分解高濃度 H₂O₂、RO 保護</li>
+        </ul>
+      </div>
+      <div class="m-card dont" data-kind="rec">
+        <div class="m-label">不該這樣講</div>
+        <ul>
+          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 「鋁烤漆／陽極／表面處理化學夥伴」——產業錯配</li>
+          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 「台積電供應商」或具名 fab——無公開標案／新聞證據</li>
+          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 發明營收、市佔、新碳年產噸數</li>
+          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 「零裁罰／零環境紀錄」——2021 有三筆已改善裁罰</li>
+          <li data-kind="rec"><span class="tag tag-avoid">避免</span> 把斗六同工業帶的 AMSpec 畫成供應鏈關係</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pill-row">
+      <span class="pill">不是塗裝化學品</span>
+      <span class="pill">不是具名 fab 直供證明</span>
+      <span class="pill">不是 AMSpec 烤漆夥伴</span>
+      <span class="pill">不要發明營收</span>
+    </div>
+  </section>
+
+  <section id="s8">
+    <h2><span class="num">08</span> 策略建議（產能有限時如何拉高價值）</h2>
+    <p data-kind="rec" class="muted">
+      <span class="tag tag-rec">建議</span><span class="tag tag-infer">推論</span>
+      以下為策略推論，非公司明文。錨點：再生許可 365 t／月是硬上限之一；新碳噸產未公開。
+    </p>
+    <div class="matrix">
+      <div class="m-card do" data-kind="rec">
+        <div class="m-label">Do · 拉高單價／黏著度</div>
+        <ul>
+          <li>再生＋更換／移動碳塔服務（閉環合約，不只賣粉）</li>
+          <li>高值機能碳／催化碳（H₂O₂、超純水相關）——用 SEMICON 敘事換試用與規格鎖入</li>
+          <li>GRP／減碳數據打包進標案與 ESG 採購文件</li>
+          <li>石化煉廠、焚化長約延續（已有得標軌跡）</li>
+        </ul>
+      </div>
+      <div class="m-card dont" data-kind="rec">
+        <div class="m-label">Don't · 低價換噸</div>
+        <ul>
+          <li>過度依賴低價粉碳公開標案搶量（毛利與運能雙殺）</li>
+          <li>承諾未驗證的半導體效能數字當合約保證</li>
+          <li>用資本擴廠敘事掩蓋許可／環保合規邊界</li>
+          <li>跨入鋁表面處理化學——能力與證據都不在那</li>
+        </ul>
+      </div>
+      <div class="m-card mid" data-kind="rec">
+        <div class="m-label">中優先 · 條件式</div>
+        <ul>
+          <li>食品／發酵脫氯等利基（有菸酒標案軌跡）——量小但可作組合</li>
+          <li>與濾芯／淨水品牌再生合作——賽道在擴大，需評估毛利</li>
+          <li>出口（有進出口資格）——本次缺對美提單交叉，先釐清目標市場再投資源</li>
+        </ul>
+      </div>
+      <div class="m-card do" data-kind="rec">
+        <div class="m-label">合規護城河</div>
+        <ul>
+          <li>維持 R-2408／GRP 效期與空污許可條件（2021 裁罰已改善，勿再破）</li>
+          <li>戴奧辛／排放申報持續合格作標案與客戶稽核素材</li>
+        </ul>
+      </div>
+    </div>
+    <h3>工時／產能優先序（點選看細節）</h3>
+    <div class="prio-list" id="prioList"></div>
+    <div class="detail-panel" id="prioPanel" aria-live="polite">
+      <p class="dp-empty">點上方優先項查看事實／建議。</p>
+    </div>
+    <div class="cap-anchor" data-kind="infer">
+      <p style="margin:0 0 0.5rem"><span class="tag tag-infer">推論｜產能錨點（非財務）</span></p>
+      <p class="small" style="margin:0">
+        若以再利用許可 <strong>365 t／月</strong> 為再生產能上限粗錨，年化名義量級約 <strong>4,380 t／年</strong>（365×12）——僅代表<strong>許可量</strong>，非實際利用率，亦<strong>非</strong>新碳產量，更<strong>非</strong>營收。
+        公開資料不足以建立可信營收／毛利情境，故本報告<strong>不提供財務推估圖表</strong>。後續若取得實際稼動或單價區間，再另開標示清楚的假設檔。
+      </p>
+    </div>
+  </section>
+
+  <section id="s8b">
+    <h2><span class="num">08b</span> 與 AMSpec／傑出材料註記</h2>
+    <div class="callout warn" data-kind="fact">
+      <span class="tag tag-fact">事實｜排除</span>
+      巨鑫化學／Acrochem（統編 22529580）為活性碳製造與廢碳再生業者，產品與政府標案均屬吸附／再利用，
+      <strong>不是</strong>鋁合金液體烤漆或陽極處理化學品供應商。因此不得列為 AMSpec 烤漆委外化學夥伴候選。
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>維度</th><th>AMSpec</th><th>Acrochem</th><th>交叉意義</th></tr></thead>
+        <tbody>
+          <tr data-kind="fact"><td>園區</td><td>科工二路 18 號</td><td>斗工五路／十六路</td><td>同縣斗六工業集群，門牌體系不同</td></tr>
+          <tr data-kind="fact"><td>主業</td><td>高強度鋁無縫擠／精抽</td><td>活性碳＋廢碳再生</td><td><strong>無產品重疊</strong></td></tr>
+          <tr data-kind="fact"><td>公共標案</td><td>公司喵查無</td><td>大量中油／環保局標案</td><td>商業模式相反</td></tr>
+          <tr data-kind="infer"><td>供應鏈</td><td>—</td><td>—</td><td>地理鄰近≠供應關係；不可畫實線</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p data-kind="infer" class="small">
+      <span class="tag tag-infer">推論｜地理</span>
+      斗六工業帶除鋁加工外，另有活性碳再生等化學／環保廠——只說明縣內產業混合度，<strong>不構成</strong>上下游關係。詳見同目錄 <code>amspec-crosscheck.md</code>。
+    </p>
+  </section>
+
+  <section id="s9">
+    <h2><span class="num">09</span> 資料限制與來源</h2>
+    <h3>限制</h3>
+    <ul>
+      <li>不發明營收、市佔、新碳噸產能（除政府再利用許可量）。</li>
+      <li>標案金額為次級轉載；ISO 證書未下載第三方 PDF。</li>
+      <li>104 公司頁本次遭 Cloudflare 阻擋；員額次級寫 22，勿當硬事實。</li>
+      <li>ImportYeti／對美提單無穩定可引用列表；專利 TIPO 正式檢索建議後續人工存檔。</li>
+      <li>司法次級摘要（支付命令、採購法訴案）標「未讀裁判原文」。</li>
+    </ul>
+    <h3>主要來源</h3>
+    <ul class="sources">
+      <li>官網：<a href="https://www.acrochem.com/">https://www.acrochem.com/</a>（aboutus、factory、productlineup、再生、聯絡、news）</li>
+      <li>透明足跡：<a href="https://thaubing.gcaa.org.tw/corp/22529580">https://thaubing.gcaa.org.tw/corp/22529580</a></li>
+      <li>工商次級：<a href="https://twincn.com/item.aspx?no=22529580">twincn 22529580</a>；bunnycha；inc.com.tw</li>
+      <li>SEMICON 展商：<a href="https://semicon-tw-2026.omnimatcher.com/info/exhibitors/acro-chemical-corporation">omnimatcher 展商頁</a></li>
+      <li>競爭：<a href="https://carbon.com.tw/about-us/">中國炭素</a>；<a href="https://www.tac-carbon.com/">台灣炭素</a></li>
+      <li>本目錄：<code>research.md</code>、<code>summary.txt</code>、<code>amspec-crosscheck.md</code></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>調查日期：2026-10-09（台北時間／Asia/Shanghai）。本頁為靜態單檔（內嵌 CSS／JS，無 CDN），供 GitHub Pages 部署。</p>
+    <p>內容整理自公開來源；公司自述與推論已標籤。非投資建議、非銷售文案。</p>
+  </footer>
+
+</main>
+<script>
+(function () {
+  "use strict";
+
+  var progressBar = document.getElementById("progressBar");
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc-mini a[data-toc]"));
+  var sections = ["s1","viz-chain","viz-eco","s2","s3","s4","s5","s6","s6b","s7","s8","s8b","s9"]
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+
+  function onScroll() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = pct + "%";
+      progressBar.setAttribute("aria-valuenow", Math.round(pct));
+    }
+    var y = window.scrollY + 120;
+    var current = sections[0] && sections[0].id;
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= y) current = sec.id;
+    });
+    tocLinks.forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-toc") === current);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var chips = document.querySelectorAll(".chip[data-filter]");
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var f = chip.getAttribute("data-filter");
+      document.body.classList.remove("filter-fact", "filter-infer", "filter-rec", "filter-self");
+      chips.forEach(function (c) {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+      });
+      chip.classList.add("active");
+      chip.setAttribute("aria-pressed", "true");
+      if (f !== "all") document.body.classList.add("filter-" + f);
+    });
+  });
+
+  function renderPanel(el, data) {
+    if (!el) return;
+    if (!data) {
+      el.innerHTML = '<p class="dp-empty">點節點查看事實／推論細節。</p>';
+      return;
+    }
+    var html = '<div class="dp-title">' + data.title + "</div>";
+    if (data.meta) html += '<div class="dp-meta">' + data.meta + "</div>";
+    if (data.fact) html += '<div class="dp-fact"><span class="tag tag-fact">事實</span> ' + data.fact + "</div>";
+    if (data.self) html += '<div class="dp-fact"><span class="tag tag-self">公司自述</span> ' + data.self + "</div>";
+    if (data.infer) html += '<div class="dp-infer"><span class="tag tag-infer">推論</span> ' + data.infer + "</div>";
+    if (data.rec) html += '<div class="dp-rec"><span class="tag tag-rec">建議</span> ' + data.rec + "</div>";
+    if (data.conflict) html += '<div class="dp-fact"><span class="tag tag-conflict">衝突</span> ' + data.conflict + "</div>";
+    if (data.note) html += '<p class="dp-body muted small" style="margin-top:0.5rem">' + data.note + "</p>";
+    el.innerHTML = html;
+  }
+
+  var chainNodes = [
+    { id: "feed", col: 0, row: 0, label: "椰殼／煤／木質", sub: "原料", kind: "infer",
+      title: "含碳原料", meta: "上游 · 原料",
+      self: "公司敘事：木炭、果殼、煤等碳化後活化。",
+      infer: "具名進口商或礦源未公開；不可寫成特定礦源供應。" },
+    { id: "waste", col: 0, row: 1.2, label: "廢活性碳", sub: "再利用進料", kind: "fact",
+      title: "廢活性碳進料", meta: "上游 · 再生路徑",
+      fact: "再利用許可 R-2408：廢活性碳 365 t／月，用途＝再生活性碳原料。",
+      infer: "更換服務把客戶廢碳拉回廠區，形成閉環進料。" },
+    { id: "equip", col: 0, row: 2.4, label: "自研旋轉爐", sub: "LPG／設備", kind: "self",
+      title: "再生／活化設備", meta: "上游 · 資本設備",
+      self: "設備自行研發（全／半自動）；旋轉爐用 LPG／液化天然氣；乾式冷卻零廢水敘事。" },
+    { id: "lab", col: 0, row: 3.6, label: "檢測規範", sub: "CNS／ASTM…", kind: "self",
+      title: "檢測與品管", meta: "上游／能力",
+      self: "檢測參考 CNS／ASTM／AWWA／JIS／JWWA；例行分析含碘值、亞甲藍、硬度等；液相／氣相動態吸附試驗。" },
+    { id: "acro", col: 1, row: 1.2, label: "Acrochem", sub: "製造·再生·更換", kind: "fact", w: 150, h: 56,
+      title: "巨鑫化學（Acrochem）", meta: "核心 · 高雄登記／斗六兩廠",
+      fact: "統編 22529580；資本 1 億；代表人郭乾利。一廠斗工五路1號、二廠斗工十六路45號。主業活性碳製造與廢碳再生。",
+      self: "PAC／GAC／EAC／BAC／客製／機能碳；更換與移動碳塔服務。" },
+    { id: "pac", col: 1, row: 2.8, label: "粉／粒／柱碳", sub: "PAC·GAC·EAC", kind: "self",
+      title: "主力產品形態", meta: "Acrochem 產品",
+      self: "粉狀、粒狀／不規則、柱狀為公開產品線主體；公共標案多見粉末活性碳。",
+      fact: "中油、高雄／台北環保局等標案品項以粉碳與廢碳再利用為主（次級）。" },
+    { id: "regen", col: 1, row: 3.9, label: "再生服務", sub: "365 t／月", kind: "fact",
+      title: "廢碳再生", meta: "Acrochem 核心服務",
+      fact: "R-2408 許可量 365 t／月；GRP1120008 綠色產品（再生活性碳）。",
+      self: "流程：乾燥 100–150°C → 焙燒 400–600°C → 活化 850–1200°C → 冷卻。" },
+    { id: "cat", col: 1, row: 5.0, label: "催化／機能碳", sub: "H₂O₂", kind: "self",
+      title: "機能／催化活性碳", meta: "高值敘事",
+      self: "「15 倍超長壽命催化活性碳」分解半導體廢水高濃度 H₂O₂；RO 膜守護、放流 &lt;20 ppm——公司展會自述。",
+      infer: "效能數字屬行銷前端；無具名 fab 標案交叉。" },
+    { id: "cpc", col: 2, row: 0, label: "中油煉廠", sub: "標案·粉碳／再生", kind: "fact",
+      title: "台灣中油桃園煉油廠", meta: "下游 · 標案事實",
+      fact: "粉末活性碳長約、廢活性碳混合物再利用長約（多年度重複得標，次級彙整）。" },
+    { id: "incin", col: 2, row: 1.1, label: "焚化／污水", sub: "環保局標案", kind: "fact",
+      title: "焚化與污水廠", meta: "下游 · 標案事實",
+      fact: "高雄市環保局南區／中區資源回收廠粉狀活性碳；北市府／北投焚化等（次級）。" },
+    { id: "power", col: 2, row: 2.2, label: "電廠／食品", sub: "台電·菸酒·台糖", kind: "fact",
+      title: "電廠與食品發酵", meta: "下游 · 標案事實",
+      fact: "台電大林椰殼活性碳＋廢碳清除；菸酒竹南脫氯塔；台糖柱狀等。" },
+    { id: "semi", col: 2, row: 3.3, label: "半導體廠務", sub: "展會自述", kind: "self",
+      title: "半導體／電子廢水", meta: "下游 · 公司自述",
+      self: "SEMICON 參展主打 H₂O₂／循環經濟；無具名 fab 公開標案。",
+      infer: "比「鋁鏈客戶」更接近廠務／廢水供應鏈行銷，但仍缺第三方具名。" },
+    { id: "air", col: 2, row: 4.4, label: "空／氣相淨化", sub: "通用路徑", kind: "infer",
+      title: "空氣與氣體淨化", meta: "下游 · 推論",
+      self: "公司列空氣與氣體淨化為應用。",
+      infer: "烤漆／表面處理廠 VOC 吸附理論上可能用活性碳——通用耗材路徑，無交易證據，不可寫成供應鏈。" },
+    { id: "retail", col: 2, row: 5.4, label: "零售小包裝", sub: "ACROEASE", kind: "self",
+      title: "ACROEASE 小包裝", meta: "下游 · 零售敘事",
+      self: "1KG 包裝品牌敘事（2019 新聞）。" }
+  ];
+
+  var chainEdges = [
+    ["feed", "acro", true], ["waste", "acro", false], ["equip", "acro", false], ["lab", "acro", true],
+    ["acro", "pac", false], ["acro", "regen", false], ["acro", "cat", false],
+    ["acro", "cpc", false], ["acro", "incin", false], ["acro", "power", false],
+    ["acro", "semi", true], ["acro", "air", true], ["acro", "retail", true]
+  ];
+
+  function kindColor(kind) {
+    if (kind === "infer") return { fill: "#2a2340", stroke: "#c9a0e8", text: "#e8eef5" };
+    if (kind === "self") return { fill: "#3a2e1a", stroke: "#f0b060", text: "#e8eef5" };
+    if (kind === "rec") return { fill: "#1a3328", stroke: "#7dd3a8", text: "#e8eef5" };
+    return { fill: "#1a2a3a", stroke: "#5eb3f6", text: "#e8eef5" };
+  }
+
+  function buildChainSvg() {
+    var wrap = document.getElementById("chainSvgWrap");
+    if (!wrap) return;
+    var W = 920, H = 480;
+    var colX = [90, 460, 780];
+    var rowH = 68;
+    var top = 48;
+    function pos(n) {
+      var w = n.w || 118, h = n.h || 44;
+      var x = colX[n.col] - w / 2;
+      var y = top + n.row * rowH;
+      return { x: x, y: y, w: w, h: h, cx: x + w / 2, cy: y + h / 2 };
+    }
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "上游到下游價值鏈圖");
+    svg.style.minWidth = "640px";
+    [{ x: colX[0], t: "上游" }, { x: colX[1], t: "Acrochem" }, { x: colX[2], t: "下游" }].forEach(function (h) {
+      var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t.setAttribute("x", h.x); t.setAttribute("y", 22);
+      t.setAttribute("text-anchor", "middle"); t.setAttribute("fill", "#9aadc2");
+      t.setAttribute("font-size", "12"); t.setAttribute("font-weight", "700");
+      t.textContent = h.t; svg.appendChild(t);
+    });
+    var positions = {};
+    chainNodes.forEach(function (n) { positions[n.id] = pos(n); });
+    chainEdges.forEach(function (e) {
+      var a = positions[e[0]], b = positions[e[1]];
+      if (!a || !b) return;
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      var d = "M " + a.cx + " " + a.cy + " C " + ((a.cx + b.cx) / 2) + " " + a.cy + ", " +
+        ((a.cx + b.cx) / 2) + " " + b.cy + ", " + b.cx + " " + b.cy;
+      path.setAttribute("d", d);
+      path.setAttribute("class", "edge" + (e[2] ? " dashed" : ""));
+      if (e[2]) path.setAttribute("stroke", "#c9a0e8");
+      svg.appendChild(path);
+    });
+    var panel = document.getElementById("chainPanel");
+    var nodeEls = [];
+    chainNodes.forEach(function (n) {
+      var p = positions[n.id];
+      var c = kindColor(n.kind);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "viz-node kind-" + n.kind);
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", n.label);
+      var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", p.x); rect.setAttribute("y", p.y);
+      rect.setAttribute("width", p.w); rect.setAttribute("height", p.h);
+      rect.setAttribute("rx", "8");
+      rect.setAttribute("fill", c.fill);
+      rect.setAttribute("stroke", c.stroke);
+      rect.setAttribute("stroke-width", "1.5");
+      g.appendChild(rect);
+      var t1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t1.setAttribute("x", p.cx); t1.setAttribute("y", p.y + 18);
+      t1.setAttribute("text-anchor", "middle"); t1.setAttribute("fill", c.text);
+      t1.setAttribute("font-size", "12"); t1.setAttribute("font-weight", "700");
+      t1.textContent = n.label; g.appendChild(t1);
+      var t2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t2.setAttribute("x", p.cx); t2.setAttribute("y", p.y + 34);
+      t2.setAttribute("text-anchor", "middle"); t2.setAttribute("fill", "#9aadc2");
+      t2.setAttribute("font-size", "10");
+      t2.textContent = n.sub || ""; g.appendChild(t2);
+      function select() {
+        nodeEls.forEach(function (el) { el.classList.remove("selected"); });
+        g.classList.add("selected");
+        renderPanel(panel, n);
+      }
+      g.addEventListener("click", select);
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(); }
+      });
+      nodeEls.push(g);
+      svg.appendChild(g);
+    });
+    wrap.innerHTML = "";
+    wrap.appendChild(svg);
+  }
+
+  var ecoData = {
+    suppliers: [
+      { title: "椰殼／煤／木質原料", en: "Feedstock（具名未公開）", kind: "infer",
+        self: "公司與產業通論：果殼、煤、木質原料。", infer: "具名進口商／礦源未公開。" },
+      { title: "廢活性碳進料", en: "R-2408 再利用", kind: "fact",
+        fact: "許可 365 t／月；更換服務回收廢碳。", infer: "客戶端廢碳是再生上游。" },
+      { title: "自研旋轉爐／LPG", en: "設備與能源", kind: "self",
+        self: "全／半自動自研；乾式冷卻；LPG／LNG。" }
+    ],
+    core: [
+      { title: "巨鑫化學 Acrochem", en: "製造 · 再生 · 更換", kind: "fact",
+        fact: "統編 22529580；斗六兩廠；資本 1 億；代表人郭乾利。",
+        self: "PAC/GAC/EAC/BAC/CAC/FAC；H₂O₂ 催化碳敘事。" }
+    ],
+    competitors: [
+      { title: "中國炭素", en: "五股／觀音 · 規模更大", kind: "fact",
+        fact: "1964 起；製造＋再生＋更換；ISO 三體系；綠色產品。",
+        infer: "相對巨鑫資本與廠區規模較大。" },
+      { title: "台灣炭素", en: "自有活化爐", kind: "fact",
+        fact: "公開官網強調自有活化爐與電鍍等應用。" },
+      { title: "國際牌／再生新進", en: "Calgon 等 · 溢泰等", kind: "infer",
+        infer: "全球品牌與濾芯鏈再生新進者擴大賽道；細部未深挖。" }
+    ],
+    customers: [
+      { title: "中油桃煉", en: "粉碳＋廢碳再利用長約", kind: "fact",
+        fact: "多年度政府標案得標（次級）。" },
+      { title: "高雄／台北環保焚化", en: "粉狀活性碳標案", kind: "fact",
+        fact: "南區／中區資源回收廠、北投焚化等（次級）。" },
+      { title: "台電／菸酒／台糖／臺鐵", en: "電廠·脫氯·柱狀", kind: "fact",
+        fact: "公開標案紀錄（次級）。" },
+      { title: "半導體廠務（自述）", en: "H₂O₂／SEMICON", kind: "self",
+        self: "展會產品敘事；無具名 fab 標案。" }
+    ]
+  };
+
+  function buildEco() {
+    var map = document.getElementById("ecoMap");
+    var panel = document.getElementById("ecoPanel");
+    if (!map) return;
+    map.innerHTML = "";
+    function bind(btn, item) {
+      btn.addEventListener("click", function () {
+        map.querySelectorAll(".eco-node").forEach(function (b) { b.classList.remove("selected"); });
+        btn.classList.add("selected");
+        renderPanel(panel, {
+          title: item.title, meta: item.en,
+          fact: item.fact, self: item.self, infer: item.infer, rec: item.rec
+        });
+      });
+    }
+    function col(title, items, extraClass) {
+      var div = document.createElement("div");
+      div.className = "eco-col " + (extraClass || "");
+      div.innerHTML = "<h4>" + title + "</h4>";
+      items.forEach(function (item) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "eco-node kind-" + item.kind;
+        btn.innerHTML = item.title + '<span class="en">' + (item.en || "") + "</span>";
+        bind(btn, item);
+        div.appendChild(btn);
+      });
+      return div;
+    }
+    map.appendChild(col("上游／供應", ecoData.suppliers, "eco-col-sup"));
+    var coreCol = document.createElement("div");
+    coreCol.className = "eco-col eco-col-core";
+    coreCol.innerHTML = "<h4>核心</h4>";
+    var box = document.createElement("div");
+    box.className = "eco-core-box";
+    box.innerHTML = "<strong>Acrochem</strong><span class=\"muted small\">活性碳製造 · 廢碳再生</span>";
+    coreCol.appendChild(box);
+    ecoData.core.forEach(function (item) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "eco-node kind-" + item.kind;
+      btn.innerHTML = item.title + '<span class="en">' + (item.en || "") + "</span>";
+      bind(btn, item);
+      coreCol.appendChild(btn);
+    });
+    map.appendChild(coreCol);
+    map.appendChild(col("對手", ecoData.competitors, "eco-col-comp"));
+    var custCol = document.createElement("div");
+    custCol.className = "eco-col eco-col-cust";
+    custCol.innerHTML = "<h4>客戶／應用</h4>";
+    ecoData.customers.forEach(function (item) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "eco-node kind-" + item.kind;
+      btn.innerHTML = item.title + '<span class="en">' + (item.en || "") + "</span>";
+      bind(btn, item);
+      custCol.appendChild(btn);
+    });
+    map.appendChild(custCol);
+  }
+
+  var processSteps = [
+    { id: "ps1", num: "01", label: "回收申請", sub: "更換服務",
+      title: "回收申請", meta: "更換碳服務",
+      self: "回收申請 → 送新碳 → 換碳 → 場區清潔 → 線上申報 → 運回再生（公司服務頁）。" },
+    { id: "ps2", num: "02", label: "乾燥", sub: "100–150°C",
+      title: "乾燥", meta: "再生製程", self: "乾燥 100–150°C（公司再生頁）。" },
+    { id: "ps3", num: "03", label: "焙燒", sub: "400–600°C",
+      title: "焙燒", meta: "再生製程", self: "焙燒 400–600°C。" },
+    { id: "ps4", num: "04", label: "活化", sub: "850–1200°C",
+      title: "活化", meta: "再生製程", self: "活化 850–1200°C；自研旋轉爐（LPG）。" },
+    { id: "ps5", num: "05", label: "冷卻", sub: "乾式",
+      title: "冷卻", meta: "再生製程", self: "乾式冷卻；公司敘事「製程零廢水排放」。" },
+    { id: "ps6", num: "06", label: "品管／出貨", sub: "吸附試驗",
+      title: "品管與出貨", meta: "再生後",
+      self: "液相／氣相動態吸附試驗；再生活性碳可搭配 GRP1120008 綠色產品敘事。",
+      fact: "再利用許可 R-2408 用途＝再生活性碳原料；許可量 365 t／月。" }
+  ];
+
+  function buildProcess() {
+    var host = document.getElementById("processSteps");
+    var panel = document.getElementById("processPanel");
+    if (!host) return;
+    host.innerHTML = "";
+    processSteps.forEach(function (step, i) {
+      if (i > 0) {
+        var arrow = document.createElement("span");
+        arrow.className = "process-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "→";
+        host.appendChild(arrow);
+      }
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "process-step";
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-selected", "false");
+      btn.id = step.id;
+      btn.innerHTML = '<span class="ps-num">' + step.num + '</span><span class="ps-label">' + step.label + '</span><span class="ps-sub">' + step.sub + "</span>";
+      btn.addEventListener("click", function () {
+        host.querySelectorAll(".process-step").forEach(function (b) {
+          b.classList.remove("active");
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-selected", "true");
+        renderPanel(panel, step);
+      });
+      host.appendChild(btn);
+    });
+  }
+
+  var comps = [
+    { name: "巨鑫／Acrochem", scores: [2, 2, 2, 2, 2, 1],
+      note: "合法再生＋公共標案強；半導體敘事偏自述；規模相對小",
+      dims: [
+        ["製造＋再生", 2, "有"], ["更換服務", 2, "有"], ["綠色／再生證", 2, "GRP+R-2408"],
+        ["半導體敘事", 2, "SEMICON自述"], ["公共標案", 2, "中油／焚化"], ["多廠規模", 1, "斗六兩廠"]
+      ]},
+    { name: "中國炭素", scores: [2, 2, 2, 1, 1, 2],
+      note: "業界老字號；五股＋觀音；規模敘事更強",
+      dims: [
+        ["製造＋再生", 2, "有"], ["更換服務", 2, "有"], ["綠色／再生證", 2, "有敘事"],
+        ["半導體敘事", 1, "未強調同強度"], ["公共標案", 1, "本次未對照"], ["多廠規模", 2, "多廠區"]
+      ]},
+    { name: "台灣炭素", scores: [2, 1, 1, 0, -1, 1],
+      note: "自有活化爐；電鍍等應用敘事",
+      dims: [
+        ["製造＋再生", 2, "活化爐"], ["更換服務", 1, "有敘事"], ["綠色／再生證", 1, "部分"],
+        ["半導體敘事", 0, "本次未見"], ["公共標案", -1, "未對照"], ["多廠規模", 1, "未深挖"]
+      ]},
+    { name: "國際牌（參考）", scores: [2, 1, 1, 1, -1, 2],
+      note: "Calgon／Kuraray 等全球層級；非同規模對手",
+      dims: [
+        ["製造＋再生", 2, "全球"], ["更換服務", 1, "各地不一"], ["綠色／再生證", 1, "品牌不一"],
+        ["半導體敘事", 1, "可能有"], ["公共標案", -1, "非本報告"], ["多廠規模", 2, "全球"]
+      ]}
+  ];
+
+  function barHtml(score) {
+    if (score < 0) return '<div class="bar-row"><div class="bar none" title="不評"><i style="width:0"></i></div><span class="bar-note">不評</span></div>';
+    if (score === 0) return '<div class="bar-row"><div class="bar muted"><i style="width:8%"></i></div><span class="bar-note">未見</span></div>';
+    if (score === 1) return '<div class="bar-row"><div class="bar warn"><i style="width:50%"></i></div><span class="bar-note">部分</span></div>';
+    return '<div class="bar-row"><div class="bar"><i style="width:100%"></i></div><span class="bar-note">有</span></div>';
+  }
+
+  function buildComp() {
+    var tbody = document.getElementById("compTableBody");
+    var radar = document.getElementById("radarGrid");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    comps.forEach(function (c) {
+      var tr = document.createElement("tr");
+      var cells = c.scores.map(function (s) { return '<td class="bar-cell">' + barHtml(s) + "</td>"; }).join("");
+      tr.innerHTML = "<th scope=\"row\">" + c.name + "</th>" + cells;
+      tbody.appendChild(tr);
+    });
+    if (radar) {
+      radar.innerHTML = "";
+      comps.forEach(function (c) {
+        var card = document.createElement("div");
+        card.className = "radar-card";
+        var rows = c.dims.map(function (d) {
+          var pct = d[1] < 0 ? 0 : d[1] === 0 ? 8 : d[1] === 1 ? 50 : 100;
+          var cls = d[1] < 0 ? "none" : d[1] === 0 ? "muted" : d[1] === 1 ? "warn" : "";
+          return '<div class="radar-dim"><span class="d-name">' + d[0] + '</span><div class="bar ' + cls + '"><i style="width:' + pct + '%"></i></div><span class="d-val">' + d[2] + "</span></div>";
+        }).join("");
+        card.innerHTML = "<h4>" + c.name + "</h4>" + rows + '<p class="small muted" style="margin:0.5rem 0 0">' + c.note + "</p>";
+        radar.appendChild(card);
+      });
+    }
+  }
+
+  var prios = [
+    { level: "hi", badge: "高", title: "再生＋更換閉環合約",
+      desc: "許可量硬錨＋服務黏著；不只賣一次粉碳。",
+      fact: "R-2408 365 t／月；更換服務流程見官網。",
+      rec: "產能優先給長約再生／更換，而非一次性低價粉碳。" },
+    { level: "hi", badge: "高", title: "石化煉廠／焚化長約延續",
+      desc: "已有中油、環保局得標軌跡。",
+      fact: "次級標案多年度重複。",
+      rec: "維持合規與交期口碑，延長約優於新開低價戰場。" },
+    { level: "hi", badge: "高／次高", title: "機能／催化碳（H₂O₂）試用鎖入",
+      desc: "SEMICON 敘事換規格討論；證據層級仍是自述。",
+      self: "催化碳、RO 保護、放流 &lt;20 ppm 為公司展會主張。",
+      rec: "用試用與第三方驗證換單價，勿把行銷數字寫進保證條款。" },
+    { level: "mid", badge: "中", title: "食品／發酵脫氯等利基",
+      desc: "菸酒脫氯塔等標案有軌跡；量相對小。",
+      fact: "菸酒竹南等標案紀錄。",
+      rec: "作組合填補，不作主力噸數。" },
+    { level: "lo", badge: "低", title: "低價粉碳公開標案搶量",
+      desc: "可見度高但易殺價；運能與毛利雙壓。",
+      infer: "資本與兩廠規模下，用噸換營收不划算。",
+      rec: "主動篩選，避免成為唯一成長引擎。" },
+    { level: "no", badge: "不排程", title: "鋁烤漆化學 · 具名 fab 保證 · 發明營收故事",
+      desc: "公開資料對不上或不該承諾。",
+      rec: "業務敘事與投資人簡報都不要被帶偏。" }
+  ];
+
+  function buildPrio() {
+    var list = document.getElementById("prioList");
+    var panel = document.getElementById("prioPanel");
+    if (!list) return;
+    list.innerHTML = "";
+    prios.forEach(function (p) {
+      var div = document.createElement("div");
+      div.className = "prio-item";
+      div.tabIndex = 0;
+      div.innerHTML = '<div class="prio-badge ' + p.level + '">' + p.badge + '</div><div><p class="prio-title">' + p.title + '</p><p class="prio-desc">' + p.desc + "</p></div>";
+      function sel() {
+        list.querySelectorAll(".prio-item").forEach(function (x) { x.classList.remove("active"); });
+        div.classList.add("active");
+        renderPanel(panel, p);
+      }
+      div.addEventListener("click", sel);
+      div.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); sel(); }
+      });
+      list.appendChild(div);
+    });
+  }
+
+  buildChainSvg();
+  buildEco();
+  buildProcess();
+  buildComp();
+  buildPrio();
+})();
+</script>
+</body>
+</html>

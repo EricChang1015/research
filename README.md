@@ -7,6 +7,9 @@
 | 報告 | 路徑 | 說明 |
 | --- | --- | --- |
 | [AMSpec／傑出材料科技](./amspec/) | `amspec/` | 高強度鋁無縫管／精抽；上下游與生態系互動簡報 |
+| [巨鑫化學／Acrochem](./acrochem/) | `acrochem/` | 活性碳製造與廢碳再生；標案／許可／策略互動簡報 |
+
+Pages 路徑示例：`…/research/amspec/`、`…/research/acrochem/`。
 
 ## 本機
 
