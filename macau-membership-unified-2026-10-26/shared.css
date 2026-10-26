@@ -540,11 +540,27 @@ h1, h2, h3, h4, p { margin: 0; }
   margin: 12px 12px 0; padding: 12px;
   background: var(--accent-soft); border-radius: 14px; color: var(--accent-ink);
 }
-.promo-banner .k { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 4px; }
-.promo-banner .rules { font-size: 13px; font-weight: 700; }
-.promo-banner .prog { margin-top: 8px; height: 6px; background: #fff; border-radius: 999px; overflow: hidden; }
-.promo-banner .prog > i { display: block; height: 100%; background: var(--accent); width: 0; }
-.promo-banner .hint { font-size: 12px; margin-top: 6px; }
+.promo-banner .k { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+.promo-banner .hint { font-size: 12px; margin-top: 8px; line-height: 16px; }
+.ful-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.ful-chip {
+  padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;
+  background: #fff; color: var(--accent-ink); border: 1px solid transparent;
+}
+.ful-chip.is-on { background: var(--accent); color: #fff; }
+.badge-sale { background: #DC2626; }
+.price-block .was, .cart-item .was {
+  font-size: 12px; font-weight: 500; color: var(--ink-4);
+  text-decoration: line-through; margin-left: 4px;
+}
+.limit-note { display: block; font-size: 11px; font-weight: 600; color: #B91C1C; margin-top: 2px; }
+.cat-rail a.is-sale { color: #B91C1C; }
+.pay-opt {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin-top: 8px; padding: 10px; border-radius: 12px; background: #fff; color: var(--ink);
+}
+.pay-opt.is-on { outline: 2px solid var(--accent); }
+.pay-opt input { accent-color: var(--accent); margin-top: 3px; }
 
 .menu-dual { display: flex; min-height: 420px; }
 .cat-rail {
