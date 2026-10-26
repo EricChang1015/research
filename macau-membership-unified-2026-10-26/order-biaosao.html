@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>點餐 · 表嫂美食</title>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body data-store="biaosao" data-view="menu">
+<div class="page-shell">
+  <header class="page-header">
+    <a class="brand" href="index.html"><span class="dot"></span>澳門會員通 · 整體預覽</a>
+    <nav class="hub-nav">
+      <a href="index.html">今日</a>
+      <a href="explore.html">逛店</a>
+      <a href="store-biaosao.html">表嫂</a>
+      <a href="store-kuaizhai.html">快宅</a>
+      <a href="order-biaosao.html" class="is-active">點餐</a>
+      <a href="cart-biaosao.html">購物車</a>
+      <a href="member.html">出示</a>
+    </nav>
+  </header>
+  <section class="page-intro">
+    <div class="eyebrow">order · 小圖列</div>
+    <h1>表嫂美食 · 點餐</h1>
+    <p>左分類、右菜列、吸底 charcoal 車。頂部<strong>滿減</strong>橫幅與進度條即時計算；達標金額寫進購物車。可切 <a href="order-biaosao-large.html">大圖模式</a>。</p>
+  </section>
+  <div class="gallery">
+    <div class="frame-wrap">
+      <div class="frame-label"><span class="title">小圖列點餐</span><span class="tag">滿減露出</span></div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="status-bar"><span>9:41</span><span>▮▮▮ ▒</span></div>
+          <div class="app-top">
+            <a class="icon-btn" href="store-biaosao.html" aria-label="返回店頁"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <div class="store-title">
+              <h1>表嫂美食</h1>
+              <p class="tabular">餘額可抵 MOP 328.5</p>
+            </div>
+            <div class="top-actions">
+              <a class="icon-btn" href="cart-biaosao.html" aria-label="購物車"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></a>
+            </div>
+          </div>
+          <nav class="order-tabs">
+            <a href="order-biaosao.html" class="is-active">點餐</a>
+            <a href="store-biaosao.html">評價</a>
+            <a href="store-biaosao.html">商家</a>
+          </nav>
+          <div class="phone-scroll has-cart">
+            <div class="promo-banner" data-promo></div>
+            <div class="menu-dual">
+              <aside class="cat-rail" data-cat-rail aria-label="菜品分類"></aside>
+              <div class="menu-pane" data-menu-pane></div>
+            </div>
+          </div>
+          <div class="cart-dock" data-cart-dock data-cart-href="cart-biaosao.html"></div>
+          <div class="sheet-mask" id="sheet-mask">
+            <div class="sheet" role="dialog" aria-label="選規格">
+              <div class="hero"><img data-sheet-img alt="" /></div>
+              <div class="pad">
+                <button class="tiny muted" type="button" data-sheet-close>關閉</button>
+                <h2 data-sheet-name style="font-size:20px;font-weight:700;margin:8px 0 4px"></h2>
+                <p class="sm muted" data-sheet-desc></p>
+                <p class="tabular" data-sheet-price style="font-weight:700;margin:8px 0 16px"></p>
+                <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">辣度</h3>
+                <label class="opt"><input type="radio" name="spice" value="不辣" checked /> 不辣</label>
+                <label class="opt"><input type="radio" name="spice" value="小辣" /> 小辣</label>
+                <label class="opt"><input type="radio" name="spice" value="中辣" /> 中辣</label>
+                <h3 style="font-size:15px;font-weight:700;margin:16px 0 8px">加料</h3>
+                <label class="opt"><input type="checkbox" data-extra value="6" data-label="加煎蛋" /> 加煎蛋<span class="tiny muted" style="margin-left:auto">+ MOP 6.0</span></label>
+                <div class="sheet-bar">
+                  <div class="qty-ctrl">
+                    <button type="button" data-sheet-delta="-1">−</button>
+                    <strong data-sheet-qty>1</strong>
+                    <button type="button" data-sheet-delta="1">+</button>
+                  </div>
+                  <button class="btn btn-primary" type="button" data-sheet-add style="flex:1">加入</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
