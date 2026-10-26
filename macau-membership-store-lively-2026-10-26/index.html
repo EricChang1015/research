@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>會員端店頁 · 有生氣版預覽</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<main class="hub">
+  <p class="hub-kicker">Macau Membership · merchant-lively</p>
+  <h1 class="hub-title">店頁不再死氣沉沉</h1>
+  <p class="hub-lead">允許重新發明店頁 IA：大張真實食物圖、浮起身分卡、橫滑到店團購、菜單發現感、吸底點餐 CTA。對齊 elayadesign Part B（Manrope、spacing／radius、禁背景漸層）。</p>
+
+  <nav class="hub-nav">
+    <a href="index.html" class="is-active">總覽</a>
+    <a href="biaosao.html">表嫂美食</a>
+    <a href="kuaizhai.html">快宅</a>
+  </nav>
+
+  <div class="hub-grid">
+    <a class="hub-card" href="biaosao.html">
+      <div class="hub-card-cover" style="background-image:url(https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/hero-f3742292-4482-41ca-8989-ff837f72f46d.webp)"></div>
+      <div class="hub-card-body">
+        <h2>表嫂美食</h2>
+        <p>順德菜／茶餐廳。暖橘主題色、四道菜單橫滑、三張到店團購預留。</p>
+        <span class="hub-cta">開啟預覽 →</span>
+      </div>
+    </a>
+    <a class="hub-card" href="kuaizhai.html">
+      <div class="hub-card-cover" style="background-image:url(https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/b86a0d10-9618-4b7c-8569-bcd778ae63bd/hero-907e6465-4343-4db2-a9d2-83fbb621812a.webp)"></div>
+      <div class="hub-card-body">
+        <h2>快宅</h2>
+        <p>手制 pizza／葡菜。琥珀主題色、兩欄菜單網格、三則留言含星等。</p>
+        <span class="hub-cta">開啟預覽 →</span>
+      </div>
+    </a>
+  </div>
+
+  <section class="hub-notes">
+    <h3>相對上一輪 After 的差異</h3>
+    <ul>
+      <li>不再綁死「UAT 同區塊＋BottomNav 列表節奏」；改用吸底雙 CTA。</li>
+      <li>Hero 增高至約 280px，logo 白底圓角卡疊在資訊卡上。</li>
+      <li>新增「到店團購」橫滑（折扣＋原價刪線＋即將推出）；語意為單人買券到店核銷。</li>
+      <li>餘額／積分改精緻雙 pill，非表格三鈕列。</li>
+      <li>留言含頭像占位與星等；細微 grain／陰影，無背景漸層。</li>
+    </ul>
+  </section>
+
+  <p class="hub-footer">路徑：macau-membership-store-lively-2026-10-26/ · 純靜態 · 圖為 Supabase HTTPS · 2026-10-26（Asia/Shanghai）</p>
+</main>
+<script>
+document.querySelectorAll('.hub-card').forEach((el) => el.classList.add('reveal'));
+document.querySelectorAll('.reveal').forEach((el) => {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  io.observe(el);
+});
+requestAnimationFrame(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-in')));
+</script>
+</body>
+</html>
