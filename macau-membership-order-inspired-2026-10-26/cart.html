@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>購物車 · 澳門會員通</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div class="page-shell">
+  <header class="page-header">
+    <a class="brand" href="index.html"><span class="dot"></span>澳門會員通 · 點餐預覽</a>
+    <nav class="hub-nav">
+      <a href="index.html">總覽</a>
+      <a href="menu.html">小圖列</a>
+      <a href="menu-large.html">大圖</a>
+      <a href="modifier.html">規格</a>
+      <a href="cart.html" class="is-active">購物車</a>
+    </nav>
+  </header>
+
+  <section class="page-intro">
+    <div class="eyebrow">cart · expanded before checkout</div>
+    <h1>展開購物車</h1>
+    <p>從吸底條「去結帳」進入。列出示意已加購品項、小計與餘額支付，結帳前確認。</p>
+  </section>
+
+  <div class="gallery">
+    <div class="frame-wrap">
+      <div class="frame-label">
+        <span class="title">購物車 · 結帳前</span>
+        <span class="tag">3 件</span>
+      </div>
+
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="status-bar"><span>9:41</span><span>▮▮▮ ▒</span></div>
+
+          <div class="cart-page-head">
+            <a class="icon-btn" href="menu.html" aria-label="返回點餐" style="width:36px;height:36px;display:grid;place-items:center;border-radius:999px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+            </a>
+            <h1>購物車</h1>
+            <div class="spacer"></div>
+          </div>
+
+          <div class="phone-scroll no-cart-pad" style="padding-bottom:120px">
+            <div class="cart-list">
+              <article class="cart-item">
+                <div class="thumb">
+                  <img alt="海鮮大盤雞套餐" src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-97b12b61-7f2b-40e1-a11a-bd1d093bba87.webp" />
+                </div>
+                <div class="body">
+                  <h3>海鮮大盤雞套餐</h3>
+                  <p class="opts">不辣 · 加煎蛋</p>
+                  <div class="row">
+                    <span class="amt tabular">MOP 54.0</span>
+                    <div class="qty-ctrl">
+                      <button type="button" aria-label="減少">−</button>
+                      <strong class="tabular">1</strong>
+                      <button type="button" aria-label="增加">+</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="cart-item">
+                <div class="thumb">
+                  <img alt="凍檸茶" src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-dc185786-6d35-480e-9e00-666bcaea2398.webp" />
+                </div>
+                <div class="body">
+                  <h3>凍檸茶</h3>
+                  <p class="opts">少甜</p>
+                  <div class="row">
+                    <span class="amt tabular">MOP 28.0</span>
+                    <div class="qty-ctrl">
+                      <button type="button" aria-label="減少">−</button>
+                      <strong class="tabular">2</strong>
+                      <button type="button" aria-label="增加">+</button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+            <div class="summary-card">
+              <div class="line">
+                <span>小計</span>
+                <span class="tabular">MOP 82.0</span>
+              </div>
+              <div class="line">
+                <span>卡券折抵 · 示意</span>
+                <span class="tabular green">− MOP 6.0</span>
+              </div>
+              <div class="line total">
+                <span>應付</span>
+                <span class="tabular">MOP 76.0</span>
+              </div>
+            </div>
+
+            <div class="pay-hint">
+              <strong>支付方式</strong> · 表嫂美食儲值餘額<br />
+              目前餘額 <span class="tabular">MOP 328.5</span> · 送出後約剩 <span class="tabular">252.5</span>
+            </div>
+
+            <p style="margin:16px 16px 0;font-size:12px;line-height:16px;color:var(--ink-4)">
+              掃碼帶桌號尚未上線。本單為店內／會員點餐示意。
+            </p>
+          </div>
+
+          <div class="cart-checkout">
+            <a class="btn-primary" href="#">送出訂單</a>
+            <p class="note">送出後可在「權益 → 訂單」追蹤狀態</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callouts">
+        <div class="callout">結帳前展開：品項圖＋規格摘要＋數量器；綠底支付提示凸顯會員餘額抵扣（平台差異點）。</div>
+      </div>
+    </div>
+
+    <!-- Empty cart dock demo -->
+    <div class="frame-wrap" style="margin-top:32px">
+      <div class="frame-label">
+        <span class="title">空車吸底條（對照）</span>
+        <span class="tag">empty</span>
+      </div>
+      <div class="phone" style="height:auto">
+        <div style="position:relative;height:120px;background:var(--bg);border-radius:0 0 28px 28px">
+          <div class="cart-dock" style="position:absolute">
+            <div class="badge-bubble" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+            </div>
+            <div class="info">
+              <div class="total tabular">MOP 0.0</div>
+              <div class="sub">選餐後可用餘額抵扣</div>
+            </div>
+            <span class="cta is-disabled">選餐後結帳</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <p>靜態設計預覽 · 未改 git · 2026-10-26（Asia/Shanghai）</p>
+  </footer>
+</div>
+</body>
+</html>

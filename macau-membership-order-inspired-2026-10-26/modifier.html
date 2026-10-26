@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>選規格 · 澳門會員通</title>
+<link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+<div class="page-shell">
+  <header class="page-header">
+    <a class="brand" href="index.html"><span class="dot"></span>澳門會員通 · 點餐預覽</a>
+    <nav class="hub-nav">
+      <a href="index.html">總覽</a>
+      <a href="menu.html">小圖列</a>
+      <a href="menu-large.html">大圖</a>
+      <a href="modifier.html" class="is-active">規格</a>
+      <a href="cart.html">購物車</a>
+    </nav>
+  </header>
+
+  <section class="page-intro">
+    <div class="eyebrow">modifier · bottom sheet</div>
+    <h1>規格加料</h1>
+    <p>從「選規格」進入的底部 sheet。必選辣度、可選加料、數量與加入金額。背後可見模糊點餐頁。</p>
+  </section>
+
+  <div class="gallery">
+    <div class="frame-wrap">
+      <div class="frame-label">
+        <span class="title">選規格 sheet</span>
+        <span class="tag">overlay</span>
+      </div>
+
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="status-bar"><span>9:41</span><span>▮▮▮ ▒</span></div>
+
+          <div class="app-top">
+            <a class="icon-btn" href="menu.html" aria-label="返回">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+            </a>
+            <div class="store-title"><h1>表嫂美食</h1></div>
+            <div class="top-actions">
+              <a class="icon-btn" href="cart.html" aria-label="購物車">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <nav class="order-tabs">
+            <a href="menu.html" class="is-active">點餐</a>
+            <a href="#">評價</a>
+            <a href="../macau-membership-store-lively-2026-10-26/biaosao.html">商家</a>
+          </nav>
+
+          <div class="phone-scroll no-cart-pad" style="opacity:0.35;pointer-events:none" aria-hidden="true">
+            <div class="store-strip">
+              <div class="store-meta"><span class="rating">4.6 分</span><span class="dot-sep">月售 380+</span></div>
+            </div>
+            <div class="menu-dual">
+              <aside class="cat-rail">
+                <a class="is-active"><span class="emoji">🔥</span>熱銷</a>
+                <a><span class="emoji">🍚</span>飯類</a>
+              </aside>
+              <div class="menu-pane">
+                <article class="dish-row">
+                  <div class="dish-thumb">
+                    <img alt="" src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-97b12b61-7f2b-40e1-a11a-bd1d093bba87.webp" />
+                  </div>
+                  <div class="dish-body">
+                    <h3>海鮮大盤雞套餐</h3>
+                    <p class="desc">可選辣度</p>
+                    <div class="dish-foot">
+                      <div class="price-block"><span class="now tabular">48.0</span></div>
+                      <span class="spec-pill">選規格</span>
+                    </div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="sheet-backdrop">
+            <div class="sheet" role="dialog" aria-label="選擇規格">
+              <div class="sheet-handle" aria-hidden="true"></div>
+              <div class="sheet-scroll">
+                <div class="sheet-hero">
+                  <img alt="海鮮大盤雞套餐" src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-97b12b61-7f2b-40e1-a11a-bd1d093bba87.webp" />
+                </div>
+                <h2 class="sheet-title">海鮮大盤雞套餐</h2>
+                <p class="sheet-desc">嫩雞配海鮮與時蔬，可選辣度與加料</p>
+                <p class="sheet-price tabular">MOP 48.0 起</p>
+
+                <div class="mod-group">
+                  <h3>辣度 <span class="req">必選</span></h3>
+                  <label class="mod-opt">
+                    <input type="radio" name="spice" checked />
+                    <div class="grow"><div class="title">不辣</div></div>
+                  </label>
+                  <label class="mod-opt">
+                    <input type="radio" name="spice" />
+                    <div class="grow"><div class="title">小辣</div></div>
+                  </label>
+                  <label class="mod-opt">
+                    <input type="radio" name="spice" />
+                    <div class="grow"><div class="title">中辣</div></div>
+                  </label>
+                </div>
+
+                <div class="mod-group">
+                  <h3>加料 <span style="font-weight:500;color:var(--ink-4);font-size:12px">可選</span></h3>
+                  <label class="mod-opt">
+                    <input type="checkbox" checked />
+                    <div class="grow"><div class="title">加煎蛋</div></div>
+                    <span class="extra tabular">+ MOP 6.0</span>
+                  </label>
+                  <label class="mod-opt">
+                    <input type="checkbox" />
+                    <div class="grow"><div class="title">加牛肉</div></div>
+                    <span class="extra tabular">+ MOP 12.0</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="sheet-foot">
+                <div class="qty-ctrl">
+                  <button type="button" aria-label="減少">−</button>
+                  <strong class="tabular">1</strong>
+                  <button type="button" aria-label="增加">+</button>
+                </div>
+                <a class="btn-primary tabular" href="cart.html">加入 · MOP 54.0</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callouts">
+        <div class="callout">底部 sheet 覆蓋點餐頁；選中項用品牌綠邊與浅绿底，不用澳覓粉。</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer">
+    <p>靜態設計預覽 · 未改 git · 2026-10-26（Asia/Shanghai）</p>
+  </footer>
+</div>
+</body>
+</html>
