@@ -541,7 +541,34 @@ h1, h2, h3, h4, p { margin: 0; }
   background: var(--accent-soft); border-radius: 14px; color: var(--accent-ink);
 }
 .promo-banner .k { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 8px; }
+.promo-banner .k-sub { margin-top: 12px; }
+.promo-banner .rules { font-size: 13px; font-weight: 700; }
+.promo-banner .prog {
+  margin-top: 8px; height: 6px; background: #fff; border-radius: 999px; overflow: hidden;
+}
+.promo-banner .prog > i { display: block; height: 100%; background: var(--accent); width: 0; }
 .promo-banner .hint { font-size: 12px; margin-top: 8px; line-height: 16px; }
+.promo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-bottom: 2px;
+}
+.promo-chip {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: var(--price);
+  border: 1px solid #FDBA74;
+  border-radius: 4px;
+  padding: 2px 6px;
+  background: #fff;
+}
+.promo-chip.is-on {
+  background: #FFF7ED;
+  border-color: var(--price);
+  font-weight: 700;
+}
 .ful-row { display: flex; flex-wrap: wrap; gap: 6px; }
 .ful-chip {
   padding: 6px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;

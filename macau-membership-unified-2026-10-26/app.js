@@ -1,4 +1,4 @@
-/* Macau Membership unified preview · cart + ADR-035 千分率折扣 */
+/* Macau Membership unified preview · 滿減 chips＋ADR-035 千分率／用餐方式 */
 (function () {
   "use strict";
 
@@ -23,6 +23,11 @@
       social: ["Facebook"],
       phone: "",
       hours: "",
+      /* 滿減：門檻遞減，取已達最高檔。金額沿用 order-inspired 第一版示意。 */
+      manjian_tiers: [
+        { min: 50, off: 3 },
+        { min: 90, off: 8 }
+      ],
       /* ADR-035：promo_rate_permille＝應付千分率（900＝9 折）。數字為示意示例。 */
       fulfillment_discounts: { dine_in: 900, takeaway: 950, merchant_delivery: 900 },
       box_fee: 2.0,
@@ -60,6 +65,10 @@
       social: ["網站", "Facebook", "Instagram"],
       phone: "63801028",
       hours: "12:00–22:00",
+      manjian_tiers: [
+        { min: 50, off: 3 },
+        { min: 90, off: 8 }
+      ],
       fulfillment_discounts: { dine_in: 950, takeaway: 1000, merchant_delivery: 900 },
       box_fee: 0,
       delivery_fee: 15.0,
@@ -188,6 +197,27 @@
     return eligible * d.price * (1000 - d.promo_rate_permille) / 1000;
   }
 
+  function applyPromo(tiers, sub) {
+    var reached = null;
+    var next = null;
+    for (var i = 0; i < tiers.length; i++) {
+      if (sub >= tiers[i].min) reached = tiers[i];
+      else if (!next) next = tiers[i];
+    }
+    var off = reached ? reached.off : 0;
+    var pct = 0;
+    if (tiers.length) {
+      var top = tiers[tiers.length - 1].min;
+      pct = Math.min(100, (sub / top) * 100);
+    }
+    var hint;
+    if (!tiers.length) hint = "";
+    else if (!reached && tiers[0]) hint = "再消費 MOP " + mop(tiers[0].min - sub) + " 即可減 " + mop(tiers[0].off);
+    else if (next) hint = "已減 " + mop(off) + " · 再消費 MOP " + mop(next.min - sub) + " 可減 " + mop(next.off);
+    else hint = "已滿 " + mop(reached.min) + "，本單減 " + mop(off);
+    return { off: off, reached: reached, next: next, pct: pct, hint: hint };
+  }
+
   function fulfillmentBadges(store) {
     var fd = store.fulfillment_discounts || {};
     return ["dine_in", "takeaway", "merchant_delivery"].filter(function (k) {
@@ -216,6 +246,7 @@
       itemOff += off;
       lines.push({ it: it, dish: d, line: line, off: off, after: line - off });
     });
+    var promo = applyPromo(store.manjian_tiers || [], sub);
     var foodAfterItem = Math.max(0, sub - itemOff);
     var fd = (store.fulfillment_discounts || {})[mode] || 1000;
     var fulfillOff = fd < 1000 ? foodAfterItem * (1000 - fd) / 1000 : 0;
@@ -223,7 +254,7 @@
     var ship = mode === "merchant_delivery" ? (store.delivery_fee || 0) : 0;
     var minOrder = mode === "merchant_delivery" ? (store.delivery_min || 0) : 0;
     var shortMin = minOrder > 0 ? Math.max(0, minOrder - foodAfterItem) : 0;
-    var foodPay = Math.max(0, foodAfterItem - fulfillOff);
+    var foodPay = Math.max(0, foodAfterItem - fulfillOff - promo.off);
     var payable = foodPay + box + ship;
     var useBalance = pay === "balance";
     var balUse = useBalance ? Math.min(store.balance, payable) : 0;
@@ -233,6 +264,7 @@
       lines: lines,
       count: count,
       sub: sub,
+      promo: promo,
       itemOff: itemOff,
       fulfillOff: fulfillOff,
       fulfillMode: mode,
@@ -267,6 +299,12 @@
 
   function renderPromoBox(el, t) {
     if (!el) return;
+    var tiers = t.store.manjian_tiers || [];
+    var promoChips = tiers.map(function (tier) {
+      var on = t.promo.reached && t.promo.reached.min >= tier.min;
+      return '<span class="promo-chip' + (on ? " is-on" : "") + '">滿 ' + mop(tier.min) + " 減 " + mop(tier.off) + " · 示意</span>";
+    }).join("");
+    promoChips += '<span class="promo-chip">餘額支付</span>';
     var modes = ["dine_in", "takeaway", "merchant_delivery"];
     var chips = modes.map(function (k) {
       var rate = (t.store.fulfillment_discounts || {})[k] || 1000;
@@ -284,7 +322,11 @@
         : "已達外送起送 MOP " + mop(t.minOrder) + "。");
     }
     el.innerHTML =
-      '<div class="k">用餐方式折扣</div>' +
+      '<div class="k">本店滿減</div>' +
+      '<div class="promo-chips">' + promoChips + "</div>" +
+      '<div class="prog" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.round(t.promo.pct) + '"><i style="width:' + t.promo.pct + '%"></i></div>' +
+      '<div class="hint">' + (t.count ? t.promo.hint : "點餐後即時計算達標進度") + "</div>" +
+      '<div class="k k-sub">用餐方式折扣</div>' +
       '<div class="ful-row">' + chips + "</div>" +
       '<p class="hint">' + notes.join(" ") + "</p>";
   }
@@ -294,6 +336,7 @@
     var disabled = t.count === 0 || (t.fulfillMode === "merchant_delivery" && t.shortMin > 0);
     var bits = [];
     if (t.count) bits.push(t.count + " 件");
+    if (t.promo.off) bits.push("滿減 −" + mop(t.promo.off));
     if (t.itemOff) bits.push("促銷 −" + mop(t.itemOff));
     if (t.fulfillOff) bits.push(t.fulfillLabel + " −" + mop(t.fulfillOff));
     if (t.fulfillMode === "merchant_delivery" && t.shortMin > 0) bits.push("再購 " + mop(t.shortMin) + " 起送");
@@ -323,7 +366,7 @@
     var cta = root.querySelector("[data-cart-cta]");
     if (list) {
       if (!t.lines.length) {
-        list.innerHTML = '<div class="state-panel"><div class="illus">🛒</div><h3>購物車是空的</h3><p>回菜單加購後，商品促銷與用餐方式折扣會即時計算。</p><a class="btn btn-primary" href="order-' + storeId + '.html">回菜單</a></div>';
+        list.innerHTML = '<div class="state-panel"><div class="illus">🛒</div><h3>購物車是空的</h3><p>回菜單加購後，滿減、商品促銷與用餐方式折扣會即時計算。</p><a class="btn btn-primary" href="order-' + storeId + '.html">回菜單</a></div>';
       } else {
         list.innerHTML = t.lines.map(function (ln) {
           var priceHtml = ln.off
@@ -361,9 +404,11 @@
       sum.innerHTML =
         '<div class="line"><span>小計</span><span class="tabular">MOP ' + mop(t.sub) + "</span></div>" +
         '<div class="line green"><span>商品促銷折讓</span><span class="tabular">− MOP ' + mop(t.itemOff) + "</span></div>" +
+        '<div class="line green"><span>滿減 · ' + (t.promo.reached ? "滿 " + mop(t.promo.reached.min) : "未達檔") + '</span><span class="tabular">− MOP ' + mop(t.promo.off) + "</span></div>" +
         '<div class="line green"><span>用餐方式折扣 · ' + t.fulfillLabel + (zheLabel(t.fulfillRate) ? " " + zheLabel(t.fulfillRate) : "無折扣") + '</span><span class="tabular">− MOP ' + mop(t.fulfillOff) + "</span></div>" +
         extra +
-        '<div class="line total"><span>應付</span><span class="tabular">MOP ' + mop(t.payable) + "</span></div>";
+        '<div class="line total"><span>應付</span><span class="tabular">MOP ' + mop(t.payable) + "</span></div>" +
+        '<p class="tiny muted" style="margin-top:8px">' + t.promo.hint + "</p>";
     }
     if (pay) {
       var payOpts = [
@@ -650,6 +695,7 @@
     getCart: getCart,
     addItem: addItem,
     cartTotals: cartTotals,
+    applyPromo: applyPromo,
     getFulfill: getFulfill,
     zheLabel: zheLabel,
     renderMenu: renderMenu,
