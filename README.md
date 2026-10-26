@@ -9,8 +9,9 @@
 | [AMSpec／傑出材料科技](./amspec/) | `amspec/` | 高強度鋁無縫管／精抽；上下游與生態系互動簡報 |
 | [巨鑫化學／Acrochem](./acrochem/) | `acrochem/` | 活性碳製造與廢碳再生；標案／許可／策略互動簡報 |
 | [澳門會員通 · 會員端 UI 預覽（功能向 v2）](./macau-membership-client-ui-2026-10-26/) | `macau-membership-client-ui-2026-10-26/` | 今日／逛店／出示／權益／我的；含真實店圖；團購＝店家低價套餐（即將推出） |
+| [澳門會員通 · 店頁有生氣預覽（表嫂／快宅）](./macau-membership-store-lively-2026-10-26/) | `macau-membership-store-lively-2026-10-26/` | 大圖 Hero、到店團購卡、吸底點餐；elayadesign；解決死氣沉沉 |
 
-Pages 路徑示例：`…/research/amspec/`、`…/research/acrochem/`、`…/research/macau-membership-client-ui-2026-10-26/`。
+Pages 路徑示例：`…/research/amspec/`、`…/research/acrochem/`、`…/research/macau-membership-client-ui-2026-10-26/`、`…/research/macau-membership-store-lively-2026-10-26/`。
 
 ## 本機
 
