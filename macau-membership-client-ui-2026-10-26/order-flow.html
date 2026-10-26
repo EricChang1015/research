@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>點餐流程 · 澳門會員通</title>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <nav class="page-anchor-nav">
+    <a href="index.html">總覽</a>
+    <a href="#menu">菜單</a>
+    <a href="#modifier">規格加料</a>
+    <a href="#cart">購物車</a>
+    <a href="#scan-soon">掃碼預留</a>
+    <a href="merchant.html">店頁</a>
+  </nav>
+
+  <div class="gallery">
+
+    <section class="screen-block" id="menu">
+      <div class="screen-label">
+        <h2>點餐 · 菜單</h2>
+        <span>表嫂美食 · 店內點餐</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner no-nav">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <a class="icon-btn" href="merchant.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <div style="flex:1;text-align:center">
+              <h1 style="font-size:16px;line-height:24px">表嫂美食</h1>
+              <p class="tiny muted">餘額 MOP 328.5 · 可抵扣</p>
+            </div>
+            <a class="icon-btn" href="#cart" aria-label="購物車">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
+              <span class="badge-count">3</span>
+            </a>
+          </header>
+
+          <div class="section" style="padding-bottom:8px">
+            <div class="soon-banner">
+              <div class="icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16v10H4z"/><path d="M8 8V6a4 4 0 018 0v2"/></svg>
+              </div>
+              <div class="text">
+                <strong>掃碼點餐 · 即將推出</strong>
+                <p>未來可從桌邊 QR 帶桌號進入此菜單，現仍用手點。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="section" style="padding-bottom:8px">
+            <div class="chip-row">
+              <button class="chip active">人氣</button>
+              <button class="chip">飯類</button>
+              <button class="chip">粉麵</button>
+              <button class="chip">小食</button>
+              <button class="chip">飲品</button>
+            </div>
+          </div>
+
+          <div class="section" style="padding-bottom:100px">
+            <div class="menu-item">
+              <div>
+                <h4>招牌牛肉飯</h4>
+                <p class="desc">可選辣度 · 可加蛋</p>
+                <p class="price tabular">MOP 48.0</p>
+              </div>
+              <div class="menu-thumb"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-97b12b61-7f2b-40e1-a11a-bd1d093bba87.webp" alt="招牌牛肉飯" /><a class="add" href="#modifier">+</a></div>
+            </div>
+            <div class="menu-item">
+              <div>
+                <h4>咖哩雞飯</h4>
+                <p class="desc">配時蔬</p>
+                <p class="price tabular">MOP 42.0</p>
+              </div>
+              <div class="menu-thumb"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-62d09e9d-5215-4204-a3b8-3966ee05b0ef.webp" alt="咖哩雞飯" /><button class="add">+</button></div>
+            </div>
+            <div class="menu-item">
+              <div>
+                <h4>乾炒牛河</h4>
+                <p class="desc">鑊氣炒製</p>
+                <p class="price tabular">MOP 52.0</p>
+              </div>
+              <div class="menu-thumb"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-b929d859-51da-48ce-aba4-91c69e6429da.webp" alt="乾炒牛河" /><button class="add">+</button></div>
+            </div>
+            <div class="menu-item">
+              <div>
+                <h4>凍檸茶</h4>
+                <p class="desc">少甜可調</p>
+                <p class="price tabular">MOP 14.0</p>
+              </div>
+              <div class="menu-thumb"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-dc185786-6d35-480e-9e00-666bcaea2398.webp" alt="凍檸茶" /><button class="add">+</button></div>
+            </div>
+          </div>
+
+          <div class="cart-bar" style="bottom:24px">
+            <div class="info">
+              <strong class="tabular">MOP 76.0</strong>
+              <span>3 件 · 將以餘額支付</span>
+            </div>
+            <a class="cta" href="#cart">看購物車</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen-block" id="modifier">
+      <div class="screen-label">
+        <h2>點餐 · 規格／加料</h2>
+        <span>單品客製</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner no-nav">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <a class="icon-btn" href="#menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <h1>選擇規格</h1>
+            <div class="right"></div>
+          </header>
+          <div class="section">
+            <div class="card" style="padding:0;overflow:hidden">
+              <div class="modifier-hero"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/menu-97b12b61-7f2b-40e1-a11a-bd1d093bba87.webp" alt="招牌牛肉飯" /></div>
+              <div style="padding:16px">
+                <h2 style="font-size:20px;line-height:28px;font-weight:700">招牌牛肉飯</h2>
+                <p class="sm muted" style="margin-top:4px">嫩滑牛肉配蛋與時蔬</p>
+                <p class="tabular" style="font-weight:700;margin-top:8px">MOP 48.0 起</p>
+              </div>
+            </div>
+          </div>
+          <div class="section">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">辣度</h3>
+            <div class="stack-sm">
+              <label class="list-row" style="border:1px solid var(--line);border-radius:12px;margin-bottom:0">
+                <input type="radio" name="spice" checked />
+                <div class="grow"><div class="title">不辣</div></div>
+              </label>
+              <label class="list-row" style="border:1px solid var(--line);border-radius:12px">
+                <input type="radio" name="spice" />
+                <div class="grow"><div class="title">小辣</div></div>
+              </label>
+              <label class="list-row" style="border:1px solid var(--line);border-radius:12px">
+                <input type="radio" name="spice" />
+                <div class="grow"><div class="title">中辣</div></div>
+              </label>
+            </div>
+          </div>
+          <div class="section">
+            <h3 style="font-size:16px;font-weight:700;margin-bottom:12px">加料</h3>
+            <div class="stack-sm">
+              <label class="list-row" style="border:1px solid var(--line);border-radius:12px">
+                <input type="checkbox" checked />
+                <div class="grow"><div class="title">加煎蛋</div><div class="desc">+ MOP 6.0</div></div>
+              </label>
+              <label class="list-row" style="border:1px solid var(--line);border-radius:12px">
+                <input type="checkbox" />
+                <div class="grow"><div class="title">加牛肉</div><div class="desc">+ MOP 12.0</div></div>
+              </label>
+            </div>
+          </div>
+          <div class="section" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:32px">
+            <div style="display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 8px">
+              <button class="icon-btn" style="width:32px;height:32px;border:none">−</button>
+              <strong>1</strong>
+              <button class="icon-btn" style="width:32px;height:32px;border:none">+</button>
+            </div>
+            <a class="btn btn-primary" href="#cart" style="flex:1">加入 · MOP 54.0</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen-block" id="cart">
+      <div class="screen-label">
+        <h2>點餐 · 購物車與送出</h2>
+        <span>餘額支付示意</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner no-nav">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <a class="icon-btn" href="#menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <h1>購物車</h1>
+            <div class="right"></div>
+          </header>
+          <div class="section stack-sm">
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:8px">
+                <div>
+                  <strong>招牌牛肉飯</strong>
+                  <p class="tiny muted">不辣 · 加煎蛋</p>
+                </div>
+                <div style="text-align:right">
+                  <div class="tabular" style="font-weight:700">54.0</div>
+                  <div class="tiny muted">×1</div>
+                </div>
+              </div>
+              <div class="divider"></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;margin-top:8px">
+                <div>
+                  <strong>凍檸茶</strong>
+                  <p class="tiny muted">少甜</p>
+                </div>
+                <div style="text-align:right">
+                  <div class="tabular" style="font-weight:700">28.0</div>
+                  <div class="tiny muted">×2</div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span class="sm muted">小計</span>
+                <span class="tabular sm">MOP 82.0</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                <span class="sm muted">卡券折抵</span>
+                <span class="tabular sm" style="color:var(--accent)">−6.0</span>
+              </div>
+              <div class="divider"></div>
+              <div style="display:flex;justify-content:space-between;margin-top:8px">
+                <strong>應付</strong>
+                <strong class="tabular">MOP 76.0</strong>
+              </div>
+            </div>
+            <div class="card" style="background:var(--accent-soft);border-color:transparent">
+              <p class="sm" style="color:var(--accent-ink)"><strong>支付方式</strong> · 表嫂美食儲值餘額</p>
+              <p class="tiny" style="color:var(--accent-ink);margin-top:4px">目前餘額 MOP 328.5 · 送出後約剩 252.5</p>
+            </div>
+            <button class="btn btn-secondary btn-block">使用卡券</button>
+          </div>
+          <div class="section" style="padding-bottom:32px">
+            <button class="btn btn-primary btn-lg btn-block">送出訂單</button>
+            <p class="tiny muted" style="text-align:center;margin-top:12px">送出後可在「權益 → 訂單」追蹤狀態</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen-block" id="scan-soon">
+      <div class="screen-label">
+        <h2>掃碼點餐入口（即將推出）</h2>
+        <span>勿假造成已上線流程</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner no-nav">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <a class="icon-btn" href="home.html"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <h1>掃碼點餐</h1>
+            <div class="right"></div>
+          </header>
+          <div class="state-panel" style="padding-top:64px">
+            <div class="illus" style="background:var(--warn-soft);color:var(--warn)">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h16v10H4z"/><path d="M8 8V6a4 4 0 018 0v2"/><circle cx="12" cy="13" r="1.5"/></svg>
+            </div>
+            <span class="tag tag-warn" style="margin-bottom:12px">即將推出</span>
+            <h3>桌邊掃碼，直進本店菜單</h3>
+            <p>上線後可掃描店內 QR，自動帶入店家與桌號，再沿用現有點餐與購物車。</p>
+            <a class="btn btn-secondary" href="#menu">改用手點菜單</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

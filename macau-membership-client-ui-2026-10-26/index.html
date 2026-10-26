@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>澳門會員通 · 功能向全新 IA 預覽</title>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <main class="hub">
+    <a class="back-link" href="../preview/index.html" style="display:none">返回</a>
+    <header class="hub-hero">
+      <p class="hub-kicker">v2 · From functions</p>
+      <h1 class="hub-title">從功能清單<br />重新發明會員端</h1>
+      <p class="hub-lead">
+        不對齊舊 layout、不微調 BottomNav。以帳號、發現、錢包、點餐、店頁為真相來源，重做資訊架構與視覺。掃碼點餐與團購（店家低價套餐／代金券、單人可買到店核銷）僅標「即將推出」。
+      </p>
+    </header>
+
+    <section style="margin-bottom:40px">
+      <p class="sm muted" style="margin-bottom:12px">新導覽（與舊版五鍵完全不同）</p>
+      <div>
+        <span class="ia-pill"><span class="dot"></span>今日 · 跨店摘要與快捷</span>
+        <span class="ia-pill"><span class="dot"></span>逛店 · 搜尋／分類／地圖</span>
+        <span class="ia-pill"><span class="dot" style="background:#16A34A"></span>出示 · 會員碼核心動作</span>
+        <span class="ia-pill"><span class="dot"></span>權益 · 卡券／訂單／到店特價預留</span>
+        <span class="ia-pill"><span class="dot"></span>我的 · 帳號與設定</span>
+      </div>
+    </section>
+
+    <section class="hub-grid">
+      <a class="hub-card" href="home.html">
+        <span class="num">01</span>
+        <h3>今日</h3>
+        <p>問候、跨店餘額、快捷動作、附近推薦、訊息入口、掃碼點餐預留。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+      <a class="hub-card" href="explore.html">
+        <span class="num">02</span>
+        <h3>逛店</h3>
+        <p>搜尋、分類、排序、地圖、收藏篩選、商家卡。含 loading／empty／error。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+      <a class="hub-card" href="merchant.html">
+        <span class="num">03</span>
+        <h3>店頁 · 表嫂美食</h3>
+        <p>Hero、餘額與積分、點餐／充值、介紹、優惠、菜單、海報、地圖、留言。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+      <a class="hub-card" href="order-flow.html">
+        <span class="num">04</span>
+        <h3>點餐流程</h3>
+        <p>菜單、規格加料、購物車送出；桌邊掃碼點餐標即將推出。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+      <a class="hub-card" href="wallet-member.html">
+        <span class="num">05</span>
+        <h3>出示與權益</h3>
+        <p>會員碼、卡券、訂單狀態、交易明細、到店特價（團購）預留。一頁多屏。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+      <a class="hub-card" href="settings.html">
+        <span class="num">06</span>
+        <h3>我的／設定</h3>
+        <p>顯示名稱、語言、訊息、推播語意、切換商戶端、客服、登出。</p>
+        <span class="go">打開畫面 →</span>
+      </a>
+    </section>
+
+    <section class="hub-section">
+      <h2>功能覆蓋 checklist</h2>
+      <p class="sub">對照 FUNCTION_INVENTORY.md。每項指向具體畫面。詳見 REPORT.md。</p>
+      <table class="check-table">
+        <thead>
+          <tr>
+            <th>功能</th>
+            <th>畫面</th>
+            <th>狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>登入／登出</td><td>settings · 登出；今日未登入可進設定</td><td class="ok">覆蓋</td></tr>
+          <tr><td>顯示名稱設定</td><td>settings · 個人資料</td><td class="ok">覆蓋</td></tr>
+          <tr><td>語言 CN／EN</td><td>settings · 語言分段</td><td class="ok">覆蓋</td></tr>
+          <tr><td>切換商戶端</td><td>settings · 職員入口</td><td class="ok">覆蓋</td></tr>
+          <tr><td>訊息／聊天未讀</td><td>今日鈴鐺；settings · 訊息</td><td class="ok">覆蓋</td></tr>
+          <tr><td>商家列表搜尋分類排序分頁</td><td>explore</td><td class="ok">覆蓋</td></tr>
+          <tr><td>地圖找店</td><td>explore · 地圖屏</td><td class="ok">覆蓋</td></tr>
+          <tr><td>收藏／我的收藏</td><td>explore 篩選；今日收藏列</td><td class="ok">覆蓋</td></tr>
+          <tr><td>商家卡欄位</td><td>explore／merchant</td><td class="ok">覆蓋</td></tr>
+          <tr><td>各店儲值餘額</td><td>今日餘額卡；merchant 錢包格</td><td class="ok">覆蓋</td></tr>
+          <tr><td>會員積分</td><td>今日／merchant／權益</td><td class="ok">覆蓋</td></tr>
+          <tr><td>會員碼／QR</td><td>wallet 出示屏；底欄中鍵</td><td class="ok">覆蓋</td></tr>
+          <tr><td>我的卡券</td><td>wallet · 權益屏</td><td class="ok">覆蓋</td></tr>
+          <tr><td>充值入口</td><td>merchant CTA；order 旁路</td><td class="ok">覆蓋</td></tr>
+          <tr><td>交易明細</td><td>wallet · 明細屏</td><td class="ok">覆蓋</td></tr>
+          <tr><td>店內點餐／購物車</td><td>order-flow</td><td class="ok">覆蓋</td></tr>
+          <tr><td>訂單列表與狀態</td><td>wallet · 訂單屏</td><td class="ok">覆蓋</td></tr>
+          <tr><td>店頁完整能力</td><td>merchant</td><td class="ok">覆蓋</td></tr>
+          <tr><td>客服／支援</td><td>settings</td><td class="ok">覆蓋</td></tr>
+          <tr><td>empty／loading／error</td><td>explore 三態屏</td><td class="ok">覆蓋</td></tr>
+          <tr><td>推播權限語意</td><td>settings</td><td class="ok">覆蓋</td></tr>
+          <tr><td>掃碼點餐</td><td>今日快捷；order-flow 橫幅</td><td class="soon">即將推出</td></tr>
+          <tr><td>團購（到店特價／代金券）</td><td>wallet · #group 示意列表</td><td class="soon">即將推出</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="hub-section">
+      <h2>設計文件</h2>
+      <p class="sub">IA 決策、組功能理由、覆蓋對照與未來預留說明。</p>
+      <a class="btn btn-primary" href="REPORT.md">讀 REPORT.md</a>
+    </section>
+  </main>
+</body>
+</html>
