@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>逛店 · 澳門會員通</title>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body>
+  <nav class="page-anchor-nav">
+    <a href="index.html">總覽</a>
+    <a href="#list">列表</a>
+    <a href="#map">地圖</a>
+    <a href="#fav">收藏</a>
+    <a href="#loading">Loading</a>
+    <a href="#empty">Empty</a>
+    <a href="#error">Error</a>
+    <a href="home.html">今日</a>
+  </nav>
+
+  <div class="gallery">
+
+    <!-- LIST -->
+    <section class="screen-block" id="list">
+      <div class="screen-label">
+        <h2>逛店 · 列表</h2>
+        <span>搜尋 · 分類 · 排序 · 分頁</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <h1>逛店</h1>
+            <div class="right">
+              <a class="icon-btn" href="#map" aria-label="地圖模式">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 4l-5 2v14l5-2 6 2 5-2V4l-5 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>
+              </a>
+            </div>
+          </header>
+          <div class="section" style="padding-bottom:8px">
+            <div class="search-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input value="表嫂" readonly />
+              <button class="tiny" style="color:var(--ink-3);font-weight:600">清除</button>
+            </div>
+          </div>
+          <div class="section" style="padding-bottom:8px">
+            <div class="chip-row">
+              <button class="chip active">全部</button>
+              <button class="chip">中式快餐</button>
+              <button class="chip">外賣</button>
+              <button class="chip">茶餐廳</button>
+              <button class="chip">甜品</button>
+              <a class="chip" href="#fav">只看收藏</a>
+            </div>
+          </div>
+          <div class="section" style="padding-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+            <span class="sm muted">12 間店 · 距離近到遠</span>
+            <button class="sm" style="font-weight:600;color:var(--accent)">排序</button>
+          </div>
+          <div class="section stack-sm">
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/logo-d8966e10-99ef-471f-9b79-2d425ef1c576.webp" alt="表嫂美食" /></div>
+              <div class="merchant-body">
+                <h3>表嫂美食</h3>
+                <p class="merchant-meta">中式快餐 · 黑沙環祐漢 · 850m</p>
+                <p class="tiny muted" style="margin-bottom:8px">家常粵菜，充值有禮，適合日常午餐。</p>
+                <div class="hashtags"><span>#家常</span><span>#充值優惠</span><span>#午餐</span></div>
+              </div>
+              <button class="fav-btn on">♥</button>
+            </a>
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/b86a0d10-9618-4b7c-8569-bcd778ae63bd/logo-6a32e2d4-3489-4141-826f-641e138799c9.webp" alt="快宅" /></div>
+              <div class="merchant-body">
+                <h3>快宅</h3>
+                <p class="merchant-meta">外賣廚房 · 筷子基 · 1.2km</p>
+                <p class="tiny muted" style="margin-bottom:8px">社區外賣，會員儲值可抵餐費。</p>
+                <div class="hashtags"><span>#外賣</span><span>#晚餐</span></div>
+              </div>
+              <button class="fav-btn on">♥</button>
+            </a>
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://picsum.photos/seed/xinkou/128/128" alt="新口岸茶餐廳" /></div>
+              <div class="merchant-body">
+                <h3>新口岸茶餐廳</h3>
+                <p class="merchant-meta">茶餐廳 · 新口岸 · 2.4km</p>
+                <div class="hashtags"><span>#港式</span><span>#早餐</span></div>
+              </div>
+              <button class="fav-btn">♡</button>
+            </a>
+          </div>
+          <div class="section" style="text-align:center;padding-top:0">
+            <button class="btn btn-secondary">載入更多店家</button>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP -->
+    <section class="screen-block" id="map">
+      <div class="screen-label">
+        <h2>逛店 · 地圖</h2>
+        <span>地圖找店</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <a class="icon-btn" href="#list" aria-label="返回列表">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+            </a>
+            <h1>地圖找店</h1>
+            <div class="right"><span class="tag tag-green">3 間附近</span></div>
+          </header>
+          <div class="section">
+            <div class="map-stub">
+              <div class="map-grid-lines"></div>
+              <div class="pin" style="left:28%;top:36%"></div>
+              <div class="pin" style="left:52%;top:48%"></div>
+              <div class="pin" style="left:68%;top:28%"></div>
+            </div>
+          </div>
+          <div class="section">
+            <p class="sm muted" style="margin-bottom:12px">點選圖針查看店家</p>
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/logo-d8966e10-99ef-471f-9b79-2d425ef1c576.webp" alt="表嫂美食" /></div>
+              <div class="merchant-body">
+                <h3>表嫂美食</h3>
+                <p class="merchant-meta">黑沙環祐漢新村 · 850m</p>
+                <div class="hashtags"><span>#營業中</span></div>
+              </div>
+              <span class="tag tag-green">選中</span>
+            </a>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAV -->
+    <section class="screen-block" id="fav">
+      <div class="screen-label">
+        <h2>逛店 · 我的收藏</h2>
+        <span>收藏列表</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header">
+            <h1>我的收藏</h1>
+            <span class="tag">2 間</span>
+          </header>
+          <div class="section stack-sm">
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/8291f843-9def-4956-9d0b-1cfef2598306/logo-d8966e10-99ef-471f-9b79-2d425ef1c576.webp" alt="表嫂美食" /></div>
+              <div class="merchant-body">
+                <h3>表嫂美食</h3>
+                <p class="merchant-meta">餘額 MOP 328.5 · 積分 1,240</p>
+              </div>
+              <button class="fav-btn on">♥</button>
+            </a>
+            <a class="merchant-card" href="merchant.html">
+              <div class="merchant-logo"><img src="https://zymdemjflsckicwcinxl.supabase.co/storage/v1/object/public/merchant-assets/b86a0d10-9618-4b7c-8569-bcd778ae63bd/logo-6a32e2d4-3489-4141-826f-641e138799c9.webp" alt="快宅" /></div>
+              <div class="merchant-body">
+                <h3>快宅</h3>
+                <p class="merchant-meta">餘額 MOP 86.0 · 積分 210</p>
+              </div>
+              <button class="fav-btn on">♥</button>
+            </a>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    <section class="screen-block" id="loading">
+      <div class="screen-label">
+        <h2>逛店 · Loading</h2>
+        <span>骨架屏</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header"><h1>逛店</h1></header>
+          <div class="section"><div class="skeleton" style="height:48px;border-radius:12px"></div></div>
+          <div class="section" style="display:flex;gap:8px">
+            <div class="skeleton" style="height:36px;width:72px;border-radius:999px"></div>
+            <div class="skeleton" style="height:36px;width:96px;border-radius:999px"></div>
+            <div class="skeleton" style="height:36px;width:64px;border-radius:999px"></div>
+          </div>
+          <div class="section stack-sm">
+            <div class="card" style="display:grid;grid-template-columns:64px 1fr;gap:12px">
+              <div class="skeleton" style="height:64px;border-radius:12px"></div>
+              <div>
+                <div class="skeleton" style="height:16px;width:60%;margin-bottom:8px"></div>
+                <div class="skeleton" style="height:12px;width:80%;margin-bottom:8px"></div>
+                <div class="skeleton" style="height:12px;width:40%"></div>
+              </div>
+            </div>
+            <div class="card" style="display:grid;grid-template-columns:64px 1fr;gap:12px">
+              <div class="skeleton" style="height:64px;border-radius:12px"></div>
+              <div>
+                <div class="skeleton" style="height:16px;width:50%;margin-bottom:8px"></div>
+                <div class="skeleton" style="height:12px;width:70%;margin-bottom:8px"></div>
+                <div class="skeleton" style="height:12px;width:35%"></div>
+              </div>
+            </div>
+            <div class="card" style="display:grid;grid-template-columns:64px 1fr;gap:12px">
+              <div class="skeleton" style="height:64px;border-radius:12px"></div>
+              <div>
+                <div class="skeleton" style="height:16px;width:55%;margin-bottom:8px"></div>
+                <div class="skeleton" style="height:12px;width:65%"></div>
+              </div>
+            </div>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- EMPTY -->
+    <section class="screen-block" id="empty">
+      <div class="screen-label">
+        <h2>逛店 · Empty</h2>
+        <span>無搜尋結果</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header"><h1>逛店</h1></header>
+          <div class="section">
+            <div class="search-bar">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.5-3.5"/></svg>
+              <input value="北極熊火鍋" readonly />
+            </div>
+          </div>
+          <div class="state-panel">
+            <div class="illus">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.5-3.5"/></svg>
+            </div>
+            <h3>找不到符合的店</h3>
+            <p>換個關鍵字，或改用分類與地圖瀏覽附近店家。</p>
+            <a class="btn btn-primary" href="#list">清除搜尋</a>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- ERROR -->
+    <section class="screen-block" id="error">
+      <div class="screen-label">
+        <h2>逛店 · Error</h2>
+        <span>載入失敗</span>
+      </div>
+      <div class="phone">
+        <div class="phone-inner">
+          <div class="status-bar"><span>9:41</span><span class="icons">▮▮▮ ▒</span></div>
+          <header class="app-header"><h1>逛店</h1></header>
+          <div class="section">
+            <div class="error-inline">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <div>
+                <strong>店家列表載入失敗</strong>
+                網路暫時連不上。請檢查連線後再試一次。
+              </div>
+            </div>
+          </div>
+          <div class="state-panel" style="padding-top:24px">
+            <button class="btn btn-primary">重新載入</button>
+          </div>
+          <nav class="bottom-nav">
+            <a class="nav-item" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11l8-7 8 7v8a1 1 0 01-1 1h-5v-5H10v5H5a1 1 0 01-1-1v-8z"/></svg>今日</a>
+            <a class="nav-item active" href="explore.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2 2"/></svg>逛店</a>
+            <a class="nav-pay" href="wallet-member.html#pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg></a>
+            <a class="nav-item" href="wallet-member.html#coupons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 100 4v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2a2 2 0 100-4V9z"/></svg>權益</a>
+            <a class="nav-item" href="settings.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3 4-4.5 7-4.5s5.5 1.5 7 4.5"/></svg>我的</a>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
