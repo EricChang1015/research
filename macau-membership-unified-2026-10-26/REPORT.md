@@ -6,61 +6,48 @@ Pages：`https://ericchang1015.github.io/research/macau-membership-unified-2026-
 
 ## 原碼取用情況
 
-嘗試 `git clone --branch uat https://github.com/EricChang1015/Macau-Ledger`：GitHub 回 **404**（此環境的 token 也無法讀該私有庫）。因此**沒有改、也沒有 checkout 產品碼**。
+雲端 agent 環境對 `https://github.com/EricChang1015/Macau-Ledger`（`uat`）仍是 **404**，無法 clone。產品碼未改。折扣模型依 gatekeep 轉述的 uat 真相改靜態預覽：
 
-對照用的「產品真相」改來自：
+| 檔 | 用途 |
+| --- | --- |
+| `src/lib/order-discounts.ts`（ADR-035） | 千分率折扣：商品 `promo_rate_permille`（可 `promo_limit_qty`）→ 用餐方式全單 `fulfillment_discounts`（dine_in／takeaway／merchant_delivery）；盒費／配送費不折 |
+| `src/components/wallet/order-menu-view.tsx` | 菜單頂 `fulfillmentDiscountBadges`；左側虛擬「折扣」分類；商品卡紅標折數＋劃線原價 |
+| `src/components/wallet/order-cart-view.tsx` | 小計 → 商品促銷折讓 → 用餐方式折扣 →（盒費／配送）→ 應付；付款＝餘額扣點／到店（或貨到）付款 |
 
-1. 本任務 brief 指定應讀的路徑（作為 IA／區塊清單，而非實際 checkout）：
-   - `src/app/wallet/**`
-   - `src/components/wallet/order-menu-view.tsx`
-   - `src/components/wallet/order-cart-view.tsx`
-   - `src/components/wallet/order-spec-sheet.tsx`
-   - `src/components/wallet/order-merchant-header.tsx`
-   - 商戶檔、卡券、會員 QR、餘額、收藏、地圖
-   - 結帳／商戶設定的 promotion／threshold／滿減欄位
-2. `FUNCTION_INVENTORY.md` 的**現有必備功能**（其「未來團購預留」本輪**整段忽略**）。
-3. 本 repo 既有三份預覽與公開 Supabase `merchant-assets` 圖。
+**沒有**「滿 X 減 Y」門檻檔。外送「再購 X 起送」是起送，不是滿減。
 
-無法核對的欄位（真實菜名價、滿減檔位數字、店頁區塊文案）不以假造後端資料假裝已讀原碼。菜名／價沿用 **store-lively** 已與公開圖綁定的配對；滿減檔位沿用 **order-inspired** 已寫過的「滿 50 減 3｜滿 90 減 8」，並做成可計算進度，不再標「示意／即將推出」。
+菜名／價與圖沿用本 repo 既有 UAT Supabase 素材。折扣**數字為示意示例**（雲端讀不到私庫真實商戶設定）。
 
 ## 刻意拿掉
 
 | 項目 | 原因 |
 | --- | --- |
-| 團購／到店特價／代金券列／即將推出 deal 卡 | Eric：商戶還沒有的先不要上；原碼沒有就整段拿掉 |
-| 掃碼點餐入口與橫幅 | 同樣是未上線能力 |
-| 大眾點評式套餐券、拼團進度 | 不存在 |
-| 虛構第三間店（如新口岸茶餐廳＋picsum） | 無真實素材 |
-| 月售、店內熱銷第 N、假評分 | 無原碼依據 |
-| 店頁海報造景橫滑 | 本輪店頁區塊清單未列海報 |
-| 舊產品 BottomNav「首頁｜訂單｜會員碼｜卡券｜設定」 | 改功能向 IA |
+| 「滿 50 減 3｜滿 90 減 8」與滿減進度條 | 產品沒有滿額減檔；上一輪誤畫 |
+| 團購／到店特價券／掃碼點餐 | 未上線，整段不出現 |
+| 虛構第三間店、月售／熱銷排名 | 無原碼依據 |
 
-## 本輪 IA（僅現有能力）
+## 折扣怎麼呈現（示意）
 
-| 鍵 | 放什麼 |
-| --- | --- |
-| 今日 | 跨店餘額、快捷（出示／卡券／找店／充值）、進行中訂單、收藏 |
-| 逛店 | 搜尋、分類、排序語意、地圖、收藏篩選、空態／錯誤 |
-| 出示 | 會員 QR、常用店餘額 |
-| 權益 | 卡券＋各店積分（訂單不佔這個鍵） |
-| 我的 | 名稱、語言、推播、訊息、訂單、收藏、明細、客服、切換商戶端、登出 |
+`promo_rate_permille` 在本預覽當作**應付千分率**：900＝9 折、850＝8.5 折、800＝8 折。
 
-互通：逛店 → 店頁 →「立即點餐」→ 菜單 → 規格 → 購物車 → 我的／訂單；店頁與底欄都可到出示。
+**表嫂（示意）**
 
-## 滿減怎麼呈現
+- 用餐方式：堂食 9 折、自取 9.5 折、外送 9 折；外送起送 MOP 80.0、配送費 12.0、自取盒費 2.0
+- 商品促銷：海鮮大盤雞 8.5 折、招牌拼盤 8 折（限購 2）、時令小菜 9 折
 
-規則（兩檔、取已達最高檔，不疊加）：
+**快宅（示意，略不同）**
 
-- 滿 MOP 50.0 減 3.0
-- 滿 MOP 90.0 減 8.0
+- 用餐方式：堂食 9.5 折、自取無折扣、外送 9 折；外送起送 MOP 60.0
+- 商品促銷：手制 Margherita 8 折、豬頸肉飯 9 折
 
 畫面：
 
-1. **菜單頂**綠底橫幅：寫出兩檔；進度條＝小計／最高門檻；文案「再消費 MOP x 即可減 y」或「已減 y · 再消費可減更高檔」或「已滿 90，本單減 8.0」。
-2. **吸底 charcoal 車**：件數、已減金額、餘額可抵、綠「去結帳」。
-3. **購物車**：小計 → 滿減列 → 餘額抵扣 → 應付；送出後餘額示意扣減。
+1. **菜單頂**：用餐方式徽章列，可切堂食／自取／外送；註記盒費／配送不折；外送未達顯示「再購 X 起送」。
+2. **左軌**：虛擬「折扣」釘選有 `promo_rate_permille` 的商品。
+3. **菜卡**：紅標折數＋劃線原價＋折後價。
+4. **吸底車／購物車**：促銷折讓＋用餐方式折扣（若有）＋餘額可抵；付款用語＝餘額扣點／到店付款／貨到付款。
 
-加購即時重算（`app.js` 的 `applyPromo`）。這是把產品已有、但舊點餐頁沒露出的滿減，做進點餐 UI；檔位數字在讀不到 `uat` 設定前沿用上一輪點餐稿。
+順序：先商品促銷（限購份數以外原價），再對折後餐食做用餐方式折扣，最後加不打折的盒費／配送費。
 
 ## 店與圖
 
@@ -69,10 +56,7 @@ Pages：`https://ericchang1015.github.io/research/macau-membership-unified-2026-
 | 表嫂美食 | `8291f843-9def-4956-9d0b-1cfef2598306` | hero、logo、menu×4、qr |
 | 快宅 | `b86a0d10-9618-4b7c-8569-bcd778ae63bd` | hero、logo、menu×2 |
 
-地址／介紹／留言（Joy 充值問句＋商家回覆）沿用 store-lively，因其比會員端 v2 的黑沙環虛構址更具體。菜價以店頁配對為準（海鮮大盤雞 218.0，不是點餐稿裡的 48.0）。
-
 ## 視覺
 
-- 淺底 `#FAFAF8`，單一 accent `#16A34A`，價格暖橙紅
+- 淺底 `#FAFAF8`，單一 accent `#16A34A`；促銷角標用警示紅（折數，不是主色）
 - 自架 Manrope woff2，無 Google Fonts／無背景漸層
-- 點餐結構取閃蜂／澳覓（左軌＋菜列＋吸底車），主色仍品牌綠
