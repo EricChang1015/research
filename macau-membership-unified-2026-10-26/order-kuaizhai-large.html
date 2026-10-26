@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>點餐大圖 · 快宅</title>
+  <link rel="stylesheet" href="shared.css" />
+</head>
+<body data-store="kuaizhai" data-view="menu-large">
+<div class="page-shell">
+  <header class="page-header">
+    <a class="brand" href="index.html"><span class="dot"></span>澳門會員通 · 整體預覽</a>
+    <nav class="hub-nav">
+      <a href="store-kuaizhai.html">快宅</a>
+      <a href="order-kuaizhai.html">小圖</a>
+      <a href="order-kuaizhai-large.html" class="is-active">大圖</a>
+      <a href="cart-kuaizhai.html">購物車</a>
+    </nav>
+  </header>
+  <section class="page-intro">
+    <div class="eyebrow">order · 快宅大圖</div>
+    <h1>快宅 · 大圖模式</h1>
+    <p>與小圖列共用購物車與滿減計算。</p>
+  </section>
+  <div class="gallery">
+    <div class="frame-wrap">
+      <div class="frame-label"><span class="title">快宅大圖</span><span class="tag">可切回小圖</span></div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="status-bar"><span>9:41</span><span>▮▮▮ ▒</span></div>
+          <div class="app-top">
+            <a class="icon-btn" href="store-kuaizhai.html" aria-label="返回"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></a>
+            <div class="store-title"><h1>快宅</h1><p class="tabular">餘額可抵 MOP 86.0</p></div>
+            <div class="top-actions"><a class="icon-btn" href="cart-kuaizhai.html" aria-label="購物車"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h2l2 10h10l2-7H8"/><circle cx="10" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg></a></div>
+          </div>
+          <nav class="order-tabs">
+            <a href="order-kuaizhai.html" class="is-active">點餐</a>
+            <a href="store-kuaizhai.html">評價</a>
+            <a href="store-kuaizhai.html">商家</a>
+          </nav>
+          <div class="phone-scroll has-cart">
+            <div class="promo-banner" data-promo></div>
+            <div class="menu-dual">
+              <aside class="cat-rail" data-cat-rail></aside>
+              <div class="menu-pane" data-menu-pane></div>
+            </div>
+          </div>
+          <div class="cart-dock" data-cart-dock data-cart-href="cart-kuaizhai.html"></div>
+          <div class="sheet-mask" id="sheet-mask">
+            <div class="sheet">
+              <div class="hero"><img data-sheet-img alt="" /></div>
+              <div class="pad">
+                <button class="tiny muted" type="button" data-sheet-close>關閉</button>
+                <h2 data-sheet-name style="font-size:20px;font-weight:700;margin:8px 0 4px"></h2>
+                <p class="sm muted" data-sheet-desc></p>
+                <p class="tabular" data-sheet-price style="font-weight:700;margin:8px 0 16px"></p>
+                <h3 style="font-size:15px;font-weight:700;margin-bottom:8px">尺寸</h3>
+                <label class="opt"><input type="radio" name="spice" value="9 吋" checked /> 9 吋</label>
+                <label class="opt"><input type="radio" name="spice" value="12 吋" /> 12 吋</label>
+                <div class="sheet-bar">
+                  <div class="qty-ctrl">
+                    <button type="button" data-sheet-delta="-1">−</button>
+                    <strong data-sheet-qty>1</strong>
+                    <button type="button" data-sheet-delta="1">+</button>
+                  </div>
+                  <button class="btn btn-primary" type="button" data-sheet-add style="flex:1">加入</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
