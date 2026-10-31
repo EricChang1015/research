@@ -8,12 +8,13 @@
 | --- | --- | --- |
 | [AMSpec／傑出材料科技](./amspec/) | `amspec/` | 高強度鋁無縫管／精抽；上下游與生態系互動簡報 |
 | [巨鑫化學／Acrochem](./acrochem/) | `acrochem/` | 活性碳製造與廢碳再生；標案／許可／策略互動簡報 |
+| [美股優質股調查｜2026-10](./us-equity-quality-2026-10/) | `us-equity-quality-2026-10/` | 研究觀察、非買賣建議。品質與現金流、GOOGL PE 扭曲、Hyperscaler CapEx／FCF、配置優先序 |
 | [澳門會員通 · 整體預覽（2026-10-26）](./macau-membership-unified-2026-10-26/) | `macau-membership-unified-2026-10-26/` | **主入口**：會員端＋店頁＋點餐互通；滿減 chips＋商品促銷／用餐方式折扣；無團購 |
 | [封存 · 會員端 UI](./macau-membership-client-ui-2026-10-26/) | `macau-membership-client-ui-2026-10-26/` | 舊功能向 v2 |
 | [封存 · 店頁有生氣](./macau-membership-store-lively-2026-10-26/) | `macau-membership-store-lively-2026-10-26/` | 舊表嫂／快宅店頁 |
 | [封存 · 點餐預覽](./macau-membership-order-inspired-2026-10-26/) | `macau-membership-order-inspired-2026-10-26/` | 舊閃蜂／澳覓結構點餐 |
 
-Pages 路徑示例：`…/research/amspec/`、`…/research/macau-membership-unified-2026-10-26/`。
+Pages 路徑示例：`…/research/amspec/`、`…/research/us-equity-quality-2026-10/`、`…/research/macau-membership-unified-2026-10-26/`。
 
 ## 本機
 

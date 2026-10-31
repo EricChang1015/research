@@ -1,0 +1,20 @@
+美股優質股調查｜2026-10
+重要聲明：研究／觀察整理，非買賣建議、不保證報酬、不下單。
+資料截至 2026-10-31（Asia/Macau）。價格與市場倍數多為 10/29–10/30 收盤或延遲報價約值。標有 ≈ 或 * 者為約值、延遲報價，或受一次性／投資損益扭曲。
+
+背景：2026 年 10 月下旬，市場再度質疑 hyperscaler 的 AI 資本支出能否及時換來報酬。GOOGL CapEx 195–205B、Q3 FCF −9.1B；META CapEx 135–145B（底部上修）、Q3 FCF 轉負；AMZN 2026 CapEx ≈220B、TTM FCF ≈−42.4B；MSFT 將 CY2026 CapEx 下修至 ≈170B，仍報正 FCF。INTC 約 −28%（10/30），暫不進核心觀察池。
+
+GOOGL：勿只用 GAAP trailing PE ≈15*。Q3 營收 1,275.8 億、營業利益 405.8 億（利潤率 31.8%）、GAAP 稀釋 EPS 2.12；股權證券淨虧約 86.6 億、EPS 約 −0.55。示意加回約 2.67 不是官方非 GAAP。前瞻 PE 約 20 較可並陳。來源為 SEC Exhibit 99.1（2026-10-28）。
+
+配置優先序（觀察對照，不是下單指令）：
+1. 核心：VTI 或 VOO 底倉（筆記約價 VTI ≈371、VOO ≈694；費用率皆列 0.03%；偏好優於 QQQ）。
+2. 衛星一：V／MA，其次 COST（倍數回到中段再提高權重）。
+3. 衛星二：AAPL（等 2026-11-02 14:00 PT 電話會）、條件式 MSFT（維持正 FCF、未大幅再上修 CapEx）。
+4. 衛星三（延後）：GOOGL／AMZN／META。
+5. 嚴控：AVGO／NVDA；INTC 暫不優先。
+
+估值背景僅覆蓋 V／MA／COST／UNH／AAPL 的約五年 PE 區間，皆為近似，不是目標價。UNH 在總覽與估值表，不在上述五層配置序內。
+
+官方連結：Microsoft FY27 Q1 IR、Alphabet SEC Ex. 99.1、Amazon Q3 IR、Meta Q3 IR、Apple FY26 Q4 活動頁。次級交叉：CNBC、Macrotrends、stockanalysis（筆記未附單篇 URL）。
+
+已知缺口：部分報價／倍數仍約值；META IR 抓取曾被擋、需再核；2027 CapEx 多為定性；五年百分位為近似區間；AAPL 清單待財報後勾選。
