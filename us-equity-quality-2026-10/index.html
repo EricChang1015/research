@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>美股優質股調查｜2026-10 — 研究觀察（非買賣建議）</title>
+<style>
+:root {
+  --bg: #0f1419;
+  --bg2: #1a2332;
+  --bg3: #243044;
+  --card: #1e2a3a;
+  --border: #2d3f56;
+  --text: #e8eef5;
+  --muted: #9aadc2;
+  --accent: #5eb3f6;
+  --accent2: #7dd3a8;
+  --warn: #f0b060;
+  --fact: #5eb3f6;
+  --infer: #c9a0e8;
+  --danger: #f08080;
+  --self: #f0b060;
+  --rec: #7dd3a8;
+  --radius: 10px;
+  --max: 1080px;
+  --font: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Helvetica Neue", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 16px;
+}
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+a:hover { border-bottom-color: var(--accent); }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.25rem 4rem; }
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  z-index: 1000; transition: width 0.1s linear;
+}
+.disc-wrap {
+  background: #1a1012;
+  border-bottom: 1px solid rgba(240,128,128,0.45);
+  padding: 1.1rem 0 1.15rem;
+}
+.disc-banner {
+  background: #3a2226;
+  border: 1px solid var(--danger);
+  border-left: 6px solid var(--danger);
+  border-radius: var(--radius);
+  padding: 0.95rem 1.1rem;
+  margin: 0;
+}
+.disc-kicker {
+  margin: 0 0 0.35rem;
+  color: var(--danger);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  font-size: 0.92rem;
+}
+.disc-banner p { margin: 0; }
+.disc-banner strong { color: #ffd0d0; }
+.sticky-bar {
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(15,20,25,0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.55rem 0;
+}
+.sticky-inner {
+  max-width: var(--max); margin: 0 auto; padding: 0 1.25rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 0.8rem;
+}
+.sticky-bar .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; }
+.sticky-note {
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em;
+  color: var(--danger);
+  border: 1px solid rgba(240,128,128,0.5);
+  background: rgba(240,128,128,0.12);
+  border-radius: 999px;
+  padding: 0.18rem 0.6rem;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip {
+  font-family: inherit;
+  font-size: 0.75rem; font-weight: 600;
+  padding: 0.28rem 0.7rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--bg2);
+  color: var(--muted); cursor: pointer;
+}
+.chip:hover, .chip:focus-visible { border-color: var(--accent); color: var(--text); outline: none; }
+.chip.active { background: rgba(94,179,246,0.18); color: var(--accent); border-color: var(--accent); }
+.chip[data-filter="fact"].active { background: rgba(94,179,246,0.18); color: var(--fact); border-color: var(--fact); }
+.chip[data-filter="infer"].active { background: rgba(201,160,232,0.18); color: var(--infer); border-color: var(--infer); }
+.chip[data-filter="rec"].active { background: rgba(125,211,168,0.18); color: var(--rec); border-color: var(--rec); }
+.chip[data-filter="self"].active { background: rgba(240,176,96,0.18); color: var(--self); border-color: var(--self); }
+.toc-mini { display: none; flex-wrap: wrap; gap: 0.25rem; margin-left: auto; }
+@media (min-width: 900px) { .toc-mini { display: flex; } }
+.toc-mini a {
+  font-size: 0.7rem; color: var(--muted); padding: 0.2rem 0.4rem;
+  border-radius: 4px; border-bottom: none;
+}
+.toc-mini a:hover, .toc-mini a:focus-visible { color: var(--accent); background: var(--bg3); outline: none; }
+.toc-mini a.active { color: var(--accent2); background: rgba(125,211,168,0.12); }
+.hero {
+  background: linear-gradient(165deg, #152238 0%, #0f1419 55%, #1a2a22 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2.2rem 0 2rem;
+}
+.hero .eyebrow {
+  display: inline-block; font-size: 0.78rem; letter-spacing: 0.06em;
+  color: var(--accent2);
+  background: rgba(125,211,168,0.12); padding: 0.25rem 0.65rem;
+  border-radius: 999px; margin-bottom: 0.9rem;
+}
+.hero h1 {
+  font-size: clamp(1.55rem, 4vw, 2.15rem); line-height: 1.25;
+  margin: 0 0 0.45rem; font-weight: 700;
+}
+.hero .en { color: var(--muted); font-size: 1.02rem; margin: 0 0 1rem; }
+.hero .lede { color: var(--muted); max-width: 46rem; margin: 0 0 1.1rem; font-size: 0.98rem; }
+.hero .meta {
+  display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem;
+  font-size: 0.85rem; color: var(--muted);
+}
+.hero .meta strong { color: var(--text); font-weight: 600; }
+.kpi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem; margin: 1.25rem 0 0.5rem;
+}
+.kpi .item {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.85rem 1rem;
+}
+.kpi .label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 0.3rem; }
+.kpi .value { font-size: 0.95rem; font-weight: 600; line-height: 1.35; }
+.toc {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.15rem 1.35rem; margin: 1.25rem 0 2rem;
+}
+.toc h2 {
+  font-size: 0.9rem; margin: 0 0 0.75rem; color: var(--muted);
+  font-weight: 600; letter-spacing: 0.04em;
+}
+.toc ol { margin: 0; padding-left: 1.25rem; }
+@media (min-width: 640px) { .toc ol { columns: 2; column-gap: 2rem; } }
+.toc li { margin-bottom: 0.4rem; break-inside: avoid; }
+.toc a { color: var(--text); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent); }
+section { margin-bottom: 2.75rem; scroll-margin-top: 4.5rem; }
+section > h2 {
+  font-size: 1.35rem; margin: 0 0 1rem; padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--border);
+  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+}
+section > h2 .num { color: var(--accent); font-weight: 700; font-size: 1rem; }
+h3 { font-size: 1.08rem; margin: 1.5rem 0 0.65rem; }
+p { margin: 0 0 0.9rem; }
+ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+li { margin-bottom: 0.4rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.88rem; }
+.tag {
+  display: inline-block; font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.04em; padding: 0.12rem 0.45rem; border-radius: 4px;
+  vertical-align: middle; margin-right: 0.3rem;
+}
+.tag-fact { background: rgba(94,179,246,0.18); color: var(--fact); }
+.tag-infer { background: rgba(201,160,232,0.18); color: var(--infer); }
+.tag-self { background: rgba(240,176,96,0.18); color: var(--warn); }
+.tag-conflict { background: rgba(240,128,128,0.18); color: var(--danger); }
+.tag-rec { background: rgba(125,211,168,0.18); color: var(--accent2); }
+.tag-sec { background: rgba(154,173,194,0.2); color: var(--muted); }
+body.filter-fact [data-kind]:not([data-kind~="fact"]):not([data-kind~="conflict"]) { opacity: 0.28; }
+body.filter-infer [data-kind]:not([data-kind~="infer"]) { opacity: 0.28; }
+body.filter-rec [data-kind]:not([data-kind~="rec"]) { opacity: 0.28; }
+body.filter-self [data-kind]:not([data-kind~="self"]) { opacity: 0.28; }
+body.filter-fact .viz-node:not(.kind-fact):not(.kind-conflict),
+body.filter-infer .viz-node:not(.kind-infer),
+body.filter-rec .viz-node:not(.kind-rec),
+body.filter-self .viz-node:not(.kind-self) { opacity: 0.22; }
+.callout {
+  background: var(--bg2); border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 0.9rem 1.1rem; margin: 1rem 0; font-size: 0.93rem;
+}
+.callout.warn { border-left-color: var(--warn); background: rgba(240,176,96,0.06); }
+.callout.danger { border-left-color: var(--danger); }
+.callout.infer { border-left-color: var(--infer); }
+.callout.rec { border-left-color: var(--rec); }
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 0.85rem; margin: 1rem 0; }
+@media (min-width: 700px) {
+  .card-grid.two { grid-template-columns: 1fr 1fr; }
+}
+.table-wrap { overflow-x: auto; margin: 1rem 0; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; font-size: 0.86rem; min-width: 640px; }
+th, td {
+  border: 1px solid var(--border); padding: 0.5rem 0.65rem;
+  text-align: left; vertical-align: top;
+}
+th {
+  background: var(--bg3); color: var(--muted); font-weight: 600;
+  font-size: 0.76rem; letter-spacing: 0.03em;
+}
+td { background: var(--card); }
+tr:nth-child(even) td { background: #1a2636; }
+tr.is-hidden { display: none; }
+.viz-shell {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem; margin: 1rem 0 1.25rem;
+}
+.viz-shell .viz-title {
+  font-size: 0.85rem; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.04em; margin: 0 0 0.35rem;
+}
+.viz-hint { font-size: 0.78rem; color: var(--muted); font-weight: 400; margin: 0 0 0.75rem; }
+.viz-canvas { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.viz-canvas svg { display: block; height: auto; min-width: 960px; }
+.viz-node { cursor: pointer; }
+.viz-node:hover, .viz-node:focus { filter: brightness(1.15); outline: none; }
+.viz-node.selected { filter: brightness(1.25) drop-shadow(0 0 6px rgba(94,179,246,0.55)); }
+.viz-node text { pointer-events: none; font-family: var(--font); }
+.edge { stroke: #3d5570; stroke-width: 1.5; fill: none; opacity: 0.85; }
+.edge.dashed { stroke-dasharray: 5 4; }
+.detail-panel {
+  margin-top: 0.85rem; padding: 0.9rem 1.05rem;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; min-height: 3.2rem; font-size: 0.9rem;
+}
+.detail-panel .dp-empty { color: var(--muted); font-size: 0.85rem; margin: 0; }
+.detail-panel .dp-title { font-weight: 700; margin: 0 0 0.35rem; }
+.detail-panel .dp-meta { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.45rem; }
+.detail-panel .dp-fact,
+.detail-panel .dp-infer,
+.detail-panel .dp-rec {
+  padding-left: 0.65rem; margin: 0.45rem 0;
+}
+.detail-panel .dp-fact { border-left: 3px solid var(--fact); }
+.detail-panel .dp-infer { border-left: 3px solid var(--infer); }
+.detail-panel .dp-rec { border-left: 3px solid var(--rec); }
+.detail-panel .dp-body { margin: 0.45rem 0 0; }
+.legend {
+  display: flex; flex-wrap: wrap; gap: 0.45rem 0.9rem;
+  font-size: 0.8rem; color: var(--muted); margin: 0 0 1.1rem;
+  padding: 0.75rem 1rem; background: var(--bg2);
+  border-radius: var(--radius); border: 1px solid var(--border);
+}
+.prio-list { display: flex; flex-direction: column; gap: 0.55rem; margin: 1rem 0; }
+.prio-item {
+  display: grid; grid-template-columns: 88px 1fr; gap: 0.75rem;
+  align-items: start; background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.9rem; cursor: pointer;
+  width: 100%; font: inherit; color: inherit; text-align: left;
+}
+.prio-item:hover, .prio-item:focus-visible { border-color: var(--accent); outline: none; }
+.prio-item.active { border-color: var(--accent); background: rgba(94,179,246,0.08); }
+.prio-badge {
+  font-size: 0.72rem; font-weight: 700; text-align: center;
+  padding: 0.35rem 0.3rem; border-radius: 6px; line-height: 1.3;
+}
+.prio-badge.hi { background: rgba(125,211,168,0.18); color: var(--accent2); }
+.prio-badge.mid { background: rgba(240,176,96,0.18); color: var(--warn); }
+.prio-badge.lo { background: rgba(154,173,194,0.18); color: var(--muted); }
+.prio-badge.no { background: rgba(240,128,128,0.18); color: var(--danger); }
+.prio-title { font-weight: 600; font-size: 0.92rem; margin: 0 0 0.2rem; }
+.prio-desc { font-size: 0.82rem; color: var(--muted); margin: 0; }
+.matrix { display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin: 0.75rem 0 0; }
+@media (min-width: 700px) { .matrix { grid-template-columns: 1fr 1fr; } }
+.m-card {
+  border-radius: var(--radius); padding: 0.9rem 1rem;
+  border: 1px solid var(--border); background: var(--card);
+}
+.m-card.do { border-top: 3px solid var(--accent2); }
+.m-card.dont { border-top: 3px solid var(--danger); }
+.m-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+  margin-bottom: 0.35rem;
+}
+.m-card.do .m-label { color: var(--accent2); }
+.m-card.dont .m-label { color: var(--danger); }
+.m-card p { margin: 0; font-size: 0.92rem; }
+.scenario {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 0.9rem 1rem; margin: 0.75rem 0;
+}
+.scenario h3 { margin: 0 0 0.35rem; font-size: 1rem; }
+.eco-grid { display: grid; grid-template-columns: 1fr; gap: 0.55rem; margin: 0.75rem 0; }
+@media (min-width: 700px) { .eco-grid { grid-template-columns: 1fr 1fr; } }
+.eco-node {
+  display: block; width: 100%; text-align: left;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.7rem 0.8rem;
+  color: var(--text); font-size: 0.88rem; cursor: pointer;
+  font-family: inherit; line-height: 1.4;
+}
+.eco-node:hover, .eco-node:focus-visible { border-color: var(--accent); outline: none; }
+.eco-node.selected { border-color: var(--accent); background: rgba(94,179,246,0.12); }
+.eco-node.kind-fact { border-left: 3px solid var(--fact); }
+.eco-node.kind-self { border-left: 3px solid var(--self); }
+.eco-node.kind-infer { border-left: 3px solid var(--infer); }
+.eco-node strong { display: block; }
+.eco-node .en { display: block; font-size: 0.75rem; color: var(--muted); font-weight: 400; }
+.check-list { list-style: none; padding: 0; margin: 0.5rem 0 0.75rem; }
+.check-list li {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; margin: 0.4rem 0; padding: 0.55rem 0.85rem;
+}
+.check-list li.is-checked { border-color: var(--accent); }
+.check-list label { display: flex; gap: 0.65rem; align-items: flex-start; cursor: pointer; }
+.check-list input { margin-top: 0.35rem; width: 1rem; height: 1rem; accent-color: #5eb3f6; }
+.cap-anchor {
+  background: rgba(201,160,232,0.08); border: 1px dashed var(--infer);
+  border-radius: 8px; padding: 0.9rem 1.05rem; margin: 1rem 0;
+}
+.hc-conflict { display: grid; grid-template-columns: 1fr; gap: 0.65rem; margin: 0.75rem 0 1rem; }
+@media (min-width: 640px) { .hc-conflict { grid-template-columns: 1fr 1fr; } }
+.hc-box {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: 0.9rem 1rem;
+}
+.hc-box .hc-n { font-size: 1.35rem; font-weight: 700; line-height: 1.25; margin: 0.2rem 0; }
+.hc-box.warn-box { border-top: 3px solid var(--warn); }
+.hc-box.ok-box { border-top: 3px solid var(--accent2); }
+.sources { font-size: 0.88rem; }
+.sources li { margin-bottom: 0.45rem; word-break: break-all; }
+.gap-list li { margin-bottom: 0.45rem; }
+footer {
+  margin-top: 1rem; padding-top: 1.25rem; border-top: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--muted);
+}
+.skip {
+  position: absolute; left: -9999px; top: 0.5rem;
+  background: var(--accent); color: #0f1419; padding: 0.5rem 1rem;
+  z-index: 2000; border-radius: 4px; font-weight: 700;
+}
+.skip:focus { left: 0.5rem; }
+button.linkish {
+  font: inherit; color: var(--accent); background: none; border: none;
+  padding: 0; cursor: pointer; border-bottom: 1px solid transparent;
+}
+button.linkish:hover, button.linkish:focus-visible { border-bottom-color: var(--accent); outline: none; }
+@media (max-width: 640px) {
+  .kpi { grid-template-columns: 1fr 1fr; }
+  .prio-item { grid-template-columns: 72px 1fr; }
+}
+@media print {
+  .sticky-bar, .progress-bar, .skip { display: none; }
+  body { background: #fff; color: #111; }
+  .disc-banner, .callout, .scenario { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到主要內容</a>
+<div class="progress-bar" id="progressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="閱讀進度"></div>
+
+<div class="disc-wrap">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="disc-banner" role="note">
+      <p class="disc-kicker">重要聲明</p>
+      <p>本頁為<strong>研究／觀察整理，非買賣建議</strong>、不保證報酬、不下單，也不是投資顧問文案。資料截至 <strong>2026-10-31</strong>（Asia/Macau）。價格與市場倍數多為 <strong>10/29–10/30</strong> 收盤或延遲報價約值。優先對照公司財報、SEC Exhibit／10-Q／10-K 與 IR 新聞稿。標有 <strong>≈</strong> 或 <strong>*</strong> 者為約值、延遲報價，或受一次性／投資損益扭曲的項目。</p>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap" style="padding-bottom:0">
+    <div class="eyebrow">公開資料研究簡報 · 互動視覺版 · 非買賣建議</div>
+    <h1>美股優質股調查｜2026-10</h1>
+    <p class="en">品質、現金流與資本開支觀察 · 不是目標價、不是持倉說明</p>
+    <p class="lede">這頁把 2026 年 10 月下旬的公開財報與約值報價放在同一張對照裡：hyperscaler 的 AI 資本支出是否已經壓過自由現金流、哪些名稱仍被筆記放在現金複利一側、以及配置順序為什麼把寬基放在個股前面。公司自述、次級約值、推論與觀察用建議會分開標示。</p>
+    <div class="meta">
+      <span><strong>調查日期</strong> 2026-10-31（Asia/Macau；與台北時間同日）</span>
+      <span><strong>報價窗</strong> 約 10/29–10/30</span>
+      <span><strong>操作</strong> 篩選標籤 · 點節點或優先序 · Tab／Enter／Esc</span>
+      <span><a href="../">報告目錄</a> · <a href="./research.md">調查筆記</a></span>
+    </div>
+    <div class="kpi" aria-label="本頁範圍">
+      <div class="item">
+        <div class="label">底倉（觀察順序）</div>
+        <div class="value">VTI 或 VOO</div>
+      </div>
+      <div class="item">
+        <div class="label">延後的平台</div>
+        <div class="value">GOOGL／AMZN／META</div>
+      </div>
+      <div class="item">
+        <div class="label">條件式個股</div>
+        <div class="value">AAPL 等 11/02</div>
+      </div>
+      <div class="item">
+        <div class="label">不進核心池</div>
+        <div class="value">INTC 僅對照</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="sticky-bar" role="region" aria-label="篩選與章節">
+  <div class="sticky-inner">
+    <span class="sticky-note">研究觀察 · 非買賣建議</span>
+    <span class="label">主張</span>
+    <div class="chips" role="toolbar" aria-label="主張類型篩選">
+      <button type="button" class="chip active" data-filter="all" aria-pressed="true">全部</button>
+      <button type="button" class="chip" data-filter="fact" aria-pressed="false">事實</button>
+      <button type="button" class="chip" data-filter="self" aria-pressed="false">公司自述</button>
+      <button type="button" class="chip" data-filter="infer" aria-pressed="false">推論</button>
+      <button type="button" class="chip" data-filter="rec" aria-pressed="false">建議</button>
+    </div>
+    <nav class="toc-mini" aria-label="快速目錄">
+      <a href="#s1" data-toc="s1">篩選</a>
+      <a href="#s2" data-toc="s2">市場</a>
+      <a href="#s3" data-toc="s3">GOOGL</a>
+      <a href="#s4" data-toc="s4">總覽</a>
+      <a href="#s6" data-toc="s6">CapEx</a>
+      <a href="#s7" data-toc="s7">AAPL</a>
+      <a href="#s10" data-toc="s10">配置</a>
+      <a href="#s12" data-toc="s12">缺口</a>
+    </nav>
+  </div>
+</div>
+
+<main id="main">
+  <div class="wrap">
+    <div class="legend" aria-label="標籤說明">
+      <span><span class="tag tag-fact">事實</span>可重開的財報、SEC 或 IR 頁所載</span>
+      <span><span class="tag tag-self">公司自述</span>公司指引、新聞稿用語</span>
+      <span><span class="tag tag-sec">次級</span>報價、費用率、共識倍數；筆記未附單篇 URL</span>
+      <span><span class="tag tag-infer">推論</span>市場或產業邏輯，不是公司原句</span>
+      <span><span class="tag tag-rec">建議</span>本頁觀察用的順序與暫緩條件，不是下單</span>
+    </div>
+
+    <nav class="toc" aria-label="目錄">
+      <h2>目錄</h2>
+      <ol>
+        <li><a href="#s1">篩選標準與約值規則</a></li>
+        <li><a href="#s2">市場背景：AI CapEx</a></li>
+        <li><a href="#s3">GOOGL trailing PE 扭曲</a></li>
+        <li><a href="#viz-pool">觀察池優先序圖</a></li>
+        <li><a href="#s4">總覽比較（約 2026-10-30）</a></li>
+        <li><a href="#s5">ETF：VTI／VOO</a></li>
+        <li><a href="#s6">Hyperscaler CapEx／FCF</a></li>
+        <li><a href="#s7">AAPL 2026-11-02 清單</a></li>
+        <li><a href="#s8">約五年估值背景</a></li>
+        <li><a href="#s9">半導體（謹慎）</a></li>
+        <li><a href="#s10">配置優先序與暫緩條件</a></li>
+        <li><a href="#s11">三種情境</a></li>
+        <li><a href="#s12">來源與已知缺口</a></li>
+      </ol>
+    </nav>
+
+    <section id="s1">
+      <h2><span class="num">01</span> 篩選標準與約值規則</h2>
+      <p data-kind="rec"><span class="tag tag-rec">建議</span>下面六條是這份筆記挑名字的門檻，用來對照公開資料。<strong>不是</strong>投資政策，也不是適合任何人的配置比例。</p>
+      <ul data-kind="rec">
+        <li>品質與護城河：平台、支付寡占、會籍零售、醫療整合、或筆記認為壁壘清楚的半導體。</li>
+        <li>現金流優先；高 CapEx、自由現金流轉負的，標成風險而不是拿掉不看。</li>
+        <li>估值同時看 trailing 與前瞻，並標出被一次性項目扭曲的倍數。</li>
+        <li>相對港股中國互聯網，相關性放在較低的一側（筆記用語，沒有附相關係數）。</li>
+        <li>排除迷因與槓桿單押；換手假設偏低。</li>
+        <li>ETF 偏好 VTI／VOO，優於 QQQ。</li>
+      </ul>
+      <div class="callout warn" data-kind="infer">
+        <p style="margin:0"><span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span>≈ 表示約值或延遲報價。* 在本頁特別用在 GOOGL 的 GAAP trailing PE：TTM 淨利含股權證券投資損益，不能單獨拿來當「很便宜」。</p>
+      </div>
+    </section>
+
+    <section id="s2">
+      <h2><span class="num">02</span> 市場背景：AI CapEx 疑慮回潮</h2>
+      <p data-kind="infer"><span class="tag tag-infer">推論</span>2026 年 10 月下旬，市場敘事再次質疑 hyperscaler 的 AI 資本支出能否及時換來報酬。下表「近幾日量級」是次級約值；資本支出與自由現金流的標籤，以 <a href="#s6">CapEx 表</a>與 <a href="#s3">GOOGL 季報節</a>為準。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>標的</th>
+              <th>近幾日量級</th>
+              <th>重點（沿筆記）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-kind="self infer">
+              <td>GOOGL<br><span class="tag tag-sec">次級</span><span class="tag tag-self">公司自述</span></td>
+              <td>≈−12%（10/29）</td>
+              <td>CapEx 195–205B；Q3 FCF −9.1B；2027 顯著更高</td>
+            </tr>
+            <tr data-kind="self infer">
+              <td>META<br><span class="tag tag-sec">次級</span><span class="tag tag-self">公司自述</span></td>
+              <td>≈−7% 週內</td>
+              <td>CapEx 135–145B（底部上修）；Q3 FCF 轉負</td>
+            </tr>
+            <tr data-kind="self infer">
+              <td>AMZN<br><span class="tag tag-sec">次級</span><span class="tag tag-self">公司自述</span></td>
+              <td>≈−3～7%</td>
+              <td>2026 CapEx ≈220B；TTM FCF ≈−42.4B；2027「明顯更高」</td>
+            </tr>
+            <tr data-kind="self infer">
+              <td>MSFT<br><span class="tag tag-sec">次級</span><span class="tag tag-self">公司自述</span></td>
+              <td>小跌</td>
+              <td>CY2026 CapEx 下修至 ≈170B；仍報正 FCF</td>
+            </tr>
+            <tr data-kind="infer">
+              <td>INTC<br><span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span></td>
+              <td>≈−28%（10/30）</td>
+              <td>展望與現金消耗；暫不進核心觀察池。筆記未附 INTC IR URL。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="s3">
+      <h2><span class="num">03</span> GOOGL：勿只用 trailing PE ≈15*</h2>
+      <div class="callout warn" data-kind="infer">
+        <p style="margin:0"><span class="tag tag-infer">推論</span>勿只用 GAAP trailing PE ≈15*。Q3 營業利益仍強，但 GAAP EPS 受股權證券公允價值拖累（約 −0.55 EPS）。比較時把營業利益、調整視角 EPS、前瞻 PE 與 FCF 放在一起看。</p>
+      </div>
+      <div class="hc-conflict">
+        <div class="hc-box warn-box" data-kind="infer">
+          <span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span>
+          <p class="hc-n">Trailing PE ≈15*</p>
+          <p class="small muted" style="margin:0">市價約值。*＝TTM 淨利含投資損益。看起來低，不代表本業倍數就是 15 倍。</p>
+        </div>
+        <div class="hc-box ok-box" data-kind="fact self">
+          <span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span>
+          <p class="hc-n">營業利益 405.8 億</p>
+          <p class="small muted" style="margin:0">利潤率 31.8%。Q3 GAAP 稀釋 EPS 2.12。前瞻 PE 筆記約 ≈20（次級共識，不是 SEC 科目）。</p>
+        </div>
+      </div>
+      <p class="small muted">季報科目沿 SEC Exhibit 99.1（2026-10-28）。本靜態頁引用該連結，沒有在做成頁面時重新下載檔案。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>指標</th>
+              <th>GAAP／報表</th>
+              <th>解讀</th>
+              <th>標示</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-kind="fact self">
+              <td>Q3 營收</td>
+              <td>1,275.8 億（+25%）</td>
+              <td>Search／Cloud／TPU</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span></td>
+            </tr>
+            <tr data-kind="fact self">
+              <td>Q3 營業利益</td>
+              <td>405.8 億；利潤率 31.8%</td>
+              <td>本業仍強</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span></td>
+            </tr>
+            <tr data-kind="fact self">
+              <td>Q3 GAAP 稀釋 EPS</td>
+              <td>2.12</td>
+              <td>OI&amp;E／股權投資拖累</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span></td>
+            </tr>
+            <tr data-kind="fact infer">
+              <td>股權證券影響</td>
+              <td>淨虧 ≈86.6 億；EPS ≈−0.55</td>
+              <td>示意加回 ≈2.67（非官方非 GAAP）</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-infer">推論</span></td>
+            </tr>
+            <tr data-kind="infer">
+              <td>Trailing PE</td>
+              <td>≈15*</td>
+              <td>TTM 淨利含投資損益</td>
+              <td><span class="tag tag-sec">次級</span></td>
+            </tr>
+            <tr data-kind="infer">
+              <td>前瞻 PE</td>
+              <td>≈20</td>
+              <td>較可參考的市場共識約值</td>
+              <td><span class="tag tag-sec">次級</span></td>
+            </tr>
+            <tr data-kind="fact self">
+              <td>Q3／TTM FCF</td>
+              <td>−90.65 億／+197.5 億</td>
+              <td>CapEx 重。CapEx 表另寫 Q3 −9.1、TTM ≈19.7，兩種單位並陳，本頁不另取捨。</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small">來源：<a href="https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm">Alphabet Q3 2026 SEC Exhibit 99.1</a></p>
+    </section>
+
+    <section id="viz-pool">
+      <h2><span class="num">V</span> 觀察池優先序</h2>
+      <p data-kind="rec"><span class="tag tag-rec">建議</span>圖上的位置等於筆記的五層順序，不是資金流向、不是已持有的部位、也不是供應鏈。實線是筆記寫得比較直接的下一層（核心到 V／MA，以及 VTI 與 VOO 互為替代）。虛線是條件式、延後、嚴控，或暫不進入核心池。</p>
+      <div class="viz-shell">
+        <p class="viz-title">點代號看這層為什麼這樣排</p>
+        <p class="viz-hint">鍵盤：Tab 進節點，Enter 或空白鍵開啟，左右方向鍵移動，Esc 關閉。手機可左右拖動。</p>
+        <div class="viz-canvas" id="chainSvgWrap"></div>
+        <div class="detail-panel" id="chainPanel" aria-live="polite">
+          <p class="dp-empty">點節點查看事實／推論細節。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="s4">
+      <h2><span class="num">04</span> 總覽比較（約 2026-10-30）</h2>
+      <p data-kind="infer"><span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span>股價、PE、前瞻 PE 都帶 ≈。GOOGL 的 trailing PE 保留 *。護城河欄是筆記的產業簡稱，不是公司逐句。MSFT／GOOGL／AMZN／META 的 CapEx 與 FCF 若要看「事實／公司自述」標籤，以 <a href="#s6">下一節</a>為準；GOOGL 季報科目以 <a href="#s3">上一節</a>為準。META 列待再核。</p>
+      <div class="chips" role="toolbar" aria-label="總覽表分組" style="margin-bottom:0.5rem">
+        <button type="button" class="chip active" data-bucket="all" aria-pressed="true">全部 11</button>
+        <button type="button" class="chip" data-bucket="platform" aria-pressed="false">平台</button>
+        <button type="button" class="chip" data-bucket="quality" aria-pressed="false">支付・會籍・醫療</button>
+        <button type="button" class="chip" data-bucket="semi" aria-pressed="false">半導體</button>
+      </div>
+      <p id="bucketStatus" class="small muted" aria-live="polite">總覽表顯示 11 列。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>代碼</th>
+              <th>名稱</th>
+              <th>股價</th>
+              <th>PE／前瞻</th>
+              <th>FCF／CapEx 摘要</th>
+              <th>現金體質</th>
+              <th>護城河</th>
+            </tr>
+          </thead>
+          <tbody id="overviewBody">
+            <tr data-bucket="platform" data-kind="infer">
+              <td>MSFT</td><td>Microsoft</td><td>≈523</td><td>≈27／≈25</td>
+              <td>Q1 FY27 FCF ≈18.6B；CY26 CapEx ≈170B</td>
+              <td>現金＋短投 ≈65B；長債 ≈35B</td><td>Azure／Office／GitHub</td>
+            </tr>
+            <tr data-bucket="platform" data-kind="infer">
+              <td>GOOGL</td><td>Alphabet</td><td>≈281</td><td>≈15*／≈20</td>
+              <td>TTM FCF ≈19.7B；Q3 −9.1B；CapEx 195–205B</td>
+              <td>現金＋有價證券 ≈265B；長債 ≈125B</td><td>搜尋＋YouTube＋Cloud／TPU</td>
+            </tr>
+            <tr data-bucket="platform" data-kind="infer">
+              <td>AAPL</td><td>Apple</td><td>≈347</td><td>≈40／≈38</td>
+              <td>TTM FCF ≈137B；CapEx 低</td>
+              <td>淨現金約 ≈62B</td><td>裝置生態＋服務</td>
+            </tr>
+            <tr data-bucket="platform" data-kind="infer">
+              <td>META †</td><td>Meta</td><td>≈620</td><td>≈21／≈19</td>
+              <td>Q3 FCF −2.1B；CapEx 135–145B</td>
+              <td>現金 ≈82B；債務約同量級</td><td>社群廣告＋AI 推薦</td>
+            </tr>
+            <tr data-bucket="platform" data-kind="infer">
+              <td>AMZN</td><td>Amazon</td><td>≈239</td><td>≈19／≈24</td>
+              <td>TTM FCF ≈−42.4B；2026 CapEx ≈220B</td>
+              <td>現金 ≈114B；長債 ≈173B</td><td>AWS＋電商＋廣告</td>
+            </tr>
+            <tr data-bucket="quality" data-kind="infer">
+              <td>V</td><td>Visa</td><td>≈414</td><td>≈34／≈28</td>
+              <td>TTM FCF ≈22B</td><td>淨負債 ≈8B</td><td>卡網雙寡占</td>
+            </tr>
+            <tr data-bucket="quality" data-kind="infer">
+              <td>MA</td><td>Mastercard</td><td>≈638</td><td>≈33／≈29</td>
+              <td>TTM FCF ≈16B</td><td>淨負債 ≈13B</td><td>卡網雙寡占</td>
+            </tr>
+            <tr data-bucket="quality" data-kind="infer">
+              <td>COST</td><td>Costco</td><td>≈1,017</td><td>≈49／≈44</td>
+              <td>TTM FCF ≈9.4B</td><td>淨現金 ≈11B</td><td>會籍制</td>
+            </tr>
+            <tr data-bucket="quality" data-kind="infer">
+              <td>UNH</td><td>UnitedHealth</td><td>≈407</td><td>≈23／≈18</td>
+              <td>TTM FCF ≈23B；殖利率 ≈6.2%</td><td>淨負債 ≈48B</td><td>保險＋Optum</td>
+            </tr>
+            <tr data-bucket="semi" data-kind="infer">
+              <td>AVGO</td><td>Broadcom</td><td>≈325</td><td>≈42／≈19</td>
+              <td>TTM FCF ≈39B</td><td>淨負債 ≈35B</td><td>客製 AI＋VMware</td>
+            </tr>
+            <tr data-bucket="semi" data-kind="infer">
+              <td>NVDA</td><td>NVIDIA</td><td>≈205</td><td>≈26／≈17</td>
+              <td>TTM FCF ≈127B</td><td>淨現金 ≈24B</td><td>CUDA＋GPU</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted">† META：總覽寫 Q3 FCF −2.1B，CapEx 表寫 −2.12。兩數沿筆記並陳。IR 頁抓取曾被擋，需再核。UNH 在總覽與估值節，不在第五節之後的五層配置序裡。V／MA／COST／UNH／AVGO／NVDA 與上表股價都沒有單獨的 IR URL，維持次級約值。</p>
+    </section>
+
+    <section id="s5">
+      <h2><span class="num">05</span> ETF</h2>
+      <p data-kind="rec"><span class="tag tag-rec">建議</span>寬基優先於單押平台或半導體。筆記偏好 VTI／VOO，優於 QQQ。兩者高度相關，並列不是叫人各買一份當分散。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>代碼</th><th>名稱</th><th>約價</th><th>費用率</th><th>用途</th><th>標示</th></tr>
+          </thead>
+          <tbody>
+            <tr data-kind="infer rec">
+              <td>VTI</td><td>Vanguard Total Stock Market</td><td>≈371</td><td>0.03%</td><td>寬基首選</td>
+              <td><span class="tag tag-sec">次級</span><span class="tag tag-rec">建議</span></td>
+            </tr>
+            <tr data-kind="infer rec">
+              <td>VOO</td><td>Vanguard S&amp;P 500</td><td>≈694</td><td>0.03%</td><td>偏大型；與 VTI 高度相關</td>
+              <td><span class="tag tag-sec">次級</span><span class="tag tag-rec">建議</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" data-kind="infer">費用率與約價依調查筆記。本頁沒有另附 Vanguard 產品頁，所以不把 0.03% 寫成剛剛核過的官網事實。</p>
+    </section>
+
+    <section id="s6">
+      <h2><span class="num">06</span> Hyperscaler CapEx／FCF</h2>
+      <p>單位：十億美元。2026 是公司指引；2027 多半仍是方向，不是已公布的全年數字。點卡片看標籤與暫緩理由。</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>公司</th>
+              <th>2026 指引</th>
+              <th>2027 方向</th>
+              <th>最近季／TTM FCF</th>
+              <th>市場擔心</th>
+              <th>標示</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-kind="fact self infer">
+              <td>MSFT</td>
+              <td>CY2026 ≈170（自 ≈175 下修）</td>
+              <td>H1／財年下半年或再加速</td>
+              <td>Q1 FY27 FCF ≈18.6；仍預期 FY27 正 FCF</td>
+              <td>變現慢；供應遞延</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span></td>
+            </tr>
+            <tr data-kind="fact self infer">
+              <td>GOOGL</td>
+              <td>195–205 不變</td>
+              <td>顯著更高</td>
+              <td>Q3 −9.1；TTM ≈19.7</td>
+              <td>FCF 轉負＋搜尋 AI 變現</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span></td>
+            </tr>
+            <tr data-kind="fact self infer">
+              <td>AMZN</td>
+              <td>現金 CapEx ≈220</td>
+              <td>「明顯更高」</td>
+              <td>TTM ≈−42.4</td>
+              <td>現金流出與負債上升</td>
+              <td><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span><span class="tag tag-infer">推論</span></td>
+            </tr>
+            <tr data-kind="self infer">
+              <td>META</td>
+              <td>135–145（底部上修）</td>
+              <td>持續積極；未給年數字</td>
+              <td>Q3 −2.12</td>
+              <td>FCF 轉負＋RL；與中概 beta 近</td>
+              <td><span class="tag tag-self">公司自述</span><span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="eco-grid" id="capexCards">
+        <button type="button" class="eco-node kind-self" data-kind="fact self infer" data-open="cap-msft" data-panel="capexPanel" aria-pressed="false">
+          <strong>MSFT · 仍報正 FCF</strong>
+          <span class="en">CY2026 ≈170B（自 ≈175 下修）· Q1 FY27 FCF ≈18.6B</span>
+        </button>
+        <button type="button" class="eco-node kind-self" data-kind="fact self infer" data-open="cap-googl" data-panel="capexPanel" aria-pressed="false">
+          <strong>GOOGL · Q3 FCF 轉負</strong>
+          <span class="en">CapEx 195–205B 不變 · Q3 −9.1B · TTM ≈19.7B</span>
+        </button>
+        <button type="button" class="eco-node kind-self" data-kind="fact self infer" data-open="cap-amzn" data-panel="capexPanel" aria-pressed="false">
+          <strong>AMZN · TTM FCF 為負</strong>
+          <span class="en">2026 現金 CapEx ≈220B · TTM FCF ≈−42.4B</span>
+        </button>
+        <button type="button" class="eco-node kind-infer" data-kind="self infer" data-open="cap-meta" data-panel="capexPanel" aria-pressed="false">
+          <strong>META · 待再核 IR</strong>
+          <span class="en">CapEx 135–145B（底部上修）· Q3 FCF −2.12</span>
+        </button>
+      </div>
+      <div class="detail-panel" id="capexPanel" aria-live="polite">
+        <p class="dp-empty">點上方公司看指引、FCF 與暫緩理由。</p>
+      </div>
+      <div id="cap-msft" hidden>
+        <div class="dp-title">Microsoft</div>
+        <div class="dp-meta">沿筆記所引 FY27 Q1 IR · 約值仍標 ≈</div>
+        <div class="dp-fact"><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span> CY2026 CapEx ≈170B，自 ≈175B 下修。Q1 FY27 FCF ≈18.6B；仍預期 FY27 正 FCF。2027 方向寫的是 H1／財年下半年或再加速，不是一條全年數字。</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> 市場擔心變現慢、供應遞延。近況只寫「小跌」，筆記沒有給百分比。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 衛星二、條件式：維持正 FCF，且沒有大幅再上修 CapEx，才留在這一層。</div>
+        <p class="dp-body small"><a href="https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast">Microsoft FY27 Q1 press release</a></p>
+      </div>
+      <div id="cap-googl" hidden>
+        <div class="dp-title">Alphabet</div>
+        <div class="dp-meta">SEC Exhibit 99.1 · 2026-10-28</div>
+        <div class="dp-fact"><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span> 2026 CapEx 指引 195–205B，筆記寫「不變」。Q3 FCF −9.1B；TTM FCF ≈19.7B。季報表另寫 −90.65 億／+197.5 億，並陳、不取捨。2027「顯著更高」是方向，不是全年指引。</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> 市場擔心單季 FCF 轉負，以及搜尋 AI 變現。Trailing PE ≈15* 受股權證券損益扭曲，見 <a href="#s3">GOOGL 一節</a>。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 衛星三，延後。不是從觀察池刪除。</div>
+        <p class="dp-body small"><a href="https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm">SEC Exhibit 99.1</a></p>
+      </div>
+      <div id="cap-amzn" hidden>
+        <div class="dp-title">Amazon</div>
+        <div class="dp-meta">沿筆記所引 Q3 2026 IR</div>
+        <div class="dp-fact"><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span> 2026 現金 CapEx ≈220B。2027 用語是「明顯更高」。TTM FCF ≈−42.4B。總覽現金 ≈114B、長債 ≈173B，股價與現金科目在總覽標次級約值。</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> 市場擔心的是現金流出與負債上升，不是單一季的營收標題。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 與 GOOGL、META 同放衛星三，延後加碼。</div>
+        <p class="dp-body small"><a href="https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/">Amazon Q3 2026 results</a></p>
+      </div>
+      <div id="cap-meta" hidden>
+        <div class="dp-title">Meta</div>
+        <div class="dp-meta">IR 連結在筆記中 · 抓取曾被擋</div>
+        <div class="dp-fact"><span class="tag tag-self">公司自述</span><span class="tag tag-sec">次級</span> CapEx 135–145B，底部上修。2027 持續積極，未給年數字。Q3 FCF 在 CapEx 表為 −2.12，總覽為 −2.1B。兩數都留下。本頁不把這列升格成已複核的 SEC 事實。</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> 筆記寫的市場擔心是 FCF 轉負、RL，以及與中概 beta 接近。沒有附相關係數，不能寫成已測得的 beta。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 衛星三，延後。與港股中國互聯網合計曝險若破自訂上限，是暫緩觸發之一。</div>
+        <p class="dp-body small"><a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx">Meta Q3 2026 results</a>（需再核）</p>
+      </div>
+    </section>
+
+    <section id="s7">
+      <h2><span class="num">07</span> AAPL｜2026-11-02 觀察清單</h2>
+      <div class="callout" data-kind="fact self">
+        <p style="margin:0"><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span> 官方電話會：<strong>2026-11-02 14:00 PT</strong>。活動頁：<a href="https://investor.apple.com/investor-relations/event-details/2026/FY-26-Fourth-Quarter-Results/default.aspx">Apple FY26 fourth-quarter results</a>。總覽裡的股價 ≈347、PE ≈40／≈38、TTM FCF ≈137B、淨現金約 ≈62B 仍是次級約值，不是這則活動頁的科目。</p>
+      </div>
+      <p data-kind="rec"><span class="tag tag-rec">建議</span>下面六項是財報當下要聽的句子，不是下單清單。勾選只留在這台瀏覽器，不會送出。</p>
+      <ul class="check-list" id="aaplChecks">
+        <li data-kind="rec"><label><input type="checkbox" value="services"> <span>Services 營收與成長率</span></label></li>
+        <li data-kind="rec"><label><input type="checkbox" value="china"> <span>Greater China 營收／指引語氣</span></label></li>
+        <li data-kind="rec"><label><input type="checkbox" value="margin"> <span>毛利率（指引達成）</span></label></li>
+        <li data-kind="rec"><label><input type="checkbox" value="buyback"> <span>庫存股回購與資本回饋</span></label></li>
+        <li data-kind="rec"><label><input type="checkbox" value="ai"> <span>AI 敘事（Apple Intelligence／裝置端／服務變現）</span></label></li>
+        <li data-kind="rec"><label><input type="checkbox" value="iphone"> <span>iPhone／裝置出貨與 ASP 語氣</span></label></li>
+      </ul>
+      <p class="small muted">
+        <button type="button" class="linkish" id="clearChecks">清除本機勾選</button>
+        <span id="checkNote">尚未勾選。</span>
+      </p>
+    </section>
+
+    <section id="s8">
+      <h2><span class="num">08</span> 現金複利與約五年估值背景</h2>
+      <div class="cap-anchor" data-kind="infer">
+        <p style="margin:0 0 0.4rem"><span class="tag tag-sec">次級</span><span class="tag tag-infer">推論</span>本節現價、倍數、殖利率與「約 5 年 PE 區間」全部是筆記裡的近似區間。</p>
+        <p class="small" style="margin:0">不是公司財報、不是目標價、不是回測百分位的原始表。已知缺口寫明：五年百分位為近似區間。UNH 出現在這裡，是因為筆記把它放進估值對照；它不在 <a href="#s10">配置五層</a>裡。</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>代碼</th>
+              <th>現價／PE／前瞻</th>
+              <th>約 5 年 PE 區間</th>
+              <th>FCF／殖利率</th>
+              <th>相對自身</th>
+              <th>一句</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-kind="infer">
+              <td>V</td><td>≈414；≈34／≈28</td><td>高 20×～≈50×</td><td>≈22B；≈2.8–3.0%</td><td>區間中段</td><td>支付量穩；輕資產</td>
+            </tr>
+            <tr data-kind="infer">
+              <td>MA</td><td>≈638；≈33／≈29</td><td>高 20×～高 50×／60×</td><td>≈16B；≈2.5–3.0%</td><td>略偏成長溢價</td><td>成長略快於 V</td>
+            </tr>
+            <tr data-kind="infer">
+              <td>COST</td><td>≈1,017；≈49／≈44</td><td>mid-30×～low-60×</td><td>≈9.4B；≈2.0–2.2%</td><td>中上；買貴風險</td><td>護城河強；倍數貴</td>
+            </tr>
+            <tr data-kind="infer">
+              <td>UNH</td><td>≈407；≈23／≈18</td><td>mid-teens～mid-30×</td><td>≈23B；≈6%</td><td>偏便宜區；產業風險升</td><td>監管／成本需獨立追</td>
+            </tr>
+            <tr data-kind="infer">
+              <td>AAPL</td><td>≈347；≈40／≈38</td><td>≈20×～≈43×</td><td>≈137B；≈2.7%</td><td>PE 近高位</td><td>等 11/02 清單</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" data-kind="infer">UNH 殖利率在總覽是 ≈6.2%，在本表是 ≈6%。兩數都沿筆記留下。AAPL 本表殖利率 ≈2.7% 只出現在這一列。</p>
+    </section>
+
+    <section id="s9">
+      <h2><span class="num">09</span> 半導體（謹慎）</h2>
+      <div class="callout infer" data-kind="infer rec">
+        <p style="margin:0 0 0.6rem"><span class="tag tag-infer">推論</span><span class="tag tag-rec">建議</span><strong>AVGO／NVDA</strong>：與 hyperscaler CapEx 連動、交易擁擠。細項觀察訊號在調查筆記指向的 Canvas，本頁不另編訊號，也不把總覽上的 TTM FCF（AVGO ≈39B、NVDA ≈127B）升格成已核對的 10-K 科目。</p>
+        <p style="margin:0"><strong>INTC</strong>：筆記判斷是連續虧損與製造爬坡的現金消耗，還沒過品質現金複利門檻。只作產業對照，不進核心觀察池。10/30 約 −28% 是次級量級。筆記沒有 INTC 財報 URL。</p>
+      </div>
+      <p class="small">Canvas 底稿（非財報）：<a href="https://cursor.com/canvas/store-7f0b140e-091c-4518-bcc5-2cdca6a9f879/b9b6ebec-b23f-4adf-a7a6-4719b1e0ed71">美股優質股調查｜2026-10</a></p>
+    </section>
+
+    <section id="s10">
+      <h2><span class="num">10</span> 配置優先序與暫緩加碼</h2>
+      <p data-kind="rec"><span class="tag tag-rec">建議</span>順序用來對照「港股中國互聯網已經很濃」時，美股這側要先放什麼。它不是部位建議、沒有百分比、也沒有叫人在某一天買進。UNH 不在這五層。</p>
+      <div class="prio-list" id="prioList">
+        <button type="button" class="prio-item" data-kind="rec" data-open="prio-1" data-panel="prioPanel" aria-pressed="false">
+          <span class="prio-badge hi">1 核心</span>
+          <span><span class="prio-title">VTI 或 VOO 底倉</span><span class="prio-desc">寬基先於個股。兩者高度相關，二擇一。</span></span>
+        </button>
+        <button type="button" class="prio-item" data-kind="rec" data-open="prio-2" data-panel="prioPanel" aria-pressed="false">
+          <span class="prio-badge hi">2 衛星一</span>
+          <span><span class="prio-title">V／MA，其次 COST</span><span class="prio-desc">COST 要等倍數回到中段，再提高權重。</span></span>
+        </button>
+        <button type="button" class="prio-item" data-kind="rec" data-open="prio-3" data-panel="prioPanel" aria-pressed="false">
+          <span class="prio-badge mid">3 衛星二</span>
+          <span><span class="prio-title">AAPL，條件式 MSFT</span><span class="prio-desc">AAPL 等 11/02。MSFT 要維持正 FCF、且未大幅再上修 CapEx。</span></span>
+        </button>
+        <button type="button" class="prio-item" data-kind="rec" data-open="prio-4" data-panel="prioPanel" aria-pressed="false">
+          <span class="prio-badge lo">4 延後</span>
+          <span><span class="prio-title">GOOGL／AMZN／META</span><span class="prio-desc">衛星三。CapEx 與 FCF 的問號還沒收斂。</span></span>
+        </button>
+        <button type="button" class="prio-item" data-kind="rec" data-open="prio-5" data-panel="prioPanel" aria-pressed="false">
+          <span class="prio-badge no">5 嚴控</span>
+          <span><span class="prio-title">AVGO／NVDA；INTC 暫不優先</span><span class="prio-desc">半導體擁擠連動。INTC 連嚴控池都不進，只留對照。</span></span>
+        </button>
+      </div>
+      <div class="detail-panel" id="prioPanel" aria-live="polite">
+        <p class="dp-empty">點上方優先項查看事實／推論細節。</p>
+      </div>
+      <div id="prio-1" hidden>
+        <div class="dp-title">核心：VTI 或 VOO</div>
+        <div class="dp-meta">配置第 1 層 · 建議</div>
+        <div class="dp-infer"><span class="tag tag-sec">次級</span> 約價 VTI ≈371、VOO ≈694；費用率筆記皆為 0.03%。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 底倉用其中一檔。偏好優於 QQQ。不要因為代碼不同就把同一段大型股曝險加總兩次。</div>
+      </div>
+      <div id="prio-2" hidden>
+        <div class="dp-title">衛星一：V／MA，其次 COST</div>
+        <div class="dp-meta">配置第 2 層 · 建議</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> V、MA 在約五年區間的筆記位置是「中段」與「略偏成長溢價」。COST 是「中上；買貴風險」，現價倍數 ≈49／≈44。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 支付雙寡占先於會籍零售。COST 等倍數回到中段，再提高權重。</div>
+      </div>
+      <div id="prio-3" hidden>
+        <div class="dp-title">衛星二：AAPL 與條件式 MSFT</div>
+        <div class="dp-meta">配置第 3 層 · 建議</div>
+        <div class="dp-fact"><span class="tag tag-fact">事實</span> AAPL 電話會時間 2026-11-02 14:00 PT，見活動頁。聽的六項在 <a href="#s7">清單</a>。</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> 筆記把 AAPL 的 trailing／前瞻 PE 放在自身約五年區間的高位附近（≈40／≈38，區間 ≈20×～≈43×）。MSFT 仍是 hyperscaler 裡還報正 FCF、且 CapEx 有下修的那一檔。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> AAPL 等清單核完再談權重。MSFT 的條件是：維持正 FCF，且沒有大幅再上修 CapEx。</div>
+      </div>
+      <div id="prio-4" hidden>
+        <div class="dp-title">衛星三（延後）：GOOGL／AMZN／META</div>
+        <div class="dp-meta">配置第 4 層 · 建議</div>
+        <div class="dp-fact"><span class="tag tag-fact">事實</span><span class="tag tag-self">公司自述</span> GOOGL CapEx 195–205B、AMZN 現金 CapEx ≈220B、META 135–145B。2027 方向是顯著更高、「明顯更高」，或持續積極但未給年數字。GOOGL Q3 FCF −9.1B、META Q3 FCF 轉負、AMZN TTM FCF ≈−42.4B。META 待再核。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> 延後加碼，直到回報或利用率指標出現，而不是只看到指引再上修。</div>
+      </div>
+      <div id="prio-5" hidden>
+        <div class="dp-title">嚴控：AVGO／NVDA；INTC 另計</div>
+        <div class="dp-meta">配置第 5 層 · 建議</div>
+        <div class="dp-infer"><span class="tag tag-infer">推論</span> AVGO／NVDA 的獲利與 hyperscaler CapEx 綁在一起，筆記稱為擁擠。INTC 未過現金複利門檻。</div>
+        <div class="dp-rec"><span class="tag tag-rec">建議</span> AVGO／NVDA 嚴控。INTC 暫不優先，不因為股價已跌 ≈28% 就自動進池。</div>
+      </div>
+
+      <h3>暫緩加碼觸發</h3>
+      <ul data-kind="rec">
+        <li><span class="tag tag-rec">建議</span>hyperscaler 再上修 CapEx，且沒有回報或利用率指標。</li>
+        <li><span class="tag tag-rec">建議</span>連續兩季 FCF 惡化。</li>
+        <li><span class="tag tag-rec">建議</span>淨負債或信用條件惡化。</li>
+        <li><span class="tag tag-rec">建議</span>與港股中國互聯網合計曝險，破自己事先寫下的上限。</li>
+        <li><span class="tag tag-rec">建議</span>AAPL：Services 或 Greater China 轉弱，或回購大幅收縮。</li>
+        <li><span class="tag tag-rec">建議</span>AVGO／NVDA：大客戶 CapEx 凍結、出口管制，或 ASIC 替代導致指引下修。</li>
+      </ul>
+    </section>
+
+    <section id="s11">
+      <h2><span class="num">11</span> 三種情境</h2>
+      <p data-kind="infer rec"><span class="tag tag-infer">推論</span><span class="tag tag-rec">建議</span>情境是觀察對照：哪一組名稱在該敘事下較能留在名單上、哪一組筆記認為受傷較重。<strong>不是</strong>報酬預測，也沒有機率。</p>
+
+      <article class="scenario" data-kind="infer rec">
+        <h3>AI 回報遞延</h3>
+        <div class="matrix">
+          <div class="m-card do">
+            <div class="m-label">較抗跌</div>
+            <p>VTI／VOO；V／MA／COST；條件式 AAPL</p>
+          </div>
+          <div class="m-card dont">
+            <div class="m-label">受傷較重</div>
+            <p>AMZN／GOOGL／META；AVGO／NVDA</p>
+          </div>
+        </div>
+      </article>
+      <article class="scenario" data-kind="infer rec">
+        <h3>軟著陸／溫和成長</h3>
+        <div class="matrix">
+          <div class="m-card do">
+            <div class="m-label">較抗跌</div>
+            <p>MSFT／AAPL／V／MA；寬基</p>
+          </div>
+          <div class="m-card dont">
+            <div class="m-label">受傷較重</div>
+            <p>高槓桿 neocloud；無 FCF 且貴者</p>
+          </div>
+        </div>
+      </article>
+      <article class="scenario" data-kind="infer rec">
+        <h3>CapEx 見頂／下修</h3>
+        <div class="matrix">
+          <div class="m-card do">
+            <div class="m-label">較抗跌</div>
+            <p>現金複利＋AAPL；ETF</p>
+          </div>
+          <div class="m-card dont">
+            <div class="m-label">受傷較重</div>
+            <p>NVDA／AVGO 先；高支出平台成長溢價</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section id="s12">
+      <h2><span class="num">12</span> 來源與已知缺口</h2>
+      <h3>官方優先</h3>
+      <ul class="sources">
+        <li>Microsoft FY27 Q1：<a href="https://www.microsoft.com/en-us/investor/earnings/fy-2027-q1/press-release-webcast">investor earnings press release</a></li>
+        <li>Alphabet Q3 2026 SEC Exhibit 99.1：<a href="https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm">sec.gov googexhibit991q32026</a></li>
+        <li>Amazon Q3 2026：<a href="https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Third-Quarter-Results/">ir.aboutamazon.com</a></li>
+        <li>Meta Q3 2026：<a href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx">investor.atmeta.com</a>（抓取曾被擋，需再核）</li>
+        <li>Apple FY26 Q4 電話會（2026-11-02）：<a href="https://investor.apple.com/investor-relations/event-details/2026/FY-26-Fourth-Quarter-Results/default.aspx">investor.apple.com event</a></li>
+      </ul>
+      <p><span class="tag tag-sec">次級</span>交叉核對用過 CNBC、Macrotrends、stockanalysis 等。筆記沒有留下單篇文章 URL，本頁不補造連結。</p>
+      <p class="small">同目錄：<a href="./research.md">research.md</a>、<a href="./summary.txt">summary.txt</a>。</p>
+
+      <h3 id="gaps">已知缺口</h3>
+      <p class="small muted">這份限制在篩選標籤時仍保持可讀。它們是這頁還沒做完的事，不是新的市場判斷。</p>
+      <ul class="gap-list">
+        <li>部分報價與倍數仍是約值（≈／*），沒有逐檔附上可重開的報價頁。</li>
+        <li>META IR 抓取曾被擋，CapEx 與 Q3 FCF（−2.1B 與 −2.12）需再核。</li>
+        <li>2027 CapEx 多為定性用語（顯著更高、明顯更高、或再加速），不是全年數字。</li>
+        <li>約五年 PE 區間是近似，不是完整百分位表。</li>
+        <li>AAPL 清單要等 2026-11-02 財報之後才勾得完；勾選狀態只在本機。</li>
+        <li>V、MA、COST、UNH、AVGO、NVDA、VTI、VOO、INTC 沒有放進官方來源清單，相關 FCF、費用率與股價維持次級。</li>
+        <li>GOOGL Q3／TTM FCF 同時以「億」與「十億美元」兩種寫法出現（−90.65 億／+197.5 億，以及 −9.1／≈19.7），本頁並陳。</li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>調查日期：2026-10-31（Asia/Macau；與台北時間同日）。靜態單檔，內嵌 CSS／JS，無 CDN，供 GitHub Pages 與本機 <code>file://</code> 開啟。</p>
+      <p>研究觀察，非買賣建議、非投資顧問、非銷售文案。不保證報酬，不下單。公司自述、次級約值、推論與建議已標籤。配置順序沒有百分比。</p>
+    </footer>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  var progressBar = document.getElementById("progressBar");
+  var tocLinks = Array.prototype.slice.call(document.querySelectorAll(".toc-mini a[data-toc]"));
+  var sections = ["s1", "s2", "s3", "viz-pool", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12"]
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+
+  function onScroll() {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (doc.scrollTop / max) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = pct + "%";
+      progressBar.setAttribute("aria-valuenow", String(Math.round(pct)));
+    }
+    var y = window.scrollY + 120;
+    var current = sections[0] && sections[0].id;
+    sections.forEach(function (sec) {
+      if (sec.offsetTop <= y) current = sec.id;
+    });
+    tocLinks.forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-toc") === current);
+    });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  var chips = document.querySelectorAll(".chip[data-filter]");
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var f = chip.getAttribute("data-filter");
+      document.body.classList.remove("filter-fact", "filter-infer", "filter-rec", "filter-self");
+      chips.forEach(function (c) {
+        c.classList.remove("active");
+        c.setAttribute("aria-pressed", "false");
+      });
+      chip.classList.add("active");
+      chip.setAttribute("aria-pressed", "true");
+      if (f !== "all") document.body.classList.add("filter-" + f);
+    });
+  });
+
+  var bucketStatus = document.getElementById("bucketStatus");
+  var bucketButtons = document.querySelectorAll("[data-bucket]");
+  var overviewRows = document.querySelectorAll("#overviewBody tr");
+  bucketButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var name = btn.getAttribute("data-bucket");
+      bucketButtons.forEach(function (b) {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-pressed", "true");
+      var n = 0;
+      overviewRows.forEach(function (tr) {
+        var show = name === "all" || tr.getAttribute("data-bucket") === name;
+        tr.classList.toggle("is-hidden", !show);
+        if (show) n += 1;
+      });
+      if (bucketStatus) bucketStatus.textContent = "總覽表顯示 " + n + " 列。";
+    });
+  });
+
+  var CHECK_KEY = "us-eq-aapl-checklist-2026-11-02";
+  var checks = document.querySelectorAll("#aaplChecks input[type=checkbox]");
+  var checkNote = document.getElementById("checkNote");
+  function paintChecks() {
+    var on = 0;
+    checks.forEach(function (input) {
+      input.closest("li").classList.toggle("is-checked", input.checked);
+      if (input.checked) on += 1;
+    });
+    if (checkNote) {
+      checkNote.textContent = on === 0 ? "尚未勾選。" : "本機已勾 " + on + "／6。這不是下單紀錄。";
+    }
+  }
+  function loadChecks() {
+    try {
+      var raw = localStorage.getItem(CHECK_KEY);
+      var saved = raw ? JSON.parse(raw) : [];
+      checks.forEach(function (input) {
+        input.checked = saved.indexOf(input.value) !== -1;
+      });
+    } catch (err) {
+      checks.forEach(function (input) { input.checked = false; });
+    }
+    paintChecks();
+  }
+  function saveChecks() {
+    var picked = [];
+    checks.forEach(function (input) { if (input.checked) picked.push(input.value); });
+    try { localStorage.setItem(CHECK_KEY, JSON.stringify(picked)); } catch (err) { /* 私密模式可能拒絕 */ }
+    paintChecks();
+  }
+  checks.forEach(function (input) { input.addEventListener("change", saveChecks); });
+  var clearChecks = document.getElementById("clearChecks");
+  if (clearChecks) {
+    clearChecks.addEventListener("click", function () {
+      checks.forEach(function (input) { input.checked = false; });
+      try { localStorage.removeItem(CHECK_KEY); } catch (err) { /* ignore */ }
+      paintChecks();
+    });
+  }
+  loadChecks();
+
+  var panelGroups = {};
+  document.querySelectorAll("[data-open][data-panel]").forEach(function (el) {
+    var pid = el.getAttribute("data-panel");
+    if (!panelGroups[pid]) panelGroups[pid] = [];
+    panelGroups[pid].push(el);
+  });
+
+  function fillPanel(panel, id, emptyText) {
+    if (!panel) return;
+    var src = id ? document.getElementById(id) : null;
+    if (!src) {
+      panel.innerHTML = '<p class="dp-empty">' + emptyText + "</p>";
+      return;
+    }
+    panel.innerHTML = src.innerHTML;
+  }
+
+  function clearGroup(pid) {
+    var panel = document.getElementById(pid);
+    (panelGroups[pid] || []).forEach(function (el) {
+      el.classList.remove("selected", "active");
+      el.setAttribute("aria-pressed", "false");
+    });
+    fillPanel(panel, null, "點節點查看事實／推論細節。");
+  }
+
+  Object.keys(panelGroups).forEach(function (pid) {
+    panelGroups[pid].forEach(function (el) {
+      function select() {
+        (panelGroups[pid] || []).forEach(function (other) {
+          other.classList.remove("selected", "active");
+          other.setAttribute("aria-pressed", "false");
+        });
+        el.classList.add(el.classList.contains("prio-item") ? "active" : "selected");
+        el.setAttribute("aria-pressed", "true");
+        fillPanel(document.getElementById(pid), el.getAttribute("data-open"), "點節點查看事實／推論細節。");
+      }
+      el.addEventListener("click", select);
+    });
+  });
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function renderPanel(el, data) {
+    if (!el) return;
+    if (!data) {
+      el.innerHTML = '<p class="dp-empty">點節點查看事實／推論細節。</p>';
+      return;
+    }
+    var html = '<div class="dp-title">' + esc(data.title) + "</div>";
+    if (data.meta) html += '<div class="dp-meta">' + esc(data.meta) + "</div>";
+    if (data.fact) html += '<div class="dp-fact"><span class="tag tag-fact">事實</span> ' + esc(data.fact) + "</div>";
+    if (data.self) html += '<div class="dp-fact"><span class="tag tag-self">公司自述</span> ' + esc(data.self) + "</div>";
+    if (data.infer) html += '<div class="dp-infer"><span class="tag tag-infer">推論</span> ' + esc(data.infer) + "</div>";
+    if (data.sec) html += '<div class="dp-infer"><span class="tag tag-sec">次級</span> ' + esc(data.sec) + "</div>";
+    if (data.rec) html += '<div class="dp-rec"><span class="tag tag-rec">建議</span> ' + esc(data.rec) + "</div>";
+    if (data.note) html += '<p class="dp-body muted small">' + esc(data.note) + "</p>";
+    el.innerHTML = html;
+  }
+
+  var chainNodes = [
+    { id: "vti", col: 0, row: 0.2, label: "VTI", sub: "寬基首選", kind: "rec",
+      title: "VTI", meta: "核心底倉",
+      sec: "約價 ≈371；費用率 0.03%。未附 Vanguard 產品頁。",
+      rec: "第 1 層：VTI 或 VOO。偏好優於 QQQ。",
+      note: "與 VOO 高度相關，實線只表示互為替代底倉。" },
+    { id: "voo", col: 0, row: 1.7, label: "VOO", sub: "與 VTI 高相關", kind: "rec",
+      title: "VOO", meta: "核心底倉的替代",
+      sec: "約價 ≈694；費用率 0.03%。偏大型股。",
+      rec: "與 VTI 二擇一，不因代碼不同而各算一份分散。" },
+    { id: "v", col: 1, row: 0, label: "V", sub: "卡網", kind: "rec",
+      title: "Visa", meta: "衛星一",
+      sec: "約價 ≈414；PE ≈34／前瞻 ≈28；TTM FCF ≈22B；淨負債 ≈8B。",
+      infer: "約五年 PE：高 20×～≈50×。殖利率 ≈2.8–3.0%。筆記放在區間中段。",
+      rec: "衛星一，與 MA 並列，先於 COST。" },
+    { id: "ma", col: 1, row: 1.15, label: "MA", sub: "卡網", kind: "rec",
+      title: "Mastercard", meta: "衛星一",
+      sec: "約價 ≈638；PE ≈33／前瞻 ≈29；TTM FCF ≈16B；淨負債 ≈13B。",
+      infer: "約五年區間到高 50×／60×。殖利率 ≈2.5–3.0%。略偏成長溢價。",
+      rec: "與 V 同層。筆記說成長略快於 V，這是對照句，不是目標價。" },
+    { id: "cost", col: 1, row: 2.3, label: "COST", sub: "等倍數", kind: "infer",
+      title: "Costco", meta: "衛星一的其次",
+      sec: "約價 ≈1,017；PE ≈49／前瞻 ≈44；TTM FCF ≈9.4B；淨現金 ≈11B。",
+      infer: "約五年區間 mid-30×～low-60×，位置在中上，筆記標買貴風險。殖利率 ≈2.0–2.2%。",
+      rec: "護城河強，但倍數回到中段再提高權重。虛線表示這條還沒到。" },
+    { id: "aapl", col: 2, row: 0.35, label: "AAPL", sub: "等 11/02", kind: "infer",
+      title: "Apple", meta: "衛星二 · 條件式",
+      fact: "官方電話會 2026-11-02 14:00 PT。",
+      sec: "股價 ≈347；PE ≈40／≈38；TTM FCF ≈137B；淨現金約 ≈62B；估值表殖利率 ≈2.7%。",
+      infer: "約五年 PE ≈20×～≈43×，筆記說 PE 近高位。",
+      rec: "等六項清單，不先加權重。" },
+    { id: "msft", col: 2, row: 1.85, label: "MSFT", sub: "正 FCF 條件", kind: "infer",
+      title: "Microsoft", meta: "衛星二 · 條件式",
+      self: "CY2026 CapEx ≈170B（自 ≈175B 下修）。Q1 FY27 FCF ≈18.6B；仍預期 FY27 正 FCF。",
+      infer: "近況只寫小跌。市場擔心變現慢與供應遞延。",
+      rec: "留在衛星二的條件：維持正 FCF，且未大幅再上修 CapEx。" },
+    { id: "googl", col: 3, row: 0, label: "GOOGL", sub: "延後", kind: "infer",
+      title: "Alphabet", meta: "衛星三",
+      self: "CapEx 195–205B 不變；2027 顯著更高。Q3 FCF −9.1B；TTM ≈19.7B。",
+      fact: "Q3 營收 1,275.8 億、營業利益 405.8 億、GAAP EPS 2.12，見 SEC Ex. 99.1。",
+      infer: "Trailing PE ≈15* 受股權證券損益扭曲。10/29 量級 ≈−12% 是次級約值。",
+      rec: "延後，不從觀察池刪除。" },
+    { id: "amzn", col: 3, row: 1.15, label: "AMZN", sub: "延後", kind: "infer",
+      title: "Amazon", meta: "衛星三",
+      self: "2026 現金 CapEx ≈220B；2027「明顯更高」；TTM FCF ≈−42.4B。",
+      infer: "市場擔心現金流出與負債上升。股價量級 ≈−3～7%。",
+      rec: "與 GOOGL、META 一起延後。" },
+    { id: "meta", col: 3, row: 2.3, label: "META", sub: "延後待核", kind: "infer",
+      title: "Meta", meta: "衛星三 · IR 待再核",
+      self: "CapEx 135–145B（底部上修）。2027 持續積極，未給年數字。Q3 FCF −2.12（總覽另寫 −2.1B）。",
+      infer: "週內量級 ≈−7%。筆記另寫與中概 beta 近，但沒有相關係數。",
+      rec: "延後。抓取被擋的數字先不要當成已複核事實。" },
+    { id: "avgo", col: 4, row: 0, label: "AVGO", sub: "嚴控", kind: "infer",
+      title: "Broadcom", meta: "嚴控",
+      sec: "約價 ≈325；PE ≈42／前瞻 ≈19；TTM FCF ≈39B；淨負債 ≈35B。",
+      infer: "與 hyperscaler CapEx 連動、擁擠。細項訊號不在本頁重寫。",
+      rec: "嚴控。暫緩觸發包含大客戶 CapEx 凍結、出口管制、ASIC 替代導致指引下修。" },
+    { id: "nvda", col: 4, row: 1.15, label: "NVDA", sub: "嚴控", kind: "infer",
+      title: "NVIDIA", meta: "嚴控",
+      sec: "約價 ≈205；PE ≈26／前瞻 ≈17；TTM FCF ≈127B；淨現金 ≈24B。",
+      infer: "同樣綁在 hyperscaler CapEx 上。CapEx 見頂的情境裡，筆記把 NVDA／AVGO 放在先受傷的一側。",
+      rec: "嚴控，不因為前瞻倍數低於 trailing 就改層。" },
+    { id: "intc", col: 4, row: 2.3, label: "INTC", sub: "不進池", kind: "infer",
+      title: "Intel", meta: "產業對照 · 不進核心池",
+      sec: "10/30 量級 ≈−28%。沒有股價、FCF 或 IR URL。",
+      infer: "筆記判斷：連續虧損與製造爬坡現金消耗，未過品質現金複利門檻。",
+      rec: "暫不優先。虛線只把它掛在半導體對照，不是升上嚴控觀察池。" }
+  ];
+
+  var chainEdges = [
+    ["vti", "voo", false],
+    ["vti", "v", false],
+    ["vti", "ma", false],
+    ["vti", "cost", true],
+    ["vti", "aapl", true],
+    ["vti", "msft", true],
+    ["msft", "googl", true],
+    ["msft", "amzn", true],
+    ["msft", "meta", true],
+    ["googl", "avgo", true],
+    ["googl", "nvda", true],
+    ["nvda", "intc", true]
+  ];
+
+  function kindColor(kind) {
+    if (kind === "infer") return { fill: "#2a2340", stroke: "#c9a0e8", text: "#e8eef5" };
+    if (kind === "self") return { fill: "#3a2e1a", stroke: "#f0b060", text: "#e8eef5" };
+    if (kind === "rec") return { fill: "#1a3328", stroke: "#7dd3a8", text: "#e8eef5" };
+    return { fill: "#1a2a3a", stroke: "#5eb3f6", text: "#e8eef5" };
+  }
+
+  function buildChainSvg() {
+    var wrap = document.getElementById("chainSvgWrap");
+    var panel = document.getElementById("chainPanel");
+    if (!wrap) return;
+    var W = 1160, H = 300;
+    var colX = [110, 340, 570, 810, 1040];
+    var rowH = 82;
+    var top = 36;
+    var headers = ["核心", "衛星一", "條件式", "延後", "嚴控・對照"];
+    function pos(n) {
+      var w = n.w || 132, h = n.h || 48;
+      var x = colX[n.col] - w / 2;
+      var y = top + n.row * rowH;
+      return { x: x, y: y, w: w, h: h, cx: x + w / 2, cy: y + h / 2 };
+    }
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", "美股觀察池優先序：核心、衛星、條件式、延後、嚴控");
+    headers.forEach(function (label, i) {
+      var t = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t.setAttribute("x", colX[i]);
+      t.setAttribute("y", 18);
+      t.setAttribute("text-anchor", "middle");
+      t.setAttribute("fill", "#9aadc2");
+      t.setAttribute("font-size", "12");
+      t.setAttribute("font-weight", "700");
+      t.textContent = label;
+      svg.appendChild(t);
+    });
+    var positions = {};
+    chainNodes.forEach(function (n) { positions[n.id] = pos(n); });
+    chainEdges.forEach(function (e) {
+      var a = positions[e[0]], b = positions[e[1]];
+      if (!a || !b) return;
+      var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      var d = "M " + a.cx + " " + a.cy + " C " + ((a.cx + b.cx) / 2) + " " + a.cy + ", " +
+        ((a.cx + b.cx) / 2) + " " + b.cy + ", " + b.cx + " " + b.cy;
+      path.setAttribute("d", d);
+      path.setAttribute("class", "edge" + (e[2] ? " dashed" : ""));
+      if (e[2]) path.setAttribute("stroke", "#c9a0e8");
+      svg.appendChild(path);
+    });
+    var nodeEls = [];
+    function selectNode(g, n) {
+      nodeEls.forEach(function (el) { el.classList.remove("selected"); });
+      g.classList.add("selected");
+      renderPanel(panel, n);
+    }
+    function clearNodes() {
+      nodeEls.forEach(function (el) { el.classList.remove("selected"); });
+      renderPanel(panel, null);
+    }
+    chainNodes.forEach(function (n, index) {
+      var p = positions[n.id];
+      var c = kindColor(n.kind);
+      var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "viz-node kind-" + n.kind);
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", n.label + " " + (n.sub || ""));
+      var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+      rect.setAttribute("x", p.x);
+      rect.setAttribute("y", p.y);
+      rect.setAttribute("width", p.w);
+      rect.setAttribute("height", p.h);
+      rect.setAttribute("rx", "8");
+      rect.setAttribute("fill", c.fill);
+      rect.setAttribute("stroke", c.stroke);
+      rect.setAttribute("stroke-width", "1.5");
+      g.appendChild(rect);
+      var t1 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t1.setAttribute("x", p.cx);
+      t1.setAttribute("y", p.y + 20);
+      t1.setAttribute("text-anchor", "middle");
+      t1.setAttribute("fill", c.text);
+      t1.setAttribute("font-size", "13");
+      t1.setAttribute("font-weight", "700");
+      t1.textContent = n.label;
+      g.appendChild(t1);
+      var t2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      t2.setAttribute("x", p.cx);
+      t2.setAttribute("y", p.y + 36);
+      t2.setAttribute("text-anchor", "middle");
+      t2.setAttribute("fill", "#9aadc2");
+      t2.setAttribute("font-size", "10");
+      t2.textContent = n.sub || "";
+      g.appendChild(t2);
+      g.addEventListener("click", function () { selectNode(g, n); });
+      g.addEventListener("keydown", function (ev) {
+        if (ev.key === "Enter" || ev.key === " ") {
+          ev.preventDefault();
+          selectNode(g, n);
+        } else if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
+          ev.preventDefault();
+          var next = ev.key === "ArrowRight" ? index + 1 : index - 1;
+          if (next < 0) next = nodeEls.length - 1;
+          if (next >= nodeEls.length) next = 0;
+          nodeEls[next].focus();
+        } else if (ev.key === "Escape") {
+          ev.preventDefault();
+          clearNodes();
+        }
+      });
+      nodeEls.push(g);
+      svg.appendChild(g);
+    });
+    wrap.innerHTML = "";
+    wrap.appendChild(svg);
+    svg._clearNodes = clearNodes;
+  }
+
+  buildChainSvg();
+
+  document.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Escape") return;
+    Object.keys(panelGroups).forEach(clearGroup);
+    var wrap = document.getElementById("chainSvgWrap");
+    var svg = wrap && wrap.querySelector("svg");
+    if (svg && svg._clearNodes) svg._clearNodes();
+  });
+})();
+</script>
+</body>
+</html>
